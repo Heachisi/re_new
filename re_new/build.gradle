@@ -1,0 +1,57 @@
+plugins {
+    id 'java'  // Java 플러그인 적용
+    id 'war'   // WAR 파일 패키징 (웹 애플리케이션)
+}
+
+group = 'com.example'
+version = '1.0.0'
+
+java {
+    sourceCompatibility = '17'
+    targetCompatibility = '17'
+}
+
+repositories {
+    mavenCentral()  // 중앙 Maven 저장소 사용
+}
+
+dependencies {
+    // 서블릿 API (컴파일 전용)
+    compileOnly 'jakarta.servlet:jakarta.servlet-api:5.0.0'
+
+    // MyBatis (SQL 매퍼)
+    implementation 'org.mybatis:mybatis:3.5.10'
+    implementation 'org.mybatis:mybatis-spring:2.0.7'
+
+    // Oracle JDBC 드라이버 (오라클 DB 연결)
+    implementation 'com.oracle.database.jdbc:ojdbc8:19.8.0.0'
+
+    // JSON 처리 (로그인 응답용)
+    implementation 'org.json:json:20210307'
+
+       // Log4J2
+    implementation 'org.apache.logging.log4j:log4j-core:2.17.1'
+    implementation 'org.apache.logging.log4j:log4j-api:2.17.1'
+    
+    // log4jdbc 대신 최신 log4jdbc-remix 적용 (JDK 21 호환)
+     implementation 'org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:1.16'
+
+    // JSTL (JSP에서 사용 가능)
+    implementation 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api:2.0.0'
+    implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl:2.0.0'
+    
+    // 파일 업로드 지원 (Commons FileUpload)
+    implementation 'commons-io:commons-io:2.14.0'
+	implementation 'commons-fileupload:commons-fileupload:1.5'
+    
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'  // UTF-8 인코딩 설정
+}
+
+war {
+    version = '1.0'
+    destinationDirectory.set(file("$buildDir/dist"))
+    archiveFileName.set("MyWebApp.war")
+}
