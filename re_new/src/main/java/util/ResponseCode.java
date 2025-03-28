@@ -30,3 +30,4 @@ public enum ResponseCode {
         return message.replace("{field}", field);  // 메시지에서 {field}를 해당 필드로 교체
     }
 }
+

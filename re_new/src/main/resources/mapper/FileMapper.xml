@@ -18,10 +18,9 @@
         WHERE BOARD_ID = #{boardId}
         AND DEL_YN = 'N'
     </select>
-    
-    
-    
-     <!-- 게시글에 첨부된 파일 조회 -->
+
+
+ 	<!-- 게시글에 첨부된 파일  조회 -->
     <select id="getFileByFileId" parameterType="model.common.PostFile" resultType="model.common.PostFile">
         SELECT 
             FILE_ID,
@@ -37,7 +36,7 @@
         WHERE FILE_ID = #{fileId}
         AND DEL_YN = 'N'
     </select>
-    
+
     <!-- 게시글에 새로운 파일 등록 -->
 	<insert id="insertFile" parameterType="model.common.PostFile">
 	        INSERT INTO POST_FILE (

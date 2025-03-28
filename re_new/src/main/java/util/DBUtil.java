@@ -20,3 +20,4 @@ public class DBUtil {
         return DriverManager.getConnection(URL, USER, PASSWORD);
     }
 }
+
