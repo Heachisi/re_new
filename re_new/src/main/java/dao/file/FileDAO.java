@@ -37,6 +37,9 @@ public class FileDAO {
     public List<PostFile> getFilesByBoardId(SqlSession session, String boardId) {
         return session.selectList("FileMapper.getFilesByBoardId", boardId);
     }
+    
+    // 게시글 ID로 첨부된 파일 목록 조회
+    
 
     /**
      * 게시글에 첨부된 파일 삭제

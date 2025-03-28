@@ -1,5 +1,9 @@
 package model.board;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 import model.Model;
 
 public class Comment extends Model {
@@ -7,7 +11,7 @@ public class Comment extends Model {
     private int boardId;           // 게시글 ID
     private Integer parentCommentId; // 부모 댓글 ID (대댓글)
     private String content;        // 댓글 내용
-    private String delYn;          //삭제 여부(Y/N)
+    private String delYn;          // 삭제 여부 (Y/N)
     
 	public int getCommentId() {
 		return commentId;
@@ -38,8 +42,7 @@ public class Comment extends Model {
 	}
 	public void setDelYn(String delYn) {
 		this.delYn = delYn;
-	}          // 삭제 여부 (Y/N)
+	}
+
 
 }
-
-   

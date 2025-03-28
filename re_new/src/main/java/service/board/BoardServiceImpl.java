@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.List;
 
 
-
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.logging.log4j.LogManager;
@@ -25,12 +24,11 @@ public class BoardServiceImpl implements BoardService {
     private static final Logger logger = LogManager.getLogger(BoardServiceImpl.class);
     private BoardDAO boardDAO;
     private FileDAO fileDAO;
-    
 
     private SqlSessionFactory sqlSessionFactory; // MyBatis SQL 세션 팩토리
     
     /**
-     *BoardServiceImpl 생성자
+     * BoardServiceImpl 생성자
      */
     public BoardServiceImpl() {
         this.boardDAO = new BoardDAO();
@@ -41,40 +39,40 @@ public class BoardServiceImpl implements BoardService {
             logger.error("Mybatis 오류", e); // 오류 발생 시 로그 출력
         }
     }
-
-   
-
+    
+    
     public Board getBoardById(String boardId) {
     	SqlSession session = sqlSessionFactory.openSession();
     	Board selectBoard = boardDAO.getBoardById(session, boardId);
-    	//파일 목록 조회
+    	  // 파일 목록 조회
     	selectBoard.setPostFiles(fileDAO.getFilesByBoardId(session, boardId));
     	
-    	selectBoard.setComments(boardDAO.getCommentList(session, boardId));
     	
-    	 return selectBoard;
-    	 
+    	selectBoard.setComments(boardDAO.getCommentList(session, boardId));
+    	return selectBoard;
     }
     
+    
     public boolean createBoard(Board board, HttpServletRequest request) {
-        SqlSession session = sqlSessionFactory.openSession();
-        boolean result = false;
+    	SqlSession session = sqlSessionFactory.openSession();
+        boolean result = false; 
         try {
-            result = boardDAO.createBoard(session, board);
-
-            // 파일 업로드 파트 필터링
-            List<Part> fileParts = new ArrayList<>();
+             result = boardDAO.createBoard(session, board);
+             logger.info("result: ", result);
+             // 파일 업로드 파트 필터링
+            List<Part> fileParts = new ArrayList();
             for (Part part : request.getParts()) {
                 if ("files".equals(part.getName()) && part.getSize() > 0) {
                     fileParts.add(part);
+                    logger.info("part.getName(): ", part.getName());
                 }
             }
 
             // 업로드된 파일들을 처리하여 PostFile 객체 리스트 반환
-            List<PostFile> filelist = FileUploadUtil.uploadFiles(fileParts, "board",
-                    Integer.parseInt(board.getBoardId()), board.getCreateId());
+            List<PostFile> fileList = FileUploadUtil.uploadFiles(fileParts, "board", 
+                                    Integer.parseInt(board.getBoardId()), board.getCreateId());
 
-            for (PostFile postFile : filelist) {
+            for (PostFile postFile : fileList) {
                 fileDAO.insertBoardFile(session, postFile);
             }
 
@@ -84,165 +82,175 @@ public class BoardServiceImpl implements BoardService {
             session.rollback();
         }
         return result;
+    	
     }
-
-
-
-    @Override
+    
     public boolean updateBoard(Board board, HttpServletRequest request) {
     	SqlSession session = sqlSessionFactory.openSession();
-    	boolean result = false;
+    	boolean result = false; 
     	try {
-    	    result = boardDAO.updateBoard(session, board);
-    	    if (result) {
-    	        String postFilesParam = request.getParameter("remainingFileIds"); // 기존 파일 목록 (첨부로 구분된 파일명 리스트)
-    	        logger.info("board");
-    	        List<String> postFiles = new ArrayList<String>();
-    	        if (postFilesParam != null && !postFilesParam.trim().isEmpty()) {
-    	            postFiles = Arrays.asList(postFilesParam.split(",")); // 첨부로 구분된 파일명 리스트
-    	        }
-    	        
-    	        // 기존 파일 조회
-    	        List<PostFile> existingFiles = fileDAO.getFilesByBoardId(session, board.getBoardId());
-    	        logger.info("board1");
-				
-				if (existingFiles != null && existingFiles.size() > 0) {
-				    boolean fileExists = false;
-				    for (PostFile existingFile : existingFiles) {
-				        fileExists = false;
-				        // 새로운 넘겨온 파일 목록에 기존 파일이 포함되어 있는지 체크
-				        for (String fileId : postFiles) {
-				            if (existingFile.getFileId() == Integer.parseInt(fileId)) {
-				                fileExists = true;
-				                break;
-				            }
-				        }
-				
-				
-					    if (!fileExists) {
-					    	existingFile.setUpdateId(board.getUpdateId());
-					    	boolean deleteSuccess = fileDAO.deleteFile(session, existingFile);
-//					    	if (!deleteSuccess) {
-//					    		//session.rollback(); // 파일 삭제 실패 시 롤백
-//					            return false;
-//					        }
-					 
-					    }
-				   
-				    } 	
-				}
-				  logger.info("board2");
-				 // 파일 업로드 파트 필터링
-	            List<Part> fileParts = new ArrayList<>();
+
+            result = boardDAO.updateBoard(session, board);
+        
+            if (result) {
+            	
+            	String postFilesParam = request.getParameter("remainingFileIds"); // 기존 파일 목록 (쉼표로 구분된 문자열)
+            	
+            	List<String> postFiles = new ArrayList<String>();
+            	if (postFilesParam != null && !postFilesParam.trim().isEmpty()) {
+            		postFiles = Arrays.asList(postFilesParam.split(",")); // 쉼표로 구분된 파일명 리스트
+            	}
+            	
+            	
+	    		// 기존 파일 조회
+	    		List<PostFile> existingFiles = fileDAO.getFilesByBoardId(session,
+	    					board.getBoardId());
+	    		//기존 파일 리스트가 있을때
+	    		if (existingFiles!= null && existingFiles.size() > 0) {
+	    			boolean fileExists = false;
+	    			for (PostFile existingFile : existingFiles) {
+	    				fileExists = false;
+	    				// 새로 넘어온 파일 목록에 기존 파일이 포함되어 있는지 체크
+	    				for (String fileId : postFiles) {
+	    					if (existingFile.getFileId() == Integer.parseInt(fileId)) {
+	    						fileExists = true;
+	    						break;
+	    						
+	    					}
+	    				}
+	    				
+	    				//넘어온 파일 목록에 없으면 삭제
+	    				if (!fileExists) {
+	    					existingFile.setUpdateId(board.getUpdateId());
+	    					boolean deleteSuccess = fileDAO.deleteFile(session, existingFile);
+	    					if (!deleteSuccess) {
+	    						session.rollback(); // 파일 삭제 실패 시 롤백
+	    							return false;
+	    					}
+	    				}
+	    			}
+	    		}
+	    		 // 파일 업로드 파트 필터링
+	            List<Part> fileParts = new ArrayList();
 	            for (Part part : request.getParts()) {
 	                if ("files".equals(part.getName()) && part.getSize() > 0) {
 	                    fileParts.add(part);
-	                    logger.info("part.getName():"+part.getName());
+	                    logger.info("part.getName(): ", part.getName());
 	                }
 	            }
-	            logger.info("board3");
-	            // 업로드된 파일들을 처리하여 PostFile 객체 리스트 반환
-	            List<PostFile> filelist = FileUploadUtil.uploadFiles(fileParts, "board",
-	                    Integer.parseInt(board.getBoardId()), board.getUpdateId());
 
-	            for (PostFile postFile : filelist) {
+	            // 업로드된 파일들을 처리하여 PostFile 객체 리스트 반환
+	            List<PostFile> fileList = FileUploadUtil.uploadFiles(fileParts, "board", 
+	                                    Integer.parseInt(board.getBoardId()), board.getUpdateId());
+
+	            for (PostFile postFile : fileList) {
 	                fileDAO.insertBoardFile(session, postFile);
 	            }
-	            logger.info("board4");
+
 	            session.commit(); // 트랜잭션 커밋
-    	    }
-    	} catch (Exception e) {
-            e.printStackTrace();
-            session.rollback();
-        }
-        return result;
-    }
-    
-	public boolean deleteBoard(Board board) {
-		SqlSession session = sqlSessionFactory.openSession();
-    	boolean result = false; 
-    	try {
-            result = boardDAO.deleteBoard(session, board);
-            session.commit(); 
+            }
     	} catch (Exception e) {
     		e.printStackTrace();
     		session.rollback();
 		}
         return result;
-		
-	}
+    }
+    
+    public boolean deleteBoard(Board board) {
+    	SqlSession session = sqlSessionFactory.openSession();
+    	boolean result = false; 
+    	try {
 
+            result = boardDAO.deleteBoard(session, board);
+            session.commit(); // 트랜잭션 커밋
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    		session.rollback();
+		}
+        return result;
+    }
+    
+    
+    
+    
+    
 
+    
 
-	@Override
-	public List getBoardList(Board board) {
-		SqlSession session = sqlSessionFactory.openSession();
-		
-		int page = board.getPage();
-		int size = board.getSize();
-		
-		int totalCount = boardDAO.getTotalBoardCount(session);
-		int totalPages = (int)Math.ceil((double) totalCount/size);
-		
-		int startRow = (page-1)*size + 1;
-		int endRow = page * size;
-		
-		board.setTotalCount(totalCount);
-		board.setTotalPages(totalPages);
-		board.setStartRow(startRow);
-		board.setEndRow(endRow);
-		
-		List list = boardDAO.getBoardList(session, board);
+    
+    public List getBoardList(Board board) {
+        SqlSession session = sqlSessionFactory.openSession();
+        
+        int page = board.getPage();
+        int size = board.getSize();
+        
+        int totalCount = boardDAO.getTotalBoardCount(session);
+        int totalPages = (int) Math.ceil((double) totalCount / size);
 
-		return list;
-	}
+        int startRow = (page - 1) * size + 1;
+        int endRow = page * size;
+
+        board.setTotalCount(totalCount);
+        board.setTotalPages(totalPages);
+        board.setStartRow(startRow);
+        board.setEndRow(endRow);
+
+        List list = boardDAO.getBoardList(session, board);
+
+        return list;
+    }
+
 
 	@Override
 	public boolean createComment(Comment comment) {
-	    SqlSession session = sqlSessionFactory.openSession();
-	    boolean result = false;
-	    try {
-	        result = boardDAO.insertComment(session, comment);
-	        session.commit(); // 트랜잭션 커밋
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	        session.rollback();
-	    }
-	    return result;
-	}
+    	SqlSession session = sqlSessionFactory.openSession();
+    	boolean result = false; 
+    	try {
+
+            result = boardDAO.insertComment(session, comment);
+            session.commit(); // 트랜잭션 커밋
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    		session.rollback();
+		}
+        return result;
+    }
+
 
 	@Override
 	public boolean updateComment(Comment comment) {
-	    SqlSession session = sqlSessionFactory.openSession();
-	    boolean result = false;
-	    try {
-	        result = boardDAO.updateComment(session, comment);
-	        session.commit(); // 트랜잭션 커밋
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	        session.rollback();
-	    }
-	    return result;
-	}
-	
+    	SqlSession session = sqlSessionFactory.openSession();
+    	boolean result = false; 
+    	try {
+
+            result = boardDAO.updateComment(session, comment);
+            session.commit(); // 트랜잭션 커밋
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    		session.rollback();
+		}
+        return result;
+    }
+
+
+
 	@Override
 	public boolean deleteComment(Comment comment) {
-	    SqlSession session = sqlSessionFactory.openSession();
-	    boolean result = false;
-	    try {
-	        result = boardDAO.deleteComment(session, comment);
-	        session.commit(); // 트랜잭션 커밋
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	        session.rollback();
-	    }
-	    return result;
-	}
+    	SqlSession session = sqlSessionFactory.openSession();
+    	boolean result = false; 
+    	try {
 
-	
-    
-
-    
-    
-    
+            result = boardDAO.deleteComment(session, comment);
+            session.commit(); // 트랜잭션 커밋
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    		session.rollback();
+		}
+        return result;
+    }
 }
+
+
+
+
+

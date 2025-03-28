@@ -8,6 +8,7 @@ public class PostFile extends Model {
     private String fileName;
     private String filePath;
     private String delYn;
+    
 	public int getFileId() {
 		return fileId;
 	}
@@ -38,8 +39,6 @@ public class PostFile extends Model {
 	public void setDelYn(String delYn) {
 		this.delYn = delYn;
 	}
-	
-    
 
     
 }
