@@ -4,132 +4,140 @@
 
 <mapper namespace="BoardMapper"> <!-- 매퍼의 네임스페이스 설정 -->
 
- <select id="getBoardList" parameterType="model.board.Board" resultType="model.board.Board">
-		
-		SELECT
-			B.RN,
-			B.BOARD_ID,
-		    B.TITLE,
-		    B.CONTENT,
-		    B.VIEW_COUNT,
-		    B.CREATE_ID,
-		    B.UPDATE_ID,
-		    B.CREATE_DT,
-		    B.UPDATE_DT,
-		    DEL_YN
-	FROM (
-		SELECT
-			 ROWNUM AS RN,
-		    A.BOARD_ID,
-		    A.TITLE,
-		    A.CONTENT,
-		    A.VIEW_COUNT,
-		    A.CREATE_ID,
-		    A.UPDATE_ID,
-		    TO_CHAR(A.CREATE_DT, 'YYYY-MM-DD') AS CREATE_DT,
-		    TO_CHAR(A.UPDATE_DT, 'YYYY-MM-DD') AS UPDATE_DT,
-		    DEL_YN
-		 FROM BOARD A
-		 ) B
-		 WHERE B.RN BETWEEN #{startRow} AND #{endRow}
-		 
-		 <if test="content != null and content != ''">
-                    AND content LIKE '%'  #{content}  '%'
-                </if>
-                <if test="startDate != null and startDate != ''">
-                    AND create_dt >= TO_DATE(#{startDate}, 'YYYY-MM-DD')
-                </if>
-                <if test="endDate != null and endDate != ''">
-                    AND create_dt <![CDATA[<=]]> TO_DATE(#{endDate}, 'YYYY-MM-DD')
-                </if>
-
+	<select id="getBoardList" parameterType="model.board.Board" resultType="model.board.Board">
+      	SELECT
+      	 	B.RN,
+            B.BOARD_ID,
+            B.TITLE,
+            B.CONTENT,
+            B.VIEW_COUNT,
+            B.CREATE_ID,
+            B.UPDATE_ID,
+            B.CREATE_DT,
+            B.UPDATE_DT,
+            B.DEL_YN	
+      	FROM(
+	      	SELECT
+	      	 	ROWNUM AS RN,
+	            A.BOARD_ID,
+	            A.TITLE,
+	            A.CONTENT,
+	            A.VIEW_COUNT,
+	            A.CREATE_ID,
+	            A.UPDATE_ID,
+	            TO_CHAR(A.CREATE_DT, 'YYYY-MM-DD') AS CREATE_DT,
+	            TO_CHAR(A.UPDATE_DT, 'YYYY-MM-DD') AS UPDATE_DT,
+	            A.DEL_YN	
+	        FROM BOARD A
+	        WHERE A.DEL_YN='N'
+	         <if test="searchKey != null and searchQuery != null">
+            <choose>
+                <when test="searchKey == 'title'">
+                    AND A.TITLE LIKE ('%'|| #{searchQuery} || '%')
+                </when>
+                <when test="searchKey == 'writer'">
+                    AND A.CREATE_ID LIKE ('%' || #{searchQuery} || '%')
+                </when>
+            </choose>
+        </if>
+        ) B
+        WHERE B.RN BETWEEN #{startRow} AND #{endRow}
     </select>
-    
     <select id="getTotalBoardCount" resultType="int">
     	SELECT COUNT(*)
-    	FROM BOARD
-    	WHERE DEL_YN = 'N'
-    </select>
-
-    <!-- 사용자 ID로 사용자 정보 조회 -->
-    <select id="getBoardById" parameterType="string" resultType="model.board.Board">
-		SELECT
-		    BOARD_ID,
-		    TITLE,
-		    CONTENT,
-		    VIEW_COUNT,
-		    CREATE_ID,
-		    UPDATE_ID,
-		    CREATE_DT,
-		    UPDATE_DT,
-		    DEL_YN
-		 FROM BOARD
-		 WHERE BOARD_ID = #{boardId}
-		 	AND DEL_YN = 'N'
+    		FROM BOARD
+    	WHERE DEL_YN='N'
+    	<if test="searchKey != null and searchQuery != null">
+        <choose>
+            <when test="searchKey == 'title'">
+                AND TITLE LIKE('%' || #{searchQuery} || '%')
+            </when>
+            <when test="searchKey == 'writer'">
+                AND CREATE_ID LIKE('%' || #{searchQuery} || '%')
+            </when>
+        </choose>
+    	</if>
     </select>
     
-    <insert id="create" parameterType="model.board.Board">
-    	INSERT INTO BOARD
-    		(
-    		BOARD_ID,
-    		TITLE,
-    		CONTENT,
-    		VIEW_COUNT,
-    		CREATE_ID
-    		)
-    		VALUES
-    		(SEQ_BOARD.NEXTVAL,
-    		#{title},
-    		#{content},
-    		#{viewCount},
-    		#{createId}
-    		)
-    		<selectKey keyProperty="boardId" resultType="string" order="AFTER">
-    			SELECT SEQ_BOARD.CURRVAL FROM DUAL
-    		</selectKey>
+    <select id="getBoardById" parameterType="string" resultType="model.board.Board">
+      	SELECT 
+            BOARD_ID,
+            TITLE,
+            CONTENT,
+            VIEW_COUNT,
+            CREATE_ID,
+            UPDATE_ID,
+            CREATE_DT,
+            UPDATE_DT,
+            DEL_YN	
+        FROM BOARD
+        WHERE BOARD_ID= #{boardId}
+        	AND DEL_YN='N'
+    </select>
+	<insert id="create" parameterType="model.board.Board">
+        INSERT INTO BOARD (
+         BOARD_ID,
+         TITLE,
+         CONTENT,
+         VIEW_COUNT,
+         CREATE_ID,
+         CREATE_DT
+         )
+        VALUES (
+        SEQ_BOARD.NEXTVAL,
+        #{title},
+        #{content},
+        #{viewCount},
+        #{createId},
+        SYSDATE
+        )
+     <selectKey keyProperty="boardId" resultType="string" order="AFTER">
+    	 SELECT SEQ_BOARD.CURRVAL FROM DUAL
+     </selectKey>
     </insert>
     
-    <update id="update" parameterType="model.board.Board">
-    	UPDATE BOARD
-    	SET TITLE = #{title},
-	    	CONTENT = #{content},
-	    	VIEW_COUNT = #{viewCount},
-	    	UPDATE_ID = #{updateId},
-	    	UPDATE_DT = SYSDATE
-    	WHERE BOARD_ID = #{boardId}
-    </update>
-    <!-- 댓글 삭제 -->
-    <update id="delete" parameterType="model.board.Board">
-        UPDATE BOARD
-        SET DEL_YN = 'Y'
-    	UPDATE_ID = #{updateId},
-    	UPDATE_DT = SYSDATE
+   <update id="update" parameterType="model.board.Board">
+   		UPDATE BOARD
+   		SET TITLE=#{title},
+   			CONTENT=#{content},
+   			VIEW_COUNT=#{viewCount},
+   			UPDATE_ID = #{updateId},
+   			UPDATE_DT = SYSDATE
+	    WHERE BOARD_ID = #{boardId}
+   </update>
+    <update id="delete" parameterType="model.user.User">
+        UPDATE BOARD 
+        SET DEL_YN = 'Y',
+            UPDATE_ID = #{updateId},
+            UPDATE_DT = SYSDATE
         WHERE BOARD_ID = #{boardId}
     </update>
-    <!-- 댓글 등록 -->
+    
+    
     <insert id="insertComment" parameterType="model.board.Comment">
         INSERT INTO POST_COMMENT (COMMENT_ID, BOARD_ID, PARENT_COMMENT_ID, CONTENT, CREATE_ID)
         VALUES (SEQ_COMMENT.NEXTVAL, #{boardId}, #{parentCommentId}, #{content}, #{createId})
     </insert>
 
-    <!-- 게시글에 대한 댓글 조회 (대댓글 포함) -->
+    
     <select id="getCommentsByBoardId" parameterType="string" resultType="model.board.Comment">
         SELECT 
-         COMMENT_ID, 
-         BOARD_ID, 
-         PARENT_COMMENT_ID,
-         CONTENT, CREATE_ID, 
-         UPDATE_ID, 
- 		 TO_CHAR(CREATE_DT, 'YYYY-MM-DD') AS CREATE_DT,
-		 TO_CHAR(UPDATE_DT, 'YYYY-MM-DD') AS UPDATE_DT,
-         DEL_YN
+        	COMMENT_ID, 
+        	BOARD_ID, 
+        	PARENT_COMMENT_ID, 
+        	CONTENT, 
+        	CREATE_ID, 
+        	UPDATE_ID, 
+        	TO_CHAR(CREATE_DT, 'YYYY-MM-DD')AS CREATE_DT, 
+        	TO_CHAR(UPDATE_DT, 'YYYY-MM-DD')AS UPDATE_DT, 
+        	DEL_YN
         FROM POST_COMMENT
         WHERE BOARD_ID = #{boardId}
           AND DEL_YN = 'N'
         ORDER BY PARENT_COMMENT_ID, CREATE_DT ASC
     </select>
 
-    <!-- 댓글 조회 -->
+   
     <select id="getCommentById" parameterType="int" resultType="model.board.Comment">
         SELECT *
         FROM POST_COMMENT
@@ -137,7 +145,7 @@
           AND DEL_YN = 'N'
     </select>
 
-    <!-- 댓글 수정 -->
+    
     <update id="updateComment" parameterType="model.board.Comment">
         UPDATE POST_COMMENT
         SET CONTENT = #{content},
@@ -146,13 +154,12 @@
         WHERE COMMENT_ID = #{commentId}
     </update>
 
-    <!-- 댓글 삭제 -->
+    
     <update id="deleteComment" parameterType="model.board.Comment">
         UPDATE POST_COMMENT
         SET DEL_YN = 'Y',
-    	UPDATE_ID = #{updateId},
-    	UPDATE_DT = SYSDATE
+        	UPDATE_ID = #{updateId},
+            UPDATE_DT = SYSDATE
         WHERE COMMENT_ID = #{commentId}
     </update>
-    
 </mapper>

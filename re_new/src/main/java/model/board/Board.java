@@ -5,7 +5,7 @@ import java.util.List;
 import model.Model;
 import model.common.PostFile;
 
-public class Board extends Model {
+public class Board extends Model{
 	private String boardId;
 	private String title;
 	private String content;
@@ -20,9 +20,29 @@ public class Board extends Model {
 	
 	private int totalCount;
 	private int totalPages;
+	
 	private List<PostFile> postFiles;
 	
 	private List<Comment> comments;
+
+	private String searchKey;
+	private String searchQuery;
+	
+	public String getSearchKey() {
+		return searchKey;
+	}
+
+	public void setSearchKey(String searchKey) {
+		this.searchKey = searchKey;
+	}
+
+	public String getSearchQuery() {
+		return searchQuery;
+	}
+
+	public void setSearchQuery(String searchQuery) {
+		this.searchQuery = searchQuery;
+	}
 
 	public String getBoardId() {
 		return boardId;
@@ -127,5 +147,7 @@ public class Board extends Model {
 	public void setComments(List<Comment> comments) {
 		this.comments = comments;
 	}
-
+	
+	
+	
 }
