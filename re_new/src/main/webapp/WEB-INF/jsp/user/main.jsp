@@ -14,7 +14,7 @@
 			<c:redirect url="/user/login.do" />
 		</c:when>
 		<c:otherwise>
-			${sessionScope.user.username}님 안녕하세요.
+			${sessionScope.user.userId}님 안녕하세요.
 			<form method="post" id="logoutForm">
 				<input type="hidden" name="id" value="${sessionScope.user.userId}" >
 				<button type="submit">로그아웃</button>
