@@ -16,21 +16,12 @@
                 event.preventDefault(); // 기본 제출 방지
                 
                 let userId = $("#userId").val().trim();
-                let username = $("#username").val().trim();
                 let password = $("#password").val().trim();
                 let email = $("#email").val().trim();
+                date = $("#birthdate").val().trim(); 
+                let gender = $("#gender").val(); 
+
                 
-                if(!validationUtil.isEmpty(username)){
-                	aler("이름을 입력해주세요.")
-                	$("#username").focus();
-                	return;
-                }
-                
-                if(!validationUtil.maxLength(username, 15)){
-                	aler("이름은 최대 15자까지 입력할 수 있습니다")
-                	$("#username").focus();
-                	return;
-                }
                 
                 if(!validationUtil.isEmpty(userId)){
                 	aler("아이디를 입력해주세요")
@@ -99,15 +90,20 @@
 <body>
 	<h2>회원가입</h2>
 	<form id="joinForm">
-		<label for="userId">아이디:</label> 
+		<label for="userId">아이디</label> 
 		<input type="text" id="userId" name="userId" maxlength="20" placeholder="아이디 입력" required /> <br />
-		<label for="username">이름:</label> 
-		<input type="text" id="username" name="username" maxlength="15" placeholder="이름 입력" required /> <br />
-		<label for="password">비밀번호:</label> 
+		<label for="password">비밀번호</label>		 
 		<input type="password" id="password" name="password" maxlength="20" placeholder="비밀번호 입력" required /> <br /> 
-		<label for="email">이메일:</label> 
-		<input type="email" id="email" name="email" maxlength="100"
-			placeholder="이메일 입력" required /> <br />
+		<label for="email">이메일</label> 
+		<input type="email" id="email" name="email" maxlength="100" placeholder="이메일 입력" required /> <br />
+		<label for="birthdate">생년월일 </label> 
+		<input type="date" id="birthdate" name="birthdate" maxlength="15" required /> <br />
+		<label type="gender">성별</label>
+		<select id="gender" name="gender">
+		<option value="">성별</option>
+		<option value="woman">여자</option>
+		<option value="man">남자</option>
+		</select>
 		<button type="submit" id="registerBtn">가입하기</button>
 	</form>
 	<a href="/user/login.do">로그인 페이지로 이동</a>

@@ -8,9 +8,11 @@
     <select id="getUserById" parameterType="string" resultType="model.user.User">
         SELECT 
             USER_ID, 
-            USERNAME, 
+            ADMIN_YN, 
             PASSWORD, 
             EMAIL, 
+            BIRTHDATE,
+            GENDER,
             CREATE_DT,
             CREATE_ID,
             UPDATE_ID, 
@@ -23,16 +25,19 @@
 
     <!-- 사용자 생성 -->
     <insert id="registerUser" parameterType="model.user.User">
-        INSERT INTO USERS (USER_ID, USERNAME, PASSWORD, EMAIL, CREATE_ID)
-        VALUES (#{userId}, #{username}, #{password}, #{email}, #{createId})
+        INSERT INTO USERS (USER_ID,PASSWORD, EMAIL, BIRTHDATE, GENDER, CREATE_ID)
+        VALUES (#{userId}, #{password}, #{email}, #{birthdate}, #{gender}, #{createId})
     </insert>
 
     <!-- 사용자 업데이트 -->
     <update id="updateUser" parameterType="model.user.User">
 	    UPDATE USERS
 	    SET 
-	        USERNAME = #{username},
+	        USER_ID = #{userId}, 
+	        PASSWORD = #{password},
 	        EMAIL = #{email},
+	        BIRTHDATE = #{birthdate},
+	        GENDER = #{gender},
 	        UPDATE_ID = #{updateId},
 	        UPDATE_DT = SYSDATE
 	    <if test="password != null and password != ''">
@@ -40,6 +45,8 @@
 	    </if>
 	    WHERE USER_ID = #{userId}
 	</update>
+
+
 
     <!-- 사용자 삭제 
     <delete id="deleteUser" parameterType="string">

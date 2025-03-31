@@ -71,10 +71,11 @@ public class UserController extends HttpServlet {
             	// User 객체 생성
             	User user = new User();
             	user.setUserId(request.getParameter("userId"));
-            	user.setUsername(request.getParameter("username"));
             	user.setPassword(request.getParameter("password"));
             	user.setEmail(request.getParameter("email"));
-        		user.setCreateId("system-");
+            	user.setBirthdate(request.getParameter("birthdate"));
+            	user.setGender(request.getParameter("gender"));
+        		user.setCreateId("SYSTEM");
         		jsonResponse.put("success", userService.registerUser(user)); // 오류 발생 시
             		
 
