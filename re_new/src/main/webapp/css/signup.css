@@ -1,0 +1,63 @@
+#back{
+    background-color: rgb(255, 255, 255);
+    display: flex;
+    flex-direction: row;
+    width:1100px;
+    height: 650px;
+    margin: 115px 85px;
+    /* padding:60px 20px 60px 550px; */
+    border-radius: 70px;
+    border: 4px solid rgb(196, 196, 196);
+}
+#signupForm{
+    display: flex;
+    flex-direction: column;
+    width:600px;
+    height: 650px;
+    margin-top:-4px;
+    background-color: rgb(255, 255, 0);
+    border-radius: 70px;
+    align-items: center;
+    text-align: center;
+    border: 4px solid rgb(141, 141, 141);
+    
+}
+#signupForm h2{
+    margin-top:40px;
+}
+#joinForm{
+    margin:20px;
+}
+#joinForm label, input{
+    margin-top:20px;
+    margin-bottom:20px;
+}
+
+#joinForm input{
+    width: 200px;
+    height:30px;
+    border: 1px soild rgb(65, 65, 65);
+    border-radius: 10px;
+    padding:5px;
+    text-align: center;
+}
+#joinForm button{
+    width: 200px;
+    height:50px;
+    border-radius: 10px;
+    background-color: rgb(231, 147, 84);
+    color: aliceblue;
+    font-size:17px;
+    margin-top: 50px;;
+}
+#loginGuide{
+    display:flex;
+    align-items: center;
+    background-color: transparent;
+    width:400px;
+    height: 600px;
+    margin-top:25px;
+    margin-left: 40px;
+    margin-bottom:20px;  
+    margin-right:57px;
+}

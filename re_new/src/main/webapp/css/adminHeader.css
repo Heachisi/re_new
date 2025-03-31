@@ -1,0 +1,84 @@
+#topSection{
+    display: flex;
+    flex-direction:column;
+    /* justify-content: space-between; */
+    align-items: center;
+    padding:0;
+    background-color: transparent;
+    height: 15vh;
+    width: 100%;
+    border-style: hidden;
+}
+#authButtons{
+    text-align: center;
+    
+    position:absolute;
+    right: 48px;
+    top: 10px;
+    display: flex;
+    gap: 15px;
+    color:#000000
+}
+#authButtons a{
+    text-decoration:none;
+}
+#authButtons button{
+    border-radius: 10px;
+    border: 2px solid rgb(196, 196, 196);
+    padding:5px 10px 5px 10px;
+}
+#buttonContainer{
+    display: flex;
+    margin-top:10px;
+
+}
+#logo{
+    display: flex;
+    flex-direction: row;
+    width:100px;
+    height:100px;
+    margin-left:-10px;
+    margin-top: 20px; 
+}
+#admin{
+    padding-top:20px;
+    padding-left:20px;
+}
+#navbar{
+    /* position: absolute; */
+    /* top:50px; */
+    /* right:45px; */
+    display: flex;
+    /* flex-direction: space-around !important; */
+   
+    justify-content: center;
+    width: 1200px;
+    min-width: 1000px; /*최소 너비 설정*/
+    height: 60px;
+    background-color: rgb(161, 159, 159);
+    /* border-radius: 25px; */
+    padding: 0;
+    margin-top: 30px;
+    color:rgb(255, 251, 251);
+    
+}
+#navbar div{
+    margin:auto;
+    width:600px;
+    height: 60px;
+/* 세로 중앙 정렬 */
+    display:flex;
+    flex-direction: space-between;
+    align-items: center;
+}
+
+
+#navbar a{
+
+    padding-left: 40%;
+    color: white;  
+    text-decoration:none;
+}
+#navbar div:hover{
+    background-color: black;
+}
