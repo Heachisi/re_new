@@ -20,6 +20,13 @@
 </head>
 <body>
 	<h2>게시판 상세</h2>
+	<form action="list.do" method="get" clss="searchForm">
+	<select name="searchKey">
+		<option value="title"<c:if test="${param.key =='title'}">selected</c:if>>제목</option>
+		<option value="writer"<c:if test="${param.key =='writer'}">selected</c:if>>글쓴이</option>
+		<input type="text" name="searchQuery" value="${param.query}" placeholder="검색어를 입력하세요"/>
+		<button type="submit" id="searchBtn">검색</button>
+	</select></form>
 	<table border="1">
 		<thread>
 			<tr>
