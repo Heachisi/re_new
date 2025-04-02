@@ -11,5 +11,7 @@ public interface UserService {
     public boolean validateUser(User user);
     
     public User getUserById(String userId);
+    
+    public boolean checkUserIdDuplicate(String userId);
 
 }

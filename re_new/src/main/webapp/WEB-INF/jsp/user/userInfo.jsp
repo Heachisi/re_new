@@ -8,7 +8,7 @@
     <meta charset="UTF-8">
     <title>게시판 상세</title>
     <script src="/js/jquery-3.7.1.min.js"></script>
-    <script src="/js/common.js"></script>
+    <script src="/js/common.js?"></script>
 </head>
 <body>
 	<h2>회원정보</h2>
@@ -16,9 +16,6 @@
 	  
 	  <label for="userId">아이디:</label>
 	  ${sessionScope.user.userId}
-	  <br/>
-	  <label for="username">이름:</label>
-	  ${sessionScope.user.username}
 	  <br/>
 	  <label for="password">비밀번호:</label>
 	  ${sessionScope.user.password}

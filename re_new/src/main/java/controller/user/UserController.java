@@ -67,7 +67,22 @@ public class UserController extends HttpServlet {
         JSONObject jsonResponse = new JSONObject(); // JSON 응답 객체 생성
         try {
             logger.info("UserController doPost path: " + path);
-            if ("/user/register.do".equals(path)) { 
+            
+            
+            
+            if ("/user/checkUserId.do".equals(path)) {
+                String userId = request.getParameter("userId");
+
+                if (userId == null || userId.trim().isEmpty()) {
+                    jsonResponse.put("success", false);
+                    jsonResponse.put("message", "아이디를 입력해주세요.");
+                } else {
+                    boolean exists = userService.checkUserIdDuplicate(userId);
+                    jsonResponse.put("exists", exists); 
+                    jsonResponse.put("success", true);
+                    jsonResponse.put("message", "중복체크 성공");
+                }
+            } else if ("/user/register.do".equals(path)) { 
             	// User 객체 생성
             	User user = new User();
             	user.setUserId(request.getParameter("userId"));

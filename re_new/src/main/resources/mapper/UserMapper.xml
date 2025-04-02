@@ -76,5 +76,9 @@
         FROM 
             USERS
     </select>
+    
+    <select id="checkUserIdDuplicate" resultType="int">
+      SELECT COUNT(*) FROM Users WHERE user_id = #{userId}
+    </select>  
 
 </mapper>

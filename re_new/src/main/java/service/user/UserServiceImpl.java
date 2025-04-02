@@ -72,8 +72,7 @@ public class UserServiceImpl implements UserService {
     		
     		
     		// 입력된 비밀번호와 DB에 저장된 비밀번호 비교
-    		result = user.getPassword()
-    		.equals(selectUser.getPassword()); // 비밀번호 비교
+    		result = encryptedPassword.equals(selectUser.getPassword()); // 비밀번호 비교
     		
     		session.commit(); //트랜잭션 커밋
     	} catch (Exception e) {
@@ -89,5 +88,15 @@ public class UserServiceImpl implements UserService {
         return selectUser;
     }
 
-
+ 
+    @Override
+    public boolean checkUserIdDuplicate(String userId) {
+        try (SqlSession session = sqlSessionFactory.openSession()) {
+            int count = session.selectOne("UserMapper.checkUserIdDuplicate", userId);
+            return count > 0; // 존재하면 true 반환
+        } catch (Exception e) {
+            logger.error("아이디 중복 체크 중 오류 발생!", e);
+            return false;
+        }
+    }
 }

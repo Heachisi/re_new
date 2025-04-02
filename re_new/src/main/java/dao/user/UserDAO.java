@@ -32,5 +32,10 @@ public class UserDAO {
      	User user = session.selectOne("UserMapper.getUserById",userId);
      	return user;
  }
+    public boolean checkUserIdDuplicate(SqlSession session, String userId) {
+    	 return session.selectOne("UserMapper.checkUserIdDuplicate", userId) != null;
+
+    }
+
 
 }
