@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-
+ 
 <c:if test="${not empty comments}">
 	<c:forEach var="comment" items="${comments}">
 		<c:if test="${comment.parentCommentId == param.commentId}">
@@ -27,7 +27,7 @@
                     </c:if>
                     <button type="button" onclick="toggleReplyComment(${comment.commentId})">답글</button>
                 </c:if>
-           
+              
 				
 				<!-- 대댓글 작성 폼 -->
 				<div id="replyForm_${comment.commentId}" style="display:none; margin-left: 20px;">

@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>메인 페이지</title>
 <script src="/js/jquery-3.7.1.min.js"></script>
-<script src="/js/common.js"></script>
+<script src="/js/common.js?ver=1"></script>
 </head>
 <body>
 	<c:choose>
@@ -22,6 +22,7 @@
 			<a href="/user/userInfo.do">유저정보 페이지로 이동</a>
 			<script>
 		        $(document).ready(function() {
+		        	  
 		        	//로그아웃 폼에 섬밋이벤트시 작동
 		            $("#logoutForm").submit(function(event) {
 		                event.preventDefault(); // 기본 폼 제출 방지

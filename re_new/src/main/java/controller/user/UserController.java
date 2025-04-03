@@ -58,6 +58,8 @@ public class UserController extends HttpServlet {
 	           
 	      }
 	      
+	      
+	      
 	}
 
 
@@ -114,9 +116,34 @@ public class UserController extends HttpServlet {
             		jsonResponse.put("message", "로그인 실패: 아이디 또는 비밀번호가 잘못되었습니다.");
             	}
             }
-            
+            else if ("/user/update.do".equals(path)) {
+                String userId = request.getParameter("userId");
+                String password = request.getParameter("password");
+                String email = request.getParameter("email");
+                String updateId = request.getParameter("updateId");
+                String birthdate = request.getParameter("birthdate");
+                String gender = request.getParameter("gender");
+
+                // User 객체 생성 및 등록
+                User user = new User();
+                user.setUserId(userId);
+                user.setPassword(password);
+                user.setEmail(email);
+                user.setUpdateId(updateId);
+
+              
+                boolean isUpdate = userService.updateUser(user);
+                jsonResponse.put("success", isUpdate);
+                jsonResponse.put("message", isUpdate ? "회원정보수정이 성공적으로 처리되었습니다." : "회원정보수정 처리 실패");
+                
+                if(isUpdate) {
+                	HttpSession session = request.getSession();
+                    User selectUser = userService.getUserById(user.getUserId());
+                    session.setAttribute("user", selectUser);
+                }
+                
             //로그아웃 처리
-            else if ("/user/logout.do".equals(path)) {
+            }else if ("/user/logout.do".equals(path)) {
                 HttpSession session = request.getSession();
                 User user = (User) session.getAttribute("user");
 
@@ -129,6 +156,26 @@ public class UserController extends HttpServlet {
                     jsonResponse.put("message", "로그아웃할 사용자 정보가 없습니다.");
                 }
             }
+            else if ("/user/delete.do".equals(path)) {
+                String userId = request.getParameter("userId");
+                String updateId = request.getParameter("updateId");
+                
+                // User 객체 생성 및 등록
+                User user = new User();
+                user.setUserId(userId);
+                user.setUpdateId(updateId);
+
+                // 사용자 탈퇴 처리
+                boolean isDelete = userService.deleteUser(user);
+                jsonResponse.put("success", isDelete);
+                jsonResponse.put("message", isDelete ? "회원탈퇴가 성공적으로 처리되었습니다." : "회원탈퇴 처리 실패");
+                if(isDelete) { 
+                	HttpSession session = request.getSession();
+                	session.invalidate();
+                }
+            } 
+            
+            
             
         } catch (Exception e) {
             jsonResponse.put("success", false); // 오류 발생 시

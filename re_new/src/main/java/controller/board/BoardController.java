@@ -83,36 +83,27 @@ public class BoardController extends HttpServlet {
 	    			  Integer.parseInt(request.getParameter("size"))
 	    			  :DEFAULT_SIZE;
 	    	  
-	    	  String searchKey = request.getParameter("searchKey");
-	    	  String searchQuery = request.getParameter("searchQuery");
-	    	  if(searchQuery !=null) {
-	    		  searchQuery = searchQuery.replace("\"","");
-	    	  }
-	    	  
+	    	  String searchText = request.getParameter("searchText");
+	    	  String startDate = request.getParameter("startDate");
+	    	  String endDate = request.getParameter("endDate");
+
 	    	  Board board = new Board();
 	    	  board.setSize(size);
 	    	  board.setPage(page);
-	    	  
-	    	  if(searchKey == null ||searchQuery == null) {
-	    		  searchKey = "";
-	    		  searchQuery = "";
-	    		  }
-	    	  
-	    	  board.setSearchKey(searchKey);
-	    	  board.setSearchQuery(searchQuery);
-	    	  
+	    	  board.setSearchText(searchText);
+	    	  board.setStartDate(startDate);
+	    	  board.setEndDate(endDate);
+
 	    	  List boardList = boardService.getBoardList(board);
-	    	  
+
 	    	  request.setAttribute("boardList", boardList);
 	    	  request.setAttribute("currentPage", page);
 	    	  request.setAttribute("totalPages", board.getTotalPages());
 	    	  request.setAttribute("size", size);
-	    	  request.setAttribute("searchKey", searchKey);
-	    	  request.setAttribute("searchQuery", searchQuery);
 	    	  
-	    	  logger.info("searchKey: " + searchKey);
-	    	  logger.info("searchQuery: " + searchQuery);
+	    	  request.setAttribute("board", board);
 	    	  
+	    	 
 	    	  request.getRequestDispatcher("/WEB-INF/jsp/board/list.jsp").forward(request, response);
 	      }
 	}

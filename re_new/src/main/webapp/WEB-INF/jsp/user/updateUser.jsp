@@ -44,6 +44,14 @@
                     $("#email").focus();
                     return;
                 }
+                console.log("UserId:", userId);
+                console.log("Password:", password);
+                console.log("Email:", email);
+                console.log("Birthdate:", birthdate);
+                console.log("Gender:", gender);
+
+                console.log("Serialized Data:", $("#updateForm").serialize());
+
              	
                 ajaxRequest(
                 	"/user/update.do", 
@@ -98,14 +106,14 @@
 	  <input type="email"  id="email" name="email" maxlength="100" placeholder="이메일 입력"  value="${sessionScope.user.email}" />
 	  <br/>
 	  <label for="birthdate">생년월일:</label>
-	  <input type="date"  id="birthdate" name="birthdate" maxlength="15" value="${sessionScope.user.birthdate}" />
+      <input type="date" id="birthdate" name="birthdate" maxlength="15" value="${fn:substring(sessionScope.user.birthdate, 0, 10)}" />
 	  <br/>
 	  <label for="gender">성별:</label>
-	  <select id="gender" name="gender">
+		<select id="gender" name="gender">
 		    <option value="" ${sessionScope.user.gender == '' ? 'selected' : ''}>성별</option>
 		    <option value="woman" ${sessionScope.user.gender == 'woman' ? 'selected' : ''}>여자</option>
 		    <option value="man" ${sessionScope.user.gender == 'man' ? 'selected' : ''}>남자</option>
-	  </select>
+		</select>
 
 	  <button type="submit" id="updateBtn">수정하기</button>
 	</form>

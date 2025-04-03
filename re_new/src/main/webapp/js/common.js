@@ -60,12 +60,16 @@ function ajaxRequest(url, data, successCallback) {
         success: function (response) {
             if (response.success) {
                 if (successCallback) successCallback(response);
+				console.log("✅ 서버 응답 수신됨:", response);
             } else {
-                handleAjaxError(response); // 공통 에러 처리 함수 호출
+                handleAjaxError(response); 
+				console.warn("⚠️ 서버 응답 실패:", response); 
             }
         },
         error: function (xhr, status, error) {
-            handleAjaxError(null, xhr, status, error); // 공통 에러 처리 함수 호출
+            handleAjaxError(null, xhr, status, error); 
+			console.error("❌ AJAX 오류 발생:", xhr, status, error); 
+
         }
     });
 }
