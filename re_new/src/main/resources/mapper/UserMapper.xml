@@ -68,9 +68,10 @@
     <!-- 모든 사용자 조회 (선택 사항) -->
     <select id="getAllUsers" resultType="model.user.User">
         SELECT 
-            USER_ID, 
-            USERNAME, 
-            EMAIL, 
+            USER_ID,
+            EMAIL,
+            BIRTHDATE,
+            GENDER,
             CREATE_DT, 
             UPDATE_DT
         FROM 

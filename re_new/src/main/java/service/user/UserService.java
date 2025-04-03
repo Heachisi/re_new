@@ -13,5 +13,9 @@ public interface UserService {
     public User getUserById(String userId);
     
     public boolean checkUserIdDuplicate(String userId);
+    
+    public boolean updateUser(User user);
+    
+    public boolean deleteUser(User user);
 
 }

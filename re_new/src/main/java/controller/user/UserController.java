@@ -49,10 +49,13 @@ public class UserController extends HttpServlet {
 	            // 로그인 JSP로 포워딩
 	            request.getRequestDispatcher("/WEB-INF/jsp/user/main.jsp").forward(request, response);
 	            
-	      } else if ("/user/userinfo.do".equals(path)) {
+	      } else if ("/user/userInfo.do".equals(path)) {
 	            // 로그인 JSP로 포워딩
-	            request.getRequestDispatcher("/WEB-INF/jsp/user/userinfo.jsp").forward(request, response);
+	            request.getRequestDispatcher("/WEB-INF/jsp/user/userInfo.jsp").forward(request, response);
 	            
+	      }else if("/user/updateUser.do".equals(path)) {
+	            request.getRequestDispatcher("/WEB-INF/jsp/user/updateUser.jsp").forward(request, response);
+	           
 	      }
 	      
 	}

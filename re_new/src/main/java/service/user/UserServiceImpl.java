@@ -88,7 +88,8 @@ public class UserServiceImpl implements UserService {
         return selectUser;
     }
 
- 
+
+  	
     @Override
     public boolean checkUserIdDuplicate(String userId) {
         try (SqlSession session = sqlSessionFactory.openSession()) {
@@ -99,4 +100,34 @@ public class UserServiceImpl implements UserService {
             return false;
         }
     }
+
+	@Override
+	public boolean updateUser(User user) {
+		SqlSession session = sqlSessionFactory.openSession();
+		boolean result = false;
+		try {
+			result = userDAO.updateUser(session, user);
+			session.commit();
+		}catch (Exception e) {
+			e.printStackTrace();
+			session.rollback();
+		}
+		return result;
+	}
+
+	@Override
+	public boolean deleteUser(User user) {
+		SqlSession session = sqlSessionFactory.openSession();
+    	boolean result = false; 
+    	try {
+    		
+    		// DAO를 통해 회원탈퇴 진행
+            result = userDAO.deleteUser(session, user);
+            session.commit(); // 트랜잭션 커밋
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    		session.rollback();
+		}
+        return result;
+	}
 }

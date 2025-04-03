@@ -36,6 +36,16 @@ public class UserDAO {
     	 return session.selectOne("UserMapper.checkUserIdDuplicate", userId) != null;
 
     }
+    
+    public boolean updateUser(SqlSession session, User user) {
+    	int result = session.update("UserMapper.registerUser", user);
+    	return result > 0;
+    }
+    
+    public boolean deleteUser(SqlSession session, User user) {
+        int result = session.update("UserMapper.deleteUser", user); // 사용자 삭제 쿼리 실행
+        return result > 0; // 삭제 성공 여부 반환
+    }
 
 
 }
