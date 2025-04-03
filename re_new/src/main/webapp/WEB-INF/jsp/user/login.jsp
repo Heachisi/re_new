@@ -6,15 +6,29 @@
 <title>로그인 화면</title>
 <script src="/js/jquery-3.7.1.min.js"></script>
 <script src="/js/common.js"></script>
+<link rel="stylesheet" href="/css/login.css">
 </head>
 <body>
-	<form method="get" id="loginForm">
-		id : <input type="text" name="id"><br/>
-		비밀번호 : <input type="password" name="pass">
-		<button type="submit">로그인</button>
-	</form>
-	<a href="/user/join.do">회원가입 페이지로 이동</a>
-	
+	<div id=totalSignForm>
+	<div id=loginContainer>
+		<h2>로그인</h2>
+		<form id="loginForm">
+			<label for="userId">아이디</label> 
+			<input type="text" id="userId" name="userId" maxlength="20" placeholder="아이디 입력" required />
+			<label for="password">비밀번호</label>		 
+			<input type="password" id="password" name="password" placeholder="비밀번호 입력" required /> <br />
+			<button type="submit" id="loginBtn">로그인</button>
+		</form>
+	</div>
+		
+		
+	<div id=signupForm>
+		<h2>환영해요!</h2>
+		<h2>리뉴는 처음이신가요?</h2>
+		<a href="/user/join.do">회원가입 페이지로 이동</a>
+	</div>
+
+</div>
 	<script>
 	$(document).ready(function() {
 		//로긴 폼에 섬밋이벤트시 작동

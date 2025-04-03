@@ -10,7 +10,7 @@
 <title>회원가입</title>
 <script src="/js/jquery-3.7.1.min.js"></script>
 <script src="/js/common.js?ver=1.3"></script>
-
+<link rel="stylesheet" href="/css/join.css">
 <script>
    let isUserIdChecked = false; // 중복 체크 완료 여부를 저장
 
@@ -136,12 +136,23 @@
     </script>
 </head>
 <body>
+	<div id="totalSignForm">
+	
+	<div id="loginForm">
+	<h2>가입을 환영해요!</h2>
+	<h2>리뉴를 즐겨볼까요?</h2>
+	<img src="C:\Users\Admin\Downloads./logo.png">
+	<a href="/user/login.do">로그인</a>
+	</div>
+	
+	<div id="signupForm">
 	<h2>회원가입</h2>
 	<form id="joinForm">
-		<label for="userId">아이디</label> 
+	     <div id="id-container">
+		<label for="userId">아이디&nbsp;&nbsp;<span id="checkResult" style="font-size: 15px;"></span></label>
 		<input type="text" id="userId" name="userId" maxlength="20" placeholder="아이디 입력" required />
 		<button type="button" id="checkUserIdBtn">중복 체크</button> 
-        <span id="checkResult"></span>
+        </div>
 		 <br />
 		<label for="password">비밀번호</label>		 
 		<input type="password" id="password" name="password" placeholder="비밀번호 입력" required /> <br /> 
@@ -157,7 +168,9 @@
 		</select>
 		<button type="submit" id="registerBtn">가입하기</button>
 	</form>
+	</div>
 	    
-	<a href="/user/login.do">로그인 페이지로 이동</a>
+	
+	</div>
 </body>
 </html>
