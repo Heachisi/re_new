@@ -5,8 +5,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
- <link rel="stylesheet" href="${contextPath}/css/mainHeader.css">
- <link rel="stylesheet" href="${contextPath}/css/common.css">
+ <script src="/js/jquery-3.7.1.min.js"></script>
+ <link rel="stylesheet" href="/css/mainHeader.css">
+ <link rel="stylesheet" href="/css/common.css">
 </head>
 <body>
 	<header id="topSection">
