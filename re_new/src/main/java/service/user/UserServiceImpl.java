@@ -109,6 +109,7 @@ public class UserServiceImpl implements UserService {
 			result = userDAO.updateUser(session, user);
 			session.commit();
 		}catch (Exception e) {
+			logger.error("회원 정보 업데이트 중 오류 발생", e); // 🚀 로깅 추가
 			e.printStackTrace();
 			session.rollback();
 		}
