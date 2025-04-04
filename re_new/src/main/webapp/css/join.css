@@ -28,11 +28,12 @@ body {
 	align-items:center;
 	justify-content:center;
 	text-align:center;
-  
+
 
 }
 
 #loginForm img {
+	flex: 1;
 	align-items: center;
 }
 
@@ -44,8 +45,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-
-    padding: 20px;
+    padding: 0px;
     border: 3px solid rgb(255 154 60);
     border-radius: 70px;
     background-color: rgb(255 154 60);
@@ -96,15 +96,56 @@ body {
     width: 100%;
 }
 
-#joinForm input,
-#joinForm select {
+/* 우측 입력 필드 */
+#joinForm input:not(#userId):not(#birthdate) {
+    border: none;
+    border-radius: 10px;
+    width: 100%;
+    height: 90%;
+    padding: 10px;
+    background-color: rgb(255, 239, 216);
+    margin-bottom: 5px;
+}
+
+/* userId 입력란만 별도 스타일 */
+#userId {
+    width: 60%; /* 크기 조절 */
     height: 20px;
     border: none;
     border-radius: 10px;
     padding: 10px;
     background-color: rgb(255, 239, 216);
-    margin-bottom: 5px;
+    margin-bottom: 10px;
 }
+
+/* 생년월일과 성별을 감싸는 컨테이너 */
+#birthGenderContainer {
+    display: flex;
+    gap: 10px; /* 요소 사이 여백 */
+    width: 100%; /* 부모 요소 크기에 맞춤 */
+}
+
+/* 생일 입력 필드 스타일 */
+#birthdate {
+    height: 40px;
+    border-radius: 10px;
+    padding: 10px;
+    background-color: rgb(255, 239, 216);
+    border: none;
+}
+
+
+/* 성별 선택 드롭다운 스타일 */
+#gender {
+
+    height: 40px;
+    border-radius: 10px;
+    padding: 10px;
+    background-color: rgb(255, 239, 216);
+    border: none;
+}
+
+	
 
 /* 아이디 입력란 및 중복 체크 버튼 정렬 */
 #userIdContainer {
@@ -153,23 +194,20 @@ body {
 #loginForm a {
 	text-decoration: none;
 	text-align: center;
-	padding: 20px 5px 0px 5px;
+	padding: 10px 15px 10px 15px;
     width: 100%;
     height: 50px;
     background-color: rgb(255, 130, 60);
     color: white;
-    border: none;
+    border: 1px solid black;
     border-radius: 25px;
     font-size: 18px;
     font-weight: bold;
     cursor: pointer;
     margin-top: 10px;
     transition: 0.3s;
-    border: 1px solid black;
 }
 
 #registerBtn:hover {
     background-color: rgb(226, 121, 0);
 }
-
-
