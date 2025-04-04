@@ -16,7 +16,8 @@
             CREATE_DT,
             CREATE_ID,
             UPDATE_ID, 
-            UPDATE_DT
+            UPDATE_DT,
+            DEL_YN
         FROM 
             USERS
         WHERE 
@@ -33,16 +34,15 @@
     <update id="updateUser" parameterType="model.user.User">
 	    UPDATE USERS
 	    SET 
-	        USER_ID = #{userId}, 
 	        PASSWORD = #{password},
 	        EMAIL = #{email},
 	        BIRTHDATE = #{birthdate},
 	        GENDER = #{gender},
 	        UPDATE_ID = #{updateId},
 	        UPDATE_DT = SYSDATE
-	    <if test="password != null and password != ''">
-	        , PASSWORD = #{password} <!-- 비밀번호가 제공된 경우만 업데이트 -->
-	    </if>
+		    <if test="password != null and password != ''">
+		        , PASSWORD = #{password} <!-- 비밀번호가 제공된 경우만 업데이트 -->
+		    </if>
 	    WHERE USER_ID = #{userId}
 	</update>
 

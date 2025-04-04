@@ -54,7 +54,7 @@
 
              	
                 ajaxRequest(
-                	"/user/update.do", 
+                	"/user/updateUser.do", 
                 	$("#updateForm").serialize(), 
                 	function (response) {
                 		if (response.success) {
