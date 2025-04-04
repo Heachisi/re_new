@@ -34,7 +34,7 @@
     <update id="updateUser" parameterType="model.user.User">
 	    UPDATE USERS
 	    SET 
-	        PASSWORD = #{password},
+	 
 	        EMAIL = #{email},
 	        BIRTHDATE = #{birthdate},
 	        GENDER = #{gender},
