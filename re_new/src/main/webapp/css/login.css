@@ -132,14 +132,13 @@ body {
     height: 50px;
     background-color: rgb(255, 130, 60);
     color: white;
-    border: none;
+    border: 1px solid black;
     border-radius: 25px;
     font-size: 18px;
     font-weight: bold;
     cursor: pointer;
     margin-top: 10px;
     transition: 0.3s;
-    border: 1px solid black;
 }
 
 /*로그인  버튼 */
@@ -153,7 +152,7 @@ body {
     font-size: 18px;
     font-weight: bold;
     cursor: pointer;
-    margin-top: 10px;
+    margin-top: 30px;
     transition: 0.3s;
     border: 1px solid black;
 }

@@ -158,14 +158,20 @@
 		<input type="password" id="password" name="password" placeholder="비밀번호 입력" required /> <br /> 
 		<label for="email">이메일</label> 
 		<input type="email" id="email" name="email" maxlength="100" placeholder="이메일 입력" required /> <br />
-		<label for="birthdate">생년월일 </label> 
-		<input type="date" id="birthdate" name="birthdate" maxlength="15" required /> <br />
-		<label type="gender">성별</label>
-		<select id="gender" name="gender">
-		<option value="">성별</option>
-		<option value="woman">여자</option>
-		<option value="man">남자</option>
-		</select>
+		
+		<div id="birthGenderContainer">
+			<label for="birthdate">생년월일 </label> 
+			<input type="date" id="birthdate" name="birthdate">
+			    
+			<label for="gender">성별</label>
+		    <select id="gender" name="gender">
+		        <option value="">성별</option>
+		        <option value="male">남성</option>
+		        <option value="female">여성</option>
+		    </select>
+		</div>
+		
+		
 		<button type="submit" id="registerBtn">가입하기</button>
 	</form>
 	</div>
