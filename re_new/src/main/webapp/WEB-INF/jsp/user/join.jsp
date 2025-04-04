@@ -141,7 +141,7 @@
 	<div id="loginForm">
 	<h2>가입을 환영해요!</h2>
 	<h2>리뉴를 즐겨볼까요?</h2>
-	<img src="C:\Users\Admin\Downloads./logo.png">
+<!-- 	<img src="C:\Users\Admin\Downloads./logo.png"> -->
 	<a href="/user/login.do">로그인</a>
 	</div>
 	

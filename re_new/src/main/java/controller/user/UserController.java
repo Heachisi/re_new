@@ -101,8 +101,8 @@ public class UserController extends HttpServlet {
 
             } else if ("/user/loginCheck.do".equals(path)) { 
             	User user = new User();
-            	user.setUserId(request.getParameter("id"));
-            	user.setPassword(request.getParameter("pass"));
+            	user.setUserId(request.getParameter("userId"));
+            	user.setPassword(request.getParameter("password"));
             	
             	boolean loginCheck = userService.validateUser(user);
             	
@@ -116,7 +116,7 @@ public class UserController extends HttpServlet {
             		jsonResponse.put("message", "로그인 실패: 아이디 또는 비밀번호가 잘못되었습니다.");
             	}
             }
-            else if ("/user/update.do".equals(path)) {
+            else if ("/user/updateUser.do".equals(path)) {
                 String userId = request.getParameter("userId");
                 String password = request.getParameter("password");
                 String email = request.getParameter("email");

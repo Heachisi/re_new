@@ -38,7 +38,7 @@ public class UserDAO {
     }
     
     public boolean updateUser(SqlSession session, User user) {
-    	int result = session.update("UserMapper.registerUser", user);
+    	int result = session.update("UserMapper.updateUser", user);
     	return result > 0;
     }
     

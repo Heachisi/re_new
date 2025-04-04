@@ -7,6 +7,7 @@
 <title>메인 페이지</title>
 <script src="/js/jquery-3.7.1.min.js"></script>
 <script src="/js/common.js?ver=1"></script>
+<jsp:include page="/WEB-INF/jsp/common/header.jsp"/>
 </head>
 <body>
 	<c:choose>
