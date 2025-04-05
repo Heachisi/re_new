@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="BulletinBoardMapper"> <!-- 매퍼의 네임스페이스 설정 -->
+
+	<select id="getBoardList" parameterType="model.board.BulletinBoard" resultType="model.board.BulletinBoard">
+    SELECT * FROM (
+        SELECT B.*, ROWNUM AS RN
+        FROM (
+            SELECT
+                A.BOARD_ID,
+                A.TITLE,
+                A.CONTENT,
+                A.VIEW_COUNT,
+                A.CREATE_ID,
+                A.UPDATE_ID,
+                TO_CHAR(A.CREATE_DT, 'YYYY-MM-DD') AS CREATE_DT,
+                TO_CHAR(A.UPDATE_DT, 'YYYY-MM-DD') AS UPDATE_DT,
+                A.DEL_YN
+            FROM BULLETIN_BOARD A
+            WHERE A.DEL_YN = 'N'
+            <if test="searchText != null and searchText != ''">
+                AND (A.TITLE LIKE '%' || #{searchText} || '%' 
+                     OR A.CONTENT LIKE '%' || #{searchText} || '%')
+            </if>
+            <if test="startDate != null and startDate !=''">
+                <![CDATA[ AND A.CREATE_DT >= TO_DATE(#{startDate}, 'YYYY-MM-DD')]]>
+            </if>
+            <if test="endDate != null and endDate !=''">
+                <![CDATA[ AND A.CREATE_DT <= TO_DATE(#{endDate}, 'YYYY-MM-DD')+1]]>
+            </if>
+            ORDER BY A.BOARD_ID DESC
+        ) B
+        WHERE ROWNUM &lt;= #{endRow}
+    )
+    WHERE RN >= #{startRow}
+    <if test="boardId != null">
+        AND BOARD_ID = #{boardId}
+    </if>
+</select>
+    
+    <select id="getTotalBoardCount" resultType="int">
+    	SELECT COUNT(B.BOARD_ID)
+    		FROM (
+    			SELECT
+    			A.BOARD_ID,
+	            A.TITLE,
+	            A.CONTENT,
+	            A.VIEW_COUNT,
+	            A.CREATE_ID,
+	            A.UPDATE_ID,
+	            TO_CHAR(A.CREATE_DT, 'YYYY-MM-DD') AS CREATE_DT,
+	            TO_CHAR(A.UPDATE_DT, 'YYYY-MM-DD') AS UPDATE_DT,
+	            A.DEL_YN	
+	        FROM BULLETIN_BOARD A
+    		<where>
+    			AND A.DEL_YN ='N'
+    			<if test="searchText != null and searchText !=''">
+    			AND(
+    				A.TITLE LIKE '%'||#{searchText}||'%'
+    				OR A.CONTENT LIKE '%'||#{searchText}||'%'
+    				)
+    			</if>
+    			<if test="startDate != null and startDate!=''">
+    				<![CDATA[ AND A.CREATE_DT >= TO_DATE(#{startDate}, 'YYYY-MM-DD')]]>
+             	</if>
+             	<if test="endDate != null and endDate !=''">
+               		<![CDATA[AND A.CREATE_DT <= TO_DATE(#{endDate},'YYYY-MM-DD')+1]]>
+              	</if>
+    		</where>
+    	)B
+    </select>
+    
+    <select id="getBoardById" parameterType="string" resultType="model.board.BulletinBoard">
+      	SELECT 
+            BOARD_ID,
+            TITLE,
+            CONTENT,
+            VIEW_COUNT,
+            CREATE_ID,
+            UPDATE_ID,
+            CREATE_DT,
+            UPDATE_DT,
+            DEL_YN	
+        FROM BULLETIN_BOARD
+        WHERE BOARD_ID= #{boardId}
+        	AND DEL_YN='N'
+    </select>
+	<insert id="create" parameterType="model.board.BulletinBoard">
+        INSERT INTO BULLETIN_BOARD (
+         BOARD_ID,
+         TITLE,
+         CONTENT,
+         VIEW_COUNT,
+         CREATE_ID,
+         CREATE_DT
+         )
+        VALUES (
+        SEQ_BOARD.NEXTVAL,
+        #{title},
+        #{content},
+        #{viewCount},
+        #{createId},
+        SYSDATE
+        )
+     <selectKey keyProperty="boardId" resultType="string" order="AFTER">
+    	 SELECT SEQ_BOARD.CURRVAL FROM DUAL
+     </selectKey>
+    </insert>
+    
+   <update id="update" parameterType="model.board.BulletinBoard">
+   		UPDATE BULLETIN_BOARD
+   		SET TITLE=#{title},
+   			CONTENT=#{content},
+   			VIEW_COUNT=#{viewCount},
+   			UPDATE_ID = #{updateId},
+   			UPDATE_DT = SYSDATE
+	    WHERE BOARD_ID = #{boardId}
+   </update>
+    <update id="delete" parameterType="model.user.User">
+        UPDATE BULLETIN_BOARD 
+        SET DEL_YN = 'Y',
+            UPDATE_ID = #{updateId},
+            UPDATE_DT = SYSDATE
+        WHERE BOARD_ID = #{boardId}
+    </update>
+    
+    
+    <insert id="insertComment" parameterType="model.board.BulletinComment">
+        INSERT INTO BULLETIN_COMMENT (COMMENT_ID, BOARD_ID, PARENT_COMMENT_ID, CONTENT, CREATE_ID)
+        VALUES (SEQ_COMMENT.NEXTVAL, #{boardId}, #{parentCommentId}, #{content}, #{createId})
+    </insert>
+
+    
+    <select id="getCommentsByBoardId" parameterType="string" resultType="model.board.BulletinComment">
+    SELECT 
+        COMMENT_ID, 
+        BOARD_ID, 
+        PARENT_COMMENT_ID, 
+        CONTENT, 
+        CREATE_ID, 
+        UPDATE_ID, 
+        TO_CHAR(CREATE_DT, 'YYYY-MM-DD HH24:MI:SS') AS CREATE_DT, 
+        TO_CHAR(UPDATE_DT, 'YYYY-MM-DD HH24:MI:SS') AS UPDATE_DT, 
+        DEL_YN
+    FROM BULLETIN_COMMENT
+    WHERE BOARD_ID = #{boardId}
+      AND DEL_YN = 'N'
+    ORDER BY 
+        NVL(PARENT_COMMENT_ID, COMMENT_ID), 
+        NVL(CREATE_DT, TO_DATE('1900-01-01', 'YYYY-MM-DD')) ASC
+</select>
+   
+    <select id="getCommentById" parameterType="int" resultType="model.board.BulletinComment">
+        SELECT *
+        FROM BULLETIN_COMMENT
+        WHERE COMMENT_ID = #{commentId}
+          AND DEL_YN = 'N'
+    </select>
+
+    
+    <update id="updateComment" parameterType="model.board.BulletinComment">
+        UPDATE BULLETIN_COMMENT
+        SET CONTENT = #{content},
+            UPDATE_ID = #{updateId},
+            UPDATE_DT = SYSDATE
+        WHERE COMMENT_ID = #{commentId}
+    </update>
+
+    
+    <update id="deleteComment" parameterType="model.board.BulletinComment">
+        UPDATE BULLETIN_COMMENT
+        SET DEL_YN = 'Y',
+        	UPDATE_ID = #{updateId},
+            UPDATE_DT = SYSDATE
+        WHERE COMMENT_ID = #{commentId}
+    </update>
+    
+    <update id="increaseViewCount" parameterType="string">
+    UPDATE BULLETIN_BOARD
+    SET VIEW_COUNT = view_count+1
+    WHERE board_id = #{boardId}
+    </update>
+</mapper>

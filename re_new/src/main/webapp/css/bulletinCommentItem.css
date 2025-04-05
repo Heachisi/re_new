@@ -1,0 +1,54 @@
+@charset "UTF-8";
+#commentList{
+	margin-left: 20px;
+	
+}
+
+#commentDateArea{
+	display: flex;
+	flex-direction: row;
+	justify-content:space-between;
+	margin-right:85%;
+}
+#commentDateArea a{
+	font-size:12px;
+}
+#commentContent{
+	display:flex;
+    flex-wrap:wrap;
+}
+.updateComent{
+	width:100%;
+}
+.replyComment{
+	width:100%;
+}
+#updateCommentArea{
+	display: flex;
+	flex-direction: row-reverse;
+}
+#updateCommentArea button{
+	width: 60px;
+	height: 25px;
+	border:none;
+    background-color: rgb(255, 154, 60);
+    color: white;
+    margin-left:5px;
+    margin-right:5px;
+    margin-bottom:10px;
+}
+#replyCommentArea{
+	display:flex;
+	flex-direction: row-reverse;
+}
+#replyCommentArea button{
+	width: 60px;
+	height: 25px;
+	border:none;
+    background-color: rgb(255, 154, 60);
+    color: white;
+    margin-left:5px;
+    margin-right:5px;
+    margin-bottom:10px;
+}
+	

@@ -1,0 +1,103 @@
+@charset "UTF-8";
+.bottomSection{
+	 margin-top: 90px;
+    margin-left: 80px;
+    display: flex;
+    flex-direction: column;
+    padding:40px;
+    border: 1px solid gray;
+    width:80%;  
+
+}
+
+.searchOption{
+	display: flex;
+	flex-direction: row;
+	justify-content:flex-end;
+	gap: 10px;
+	margin-bottom:15px;
+}
+.startDateContainer{
+	display:flex;
+}
+.endDateContainer{
+		display:flex;
+	
+}
+.searchContainer{
+	display:flex;
+
+}
+.searchBtnContainer{
+		display:flex;
+	
+}
+.listContainer{
+	display:flex;
+	justify-content: center;
+}
+.boardList{
+	width:100%;
+}
+table tr{
+	height: 43px;
+}
+th{
+	    background-color:  rgb(230, 151, 87);
+	    color: white;
+	    
+}
+.title{
+	width:63%;
+}
+
+.createDate{
+	width:13%;
+}
+.viewCount{
+	width: 8%
+}
+.pageContainer{
+	display:flex;
+	justify-content: center;
+}
+
+.pagination{
+	text-decoration:none;
+	color: gray;
+}
+.pagination:hover{
+	font-weight:bold;
+	text-decoration:underline;
+}
+
+.preArrow{
+	text-decoration:none;
+	color: gray;
+}
+.postArrow{
+		text-decoration:none;
+	color: gray;
+}
+
+
+
+
+.createBtnContainer{
+	display: flex;
+	flex-direction: row;
+	justify-content:flex-end;
+}
+.createBtn{
+	
+	text-align:center;
+	padding:auto;
+	background-color: #c6c7c1;
+ 	width:80px;
+ 	border: 1px solid gray;
+  
+}
+.createBtn a{
+	text-decoration: none;
+	color:black;
+}

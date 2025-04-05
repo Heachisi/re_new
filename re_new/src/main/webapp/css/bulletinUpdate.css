@@ -1,0 +1,40 @@
+@charset "UTF-8";
+
+.updateForm{
+    margin-top: 90px;
+    margin-left: 80px;
+    display: flex;
+    flex-direction: column;
+    padding:40px;
+    border: 1px solid gray;
+    width:80%;
+    
+}
+.titleArea{
+    display: flex;
+    flex-direction: column;
+    width: 1000px;
+    margin-bottom: 20px;
+}
+.title{
+	height: 30px;
+}
+.contentContainer{
+    display: flex;
+    flex-direction: column;
+}
+
+.btnArea{
+    display: flex;
+    flex-direction: row-reverse;
+    margin-top: 20px;
+    
+}
+.updateBtn{
+	width: 80px;
+	height: 35px;
+	border:none;
+    background-color: rgb(255, 154, 60);
+    color: white;
+    margin-right: 90px;
+}
