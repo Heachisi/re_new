@@ -19,8 +19,8 @@ import model.common.PostFile;
 import util.FileUploadUtil;
 import util.MybatisUtil;
 
-public class AskServiceImpl implements BoardService {
-	private static final Logger logger = LogManager.getLogger(AskServiceImpl.class);
+public class AskBoardServiceImpl implements BoardService {
+	private static final Logger logger = LogManager.getLogger(AskBoardServiceImpl.class);
 	private BoardDAO boardDAO;// DB접속용
 	private FileDAO fileDAO;
 
@@ -29,7 +29,7 @@ public class AskServiceImpl implements BoardService {
 	/**
 	 * BoardServiceImpl 생성자 //서비스 생성 이유: 비즈니스 로직을 담기 위해(하나의 비즈니스 로직은 하나의 함수만 담음)
 	 */
-	public AskServiceImpl() {
+	public AskBoardServiceImpl() {
 		this.boardDAO = new BoardDAO();
 		this.fileDAO = new FileDAO();
 		try {

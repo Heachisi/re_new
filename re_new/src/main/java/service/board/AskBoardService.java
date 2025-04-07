@@ -6,6 +6,7 @@ import javax.xml.stream.events.Comment;
 
 import jakarta.servlet.http.HttpServletRequest;
 import model.board.AskBoard;
+import model.board.AskComment;
 
 
 public interface AskBoardService {
@@ -20,11 +21,11 @@ public interface AskBoardService {
     
     public boolean deleteBoard(AskBoard board);
     
-    public boolean createComment(Comment comment);
+    public boolean createComment(AskComment askComment);
     
-    public boolean updateComment(Comment comment);
+    public boolean updateComment(AskComment askComment);
     
-    public boolean deleteComment(Comment comment);
+    public boolean deleteComment(AskComment askComment);
     
     public void increaseViewCount(String boardId);
 }
