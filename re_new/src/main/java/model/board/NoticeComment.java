@@ -9,7 +9,6 @@ public class NoticeComment extends Model {
     private String content;        // 댓글 내용
     private String delYn;       // 작성자 ID
     
-    
 	public int getCommentId() {
 		return commentId;
 	}

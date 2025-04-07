@@ -4,7 +4,6 @@ import java.util.List;
 
 import model.Model;
 import model.common.BulletinPostFile;
-import model.common.PostFile;
 
 public class BulletinBoard extends Model{
 	private String searchText;

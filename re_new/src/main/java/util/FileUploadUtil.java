@@ -10,6 +10,8 @@ import java.util.List;
 import jakarta.servlet.http.Part;
 import model.common.PostFile;
 
+
+
 public class FileUploadUtil {
     private static final String UPLOAD_DIR = "uploads"; // 업로드 파일이 저장될 폴더 이름
 
@@ -70,6 +72,7 @@ public class FileUploadUtil {
         
         return files;
     }
+
     /**
      * 업로드 경로 반환
      * @param basePath 프로젝트의 기본 경로 (ServletContext.getRealPath("")로 전달 가능)

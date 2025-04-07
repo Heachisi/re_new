@@ -22,7 +22,7 @@ public class FileDAO {
 	    }
 	}
 
-    // 게시글에 첨부된 파일 저장
+    // 게시글에 첨부된 파일을 저장
     public boolean insertBoardFile(SqlSession session, PostFile file) {
     	int result = session.insert("FileMapper.insertFile", file);
         return result > 0;
@@ -37,9 +37,6 @@ public class FileDAO {
     public List<PostFile> getFilesByBoardId(SqlSession session, String boardId) {
         return session.selectList("FileMapper.getFilesByBoardId", boardId);
     }
-    
-    // 게시글 ID로 첨부된 파일 목록 조회
-    
 
     /**
      * 게시글에 첨부된 파일 삭제
@@ -47,8 +44,8 @@ public class FileDAO {
      * @param fileId 삭제할 파일 ID
      * @return 삭제 성공 여부
      */
-    public boolean deleteFile(SqlSession session, PostFile file) {
-        int result = session.update("FileMapper.deleteFile", file);
+    public boolean deleteFile(SqlSession session, PostFile fileId) {
+        int result = session.update("FileMapper.deleteFile", fileId);
         return result > 0;
     }
 

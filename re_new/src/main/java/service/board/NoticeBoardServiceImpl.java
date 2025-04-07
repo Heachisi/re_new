@@ -10,21 +10,19 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import dao.board.NoticeBoardDAO;
-import dao.file.NoticeFileDAO;
-
+import dao.file.FileDAO;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.Part;
-
 import model.board.NoticeBoard;
 import model.board.NoticeComment;
-import model.common.NoticePostFile;
-import util.NoticeFileUploadUtil;
+import model.common.PostFile;
+import util.FileUploadUtil;
 import util.MybatisUtil;
 
 public class NoticeBoardServiceImpl implements NoticeBoardService {
 	private static final Logger logger = LogManager.getLogger(NoticeBoardServiceImpl.class);
 	private NoticeBoardDAO boardDAO;// DB접속용
-	private NoticeFileDAO fileDAO;
+	private FileDAO fileDAO;
 
 	private SqlSessionFactory sqlSessionFactory; // MyBatis SQL 세션 팩토리
 	private Object NoticeBoardMapper;
@@ -34,7 +32,7 @@ public class NoticeBoardServiceImpl implements NoticeBoardService {
 	 */
 	public NoticeBoardServiceImpl() {
 		this.boardDAO = new NoticeBoardDAO();			
-		this.fileDAO = new NoticeFileDAO();
+		this.fileDAO = new FileDAO();
 		try {
 			sqlSessionFactory = MybatisUtil.getSqlSessionFactory(); // SQL 세션 팩토리 초기화
 		} catch (Exception e) {
@@ -70,10 +68,10 @@ public class NoticeBoardServiceImpl implements NoticeBoardService {
 				}
 			}
 			// 업로드 된 파일들을 처리하여 PostFile 객체 리스트 반환
-			List<NoticePostFile> fileList = NoticeFileUploadUtil.uploadFiles(fileParts, "board",
+			List<PostFile> fileList = FileUploadUtil.uploadFiles(fileParts, "board",
 					Integer.parseInt(board.getBoardId()), board.getCreateId());
 
-			for (NoticePostFile postFile : fileList) {
+			for (PostFile postFile : fileList) {
 				fileDAO.insertBoardFile(session, postFile);
 			}
 
@@ -98,12 +96,12 @@ public class NoticeBoardServiceImpl implements NoticeBoardService {
 					postFiles = Arrays.asList(postFilesParam.split(","));
 				}
 				// 기존 파일 조회
-				List<NoticePostFile> existingFiles = fileDAO.getFilesByBoardId(session, (board.getBoardId()));
+				List<PostFile> existingFiles = fileDAO.getFilesByBoardId(session, (board.getBoardId()));
 
 				// 기존 파일 리스트가 있을 때
 				if (existingFiles != null && existingFiles.size() > 0) {
 					boolean fileExists = false;
-					for (NoticePostFile existingFile : existingFiles) {
+					for (PostFile existingFile : existingFiles) {
 						fileExists = false;
 						// 새로 넘어온 파일 목록에 기존 파일이 포함되어 있는지 체크
 						for (String fileId : postFiles) {
@@ -133,10 +131,10 @@ public class NoticeBoardServiceImpl implements NoticeBoardService {
 					}
 				}
 				// 업로드 된 파일들을 처리하여 PostFile 객체 리스트 반환
-				List<NoticePostFile> fileList = NoticeFileUploadUtil.uploadFiles(fileParts, "board",
+				List<PostFile> fileList = FileUploadUtil.uploadFiles(fileParts, "board",
 						Integer.parseInt(board.getBoardId()), board.getUpdateId());
 
-				for (NoticePostFile postFile : fileList) {
+				for (PostFile postFile : fileList) {
 					fileDAO.insertBoardFile(session, postFile);
 				}
 			}

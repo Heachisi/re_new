@@ -8,7 +8,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import model.common.BulletinPostFile;
-import model.common.PostFile;
 import util.MybatisUtil;
 
 public class BulletinFileDAO {

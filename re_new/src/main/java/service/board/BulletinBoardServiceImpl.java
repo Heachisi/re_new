@@ -18,9 +18,9 @@ import jakarta.servlet.http.Part;
 import model.board.BulletinBoard;
 import model.board.BulletinComment;
 import model.common.BulletinPostFile;
-import model.common.PostFile;
+
 import util.BulletinFileUploadUtil;
-import util.FileUploadUtil;
+
 import util.MybatisUtil;
 
 public class BulletinBoardServiceImpl implements BulletinBoardService {

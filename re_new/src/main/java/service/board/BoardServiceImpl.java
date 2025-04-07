@@ -38,6 +38,7 @@ public class BoardServiceImpl implements BoardService {
 			logger.error("Mybatis 오류", e); // 오류 발생 시 로그 출력
 		}
 	}
+
 	// 유저 정보를 조회
 	public Board getBoardById(String boardId) {
 		SqlSession session = sqlSessionFactory.openSession();
@@ -170,8 +171,10 @@ public class BoardServiceImpl implements BoardService {
 		String searchQuery = board.getSearchQuery();
 		
 		int totalCount = boardDAO.getTotalBoardCount(session, searchKey, searchQuery);
-		int totalPages = (int) Math.ceil((double) totalCount / size);
-
+//		int totalPages = (int) Math.ceil((double) totalCount / size);
+		
+		int totalPages = (totalCount+size-1)/size;
+		
 		int startRow = (page - 1) * size + 1;
 		int endRow = page * size;
 
@@ -181,7 +184,10 @@ public class BoardServiceImpl implements BoardService {
 		board.setEndRow(endRow);
 
 		List<Board> list = boardDAO.getBoardList(session, board, searchKey, searchQuery);
-
+		
+		 System.out.println("startRow: " + startRow);
+		 System.out.println("endRow: " + endRow);
+		
 		return list;
 	}
 

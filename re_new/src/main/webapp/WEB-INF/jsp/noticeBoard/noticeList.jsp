@@ -91,7 +91,7 @@
 		   <c:forEach var="board" items="${noticeBoardList}">
 		      <tr>
 		      <td>${board.rn}</td>
-		         <td><a href="noticeView.do?id=${noticeBoard.boardId}" style="text-decoration: none; color:black;">${board.title}</a></td>
+		         <td><a href="noticeView.do?id=${board.boardId}" style="text-decoration: none; color:black;">${board.title}</a></td>
 		         <td>${board.createId}</td>
 		         <td>${board.createDt}</td>
 				<td>${board.viewCount}</td>

@@ -10,11 +10,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import dao.file.BulletinFileDAO;
-import dao.file.FileDAO;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.Part;
 import model.common.BulletinPostFile;
-import model.common.PostFile;
 import util.BulletinFileUploadUtil;
 import util.MybatisUtil;
 

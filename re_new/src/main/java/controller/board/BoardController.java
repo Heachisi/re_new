@@ -43,7 +43,7 @@ public class BoardController extends HttpServlet {
     }
 	
 	private static final int DEFAULT_PAGE = 1;
-	private static final int DEFAULT_SIZE = 10;
+	private static final int DEFAULT_SIZE = 15;
 	
 	/**
 	 * GET 화면 이동용 및 조회용
@@ -83,27 +83,46 @@ public class BoardController extends HttpServlet {
 	    			  Integer.parseInt(request.getParameter("size"))
 	    			  :DEFAULT_SIZE;
 	    	  
-	    	  String searchText = request.getParameter("searchText");
-	    	  String startDate = request.getParameter("startDate");
-	    	  String endDate = request.getParameter("endDate");
-
+	    	  String searchKey = request.getParameter("searchKey");
+	    	  String searchQuery = request.getParameter("searchQuery");
+	    	  if(searchQuery !=null) {
+	    		  searchQuery = searchQuery.replace("\"","");
+	    	  }
+	    	  
 	    	  Board board = new Board();
 	    	  board.setSize(size);
 	    	  board.setPage(page);
-	    	  board.setSearchText(searchText);
-	    	  board.setStartDate(startDate);
-	    	  board.setEndDate(endDate);
-
+	    	  
+	    	  if(searchKey == null ||searchQuery == null) {
+	    		  searchKey = "";
+	    		  searchQuery = "";
+	    		  }
+	    	  
+	    	  board.setSearchKey(searchKey);
+	    	  board.setSearchQuery(searchQuery);
+	    	  
 	    	  List boardList = boardService.getBoardList(board);
-
+	    	  
+	    	  int totalPosts = board.getTotalCount();  // 전체 게시글 수 가져오기
+//	    	    int totalPages = (totalPosts + size - 1) / size;  // 총 페이지 수 계산
+//	    	    if (totalPosts < size) {
+//	    	        totalPages = 1;  // 15개 미만이면 페이지네이션을 1로 설정
+//	    	    }
+	    	  int totalPages = 0;
+	    	  if(totalPosts>0) {
+	    		  totalPages= (totalPosts+size-1)/size;
+	    	  }
+	    	  
 	    	  request.setAttribute("boardList", boardList);
 	    	  request.setAttribute("currentPage", page);
 	    	  request.setAttribute("totalPages", board.getTotalPages());
 	    	  request.setAttribute("size", size);
+	    	  request.setAttribute("searchKey", searchKey);
+	    	  request.setAttribute("searchQuery", searchQuery);
 	    	  
-	    	  request.setAttribute("board", board);
+	    	  logger.info("searchKey: " + searchKey);
+	    	  logger.info("searchQuery: " + searchQuery);
 	    	  
-	    	 
 	    	  request.getRequestDispatcher("/WEB-INF/jsp/board/list.jsp").forward(request, response);
 	      }
 	}
@@ -114,9 +133,9 @@ public class BoardController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		logger.info("BoardController doPost");
         String path = request.getRequestURI();
-        response.setContentType("application/json; charset=UTF-8");
+        response.setContentType("application/json; charset=UTF-8"); // 응답 타입 설정
         PrintWriter out = response.getWriter(); // PrintWriter 객체 생성
-        JSONObject jsonResponse = new JSONObject(); 
+        JSONObject jsonResponse = new JSONObject(); // JSON 응답 객체 생성
         try {
             logger.info("BoardController doPost path: " + path);
             

@@ -3,29 +3,25 @@ package model.board;
 import java.util.List;
 
 import model.Model;
-import model.common.NoticePostFile;
+import model.common.PostFile;
 
 public class NoticeBoard extends Model{
 	private String searchText;
 	private String startDate;
 	private String endDate;
-	
 	private String boardId;
 	private String title;
 	private String content;
 	private String viewCount;
-	
 	private int rn;
 	private int startRow;
 	private int endRow;
-	
 	private int page;
 	private int size;
-	
 	private int totalCount;
 	private int totalPages;
 	
-	private List<NoticePostFile> postFiles;
+	private List<PostFile> postFiles;
 	
 	private List<NoticeComment> comments;
 
@@ -141,11 +137,11 @@ public class NoticeBoard extends Model{
 		this.totalPages = totalPages;
 	}
 
-	public List<NoticePostFile> getPostFiles() {
+	public List<PostFile> getPostFiles() {
 		return postFiles;
 	}
 
-	public void setPostFiles(List<NoticePostFile> postFiles) {
+	public void setPostFiles(List<PostFile> postFiles) {
 		this.postFiles = postFiles;
 	}
 

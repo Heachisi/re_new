@@ -71,7 +71,7 @@ public class NoticeBoardController extends HttpServlet {
 	    		        .collect(Collectors.toList());
 
 	    		    noticeBoard.setComments(sortedComments); 
-	    	  request.setAttribute("noticeBoard", noticeBoard);
+	    	  request.setAttribute("board", noticeBoard);
 	    	  
 	    	  logger.info("불러온 게시글: "+noticeBoard);
 	    	  
@@ -220,7 +220,7 @@ public class NoticeBoardController extends HttpServlet {
             	boolean isSuccess= noticeBoardService.createComment(noticeComment);//댓글 등록
             	jsonResponse.put("success", isSuccess);//성공여부
             	jsonResponse.put("message", isSuccess ?
-            			"댓글이 성공적으로 등록되었습니다." : "댓글 등록에 실패하였습니다.");//응답메세지
+            			"댓글이 성공적으로 등록되었습니다." : "댓글 등록에 실패하였습니다.");
             	
             }else if("/noticeBoard/noticeComment/update.do".equals(path)) {
             	int commentId =Integer.parseInt(request.getParameter("commentId"));

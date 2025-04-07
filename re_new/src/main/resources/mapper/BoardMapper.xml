@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="BoardMapper">
+<mapper namespace="BoardMapper"> <!-- 매퍼의 네임스페이스 설정 -->
 
 	<select id="getBoardList" parameterType="model.board.Board" resultType="model.board.Board">
       	SELECT
@@ -122,15 +122,14 @@
     
     <select id="getCommentsByBoardId" parameterType="string" resultType="model.board.Comment">
         SELECT 
-        	COMMENT_ID, 
-        	BOARD_ID, 
-        	PARENT_COMMENT_ID, 
-        	CONTENT, 
-        	CREATE_ID, 
-        	UPDATE_ID, 
-        	TO_CHAR(CREATE_DT, 'YYYY-MM-DD')AS CREATE_DT, 
-        	TO_CHAR(UPDATE_DT, 'YYYY-MM-DD')AS UPDATE_DT, 
-        	DEL_YN
+         COMMENT_ID, 
+         BOARD_ID, 
+         PARENT_COMMENT_ID,
+         CONTENT, CREATE_ID, 
+         UPDATE_ID, 
+ 		 TO_CHAR(CREATE_DT, 'YYYY-MM-DD') AS CREATE_DT,
+		 TO_CHAR(UPDATE_DT, 'YYYY-MM-DD') AS UPDATE_DT,
+         DEL_YN
         FROM POST_COMMENT
         WHERE BOARD_ID = #{boardId}
           AND DEL_YN = 'N'
@@ -146,7 +145,7 @@
     </select>
 
     
-    <update id="updateComment" parameterType="model.board.Comment">
+   <update id="updateComment" parameterType="model.board.Comment">
         UPDATE POST_COMMENT
         SET CONTENT = #{content},
             UPDATE_ID = #{updateId},
@@ -158,8 +157,8 @@
     <update id="deleteComment" parameterType="model.board.Comment">
         UPDATE POST_COMMENT
         SET DEL_YN = 'Y',
-        	UPDATE_ID = #{updateId},
-            UPDATE_DT = SYSDATE
+    	UPDATE_ID = #{updateId},
+    	UPDATE_DT = SYSDATE
         WHERE COMMENT_ID = #{commentId}
     </update>
 </mapper>

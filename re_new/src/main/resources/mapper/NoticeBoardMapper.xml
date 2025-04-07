@@ -97,7 +97,7 @@
          CREATE_DT
          )
         VALUES (
-        SEQ_BOARD.NEXTVAL,
+        SEQ_NOTICE_BOARD.NEXTVAL,
         #{title},
         #{content},
         #{viewCount},
@@ -105,7 +105,7 @@
         SYSDATE
         )
      <selectKey keyProperty="boardId" resultType="string" order="AFTER">
-    	 SELECT SEQ_BOARD.CURRVAL FROM DUAL
+    	 SELECT SEQ_NOTICE_BOARD.CURRVAL FROM DUAL
      </selectKey>
     </insert>
     
@@ -129,7 +129,7 @@
     
     <insert id="insertComment" parameterType="model.board.NoticeComment">
         INSERT INTO NOTICE_COMMENT (COMMENT_ID, BOARD_ID, PARENT_COMMENT_ID, CONTENT, CREATE_ID)
-        VALUES (SEQ_COMMENT.NEXTVAL, #{boardId}, #{parentCommentId}, #{content}, #{createId})
+        VALUES (SEQ_NOTICE_COMMENT.NEXTVAL, #{boardId}, #{parentCommentId}, #{content}, #{createId})
     </insert>
 
     

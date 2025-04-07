@@ -19,10 +19,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.common.BulletinPostFile;
-import model.common.PostFile;
 import service.file.BulletinFileService;
 import service.file.BulletinFileServiceImpl;
-import service.file.FileService;
 
 
 @WebServlet("/bulletinfile/*")
