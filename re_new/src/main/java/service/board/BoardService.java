@@ -19,8 +19,6 @@ public interface BoardService {
     public boolean deleteBoard(Board board);
     
     public boolean createComment(Comment comment);
-    
     public boolean updateComment(Comment comment);
-    
     public boolean deleteComment(Comment comment);
 }

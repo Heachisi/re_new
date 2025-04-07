@@ -34,7 +34,6 @@ public class FileServiceImpl implements FileService {
             logger.error("Mybatis 오류", e); // 오류 발생 시 로그 출력
         }
     }
-
 	@Override
 	public PostFile getFileByFileId(PostFile file) {
 		SqlSession session = sqlSessionFactory.openSession();

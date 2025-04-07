@@ -38,7 +38,6 @@ public class BoardServiceImpl implements BoardService {
 			logger.error("Mybatis 오류", e); // 오류 발생 시 로그 출력
 		}
 	}
-
 	// 유저 정보를 조회
 	public Board getBoardById(String boardId) {
 		SqlSession session = sqlSessionFactory.openSession();
