@@ -40,5 +40,4 @@ public class PostFile extends Model {
 		this.delYn = delYn;
 	}
 
-    
 }
