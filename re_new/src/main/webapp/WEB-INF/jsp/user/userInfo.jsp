@@ -7,7 +7,7 @@
 <head> 
     <meta charset="UTF-8">
     <title>회원정보</title>
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 <body>
 	<h2>회원정보</h2>
