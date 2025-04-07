@@ -1,15 +1,18 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html lang="ko">
-<head> 
-    <meta charset="UTF-8">
-    <title>회원정보 수정</title>
-    <script src="/js/jquery-3.7.1.min.js"></script>
-    <script src="/js/common.js"></script>
-    <script>
+<head>
+<meta charset="UTF-8">
+<title>회원정보 수정</title>
+<script src="/js/jquery-3.7.1.min.js"></script>
+<script src="/js/common.js"></script>
+<jsp:include page="/WEB-INF/jsp/common/header.jsp" />
+<link rel="stylesheet" href="/css/updateUser.css">
+<script>
         $(document).ready(function () {
             $("#updateForm").submit(function (event) {
                 event.preventDefault(); // 기본 제출 방지
@@ -92,33 +95,37 @@
     </script>
 </head>
 <body>
-	<h2>회원정보</h2>
-	<form id="updateForm">
-	  <label for="userId">아이디:</label>
-	  ${sessionScope.user.userId}
-	  <input type="hidden" id="userId" name="userId" maxlength="20" value="${sessionScope.user.userId}" />
-	  <input type="hidden" id="updateId" name="updateId" maxlength="20" value="${sessionScope.user.userId}" />
-	  <br/>
-	  <label for="password">비밀번호:</label>
-	  <input type="password"  id="password" name="password" maxlength="20" placeholder="비밀번호 입력"  value="" />
-	  <br/>
-	  <label for="email">이메일:</label>
-	  <input type="email"  id="email" name="email" maxlength="100" placeholder="이메일 입력"  value="${sessionScope.user.email}" />
-	  <br/>
-	  <label for="birthdate">생년월일:</label>
-      <input type="date" id="birthdate" name="birthdate" maxlength="15" value="${fn:substring(sessionScope.user.birthdate, 0, 10)}" />
-	  <br/>
-	  <label for="gender">성별:</label>
-		<select id="gender" name="gender">
-		    <option value="" ${sessionScope.user.gender == '' ? 'selected' : ''}>성별</option>
-		    <option value="woman" ${sessionScope.user.gender == 'woman' ? 'selected' : ''}>여자</option>
-		    <option value="man" ${sessionScope.user.gender == 'man' ? 'selected' : ''}>남자</option>
-		</select>
+	<div class="bottomSection">
+		<form id="updateForm" class="updateForm">
+			<h2>회원정보 수정</h2>
+			<label for="userId">아이디:</label> ${sessionScope.user.userId}
+			<label for="password">비밀번호:</label> 
+			<input type="password" id="password" name="password" maxlength="20"
+				placeholder="비밀번호 3~12자리" value="" /> <br /> 
+			<label for="email">이메일:</label>
+			<input type="email" id="email" name="email" maxlength="100"
+				placeholder="이메일 입력" value="${sessionScope.user.email}" /> <br />
+			<div class="birthGenderLabel">
+			<label for="birthdate">생년월일:</label> <label for="gender">성별:</label>
+			</div>
+			<div class="birthGenderContainer">
+				<input type="date" id="birthdate" name="birthdate" maxlength="15"
+					value="${fn:substring(sessionScope.user.birthdate, 0, 10)}" /> <br />
+				<select id="gender" name="gender">
+					<option value=""
+						${sessionScope.user.gender == '' ? 'selected' : ''}>성별</option>
+					<option value="woman"
+						${sessionScope.user.gender == 'woman' ? 'selected' : ''}>여자</option>
+					<option value="man"
+						${sessionScope.user.gender == 'man' ? 'selected' : ''}>남자</option>
+				</select>
+			</div>
 
-	  <button type="submit" id="updateBtn">수정하기</button>
-	</form>
-	  <button type="button" id="deleteBtn">회원탈퇴</button>
-	<a href="/user/login.do">로그인 페이지로 이동</a>
+			<button type="submit" id="updateBtn" class="updateBtn">저장</button>
+			</br>
+			<button type="button" id="deleteBtn" class="deleteBtn">회원탈퇴</button>
+		</form>
+	</div>
 </body>
 </html>
 

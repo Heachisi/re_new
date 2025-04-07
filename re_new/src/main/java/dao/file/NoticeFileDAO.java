@@ -7,15 +7,14 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import model.common.BulletinPostFile;
-import model.common.PostFile;
+import model.common.NoticePostFile;
 import util.MybatisUtil;
 
-public class BulletinFileDAO {
-	private static final Logger logger = LogManager.getLogger(BulletinFileDAO.class);
+public class NoticeFileDAO {
+	private static final Logger logger = LogManager.getLogger(NoticeFileDAO.class);
 	private SqlSessionFactory sqlSessionFactory; // MyBatis SQL 세션 팩토리
 	 
-	public BulletinFileDAO() {
+	public NoticeFileDAO() {
 	        try {
 	            sqlSessionFactory = MybatisUtil.getSqlSessionFactory();
 	        } catch (Exception e) {
@@ -24,19 +23,19 @@ public class BulletinFileDAO {
 	}
 
     // 게시글에 첨부된 파일을 저장
-    public boolean insertBoardFile(SqlSession session, BulletinPostFile file) {
-    	int result = session.insert("BulletinFileMapper.insertFile", file);
+    public boolean insertBoardFile(SqlSession session, NoticePostFile file) {
+    	int result = session.insert("NoticeFileMapper.insertFile", file);
         return result > 0;
     }
     
     // 파일 ID로 첨부된 파일 조회
-    public BulletinPostFile getFileByFileId(SqlSession session, BulletinPostFile file) {
-    	return session.selectOne("BulletinFileMapper.getFileByFileId", file);
+    public NoticePostFile getFileByFileId(SqlSession session, NoticePostFile file) {
+    	return session.selectOne("NoticeFileMapper.getFileByFileId", file);
     }
     
     // 게시글 ID로 첨부된 파일 목록 조회
-    public List<BulletinPostFile> getFilesByBoardId(SqlSession session, String boardId) {
-        return session.selectList("BulletinFileMapper.getFilesByBoardId", boardId);
+    public List<NoticePostFile> getFilesByBoardId(SqlSession session, String boardId) {
+        return session.selectList("NoticeFileMapper.getFilesByBoardId", boardId);
     }
 
     /**
@@ -45,8 +44,8 @@ public class BulletinFileDAO {
      * @param fileId 삭제할 파일 ID
      * @return 삭제 성공 여부
      */
-    public boolean deleteFile(SqlSession session, BulletinPostFile fileId) {
-        int result = session.update("BulletinFileMapper.deleteFile", fileId);
+    public boolean deleteFile(SqlSession session, NoticePostFile fileId) {
+        int result = session.update("NoticeFileMapper.deleteFile", fileId);
         return result > 0;
     }
 

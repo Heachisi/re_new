@@ -8,17 +8,7 @@ body {
     margin:auto;       
 }
 
-#loginContainer{
-	flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 105px;
-    border: 3px solid rgb(255 154 60);
-    border-radius: 70px;
-    background-color: rgb(255 154 60);
-}
-#totalSignForm {
+.totalSignForm {
 	margin:auto;
 	flex:1;
     display: flex;
@@ -28,108 +18,67 @@ body {
     width: 900px;
     height: 537.41px;
     border: 3px solid rgb(255 154 60);
-    border-radius: 80px;
-
-   
+    border-radius: 80px;  
 }
-
-/* 왼쪽 로그인 폼 */
-#loginForm {
-    flex: 1;
+.loginBtn{
+	width: 100%;
+    height:40px;
+    background-color: rgb(255, 130, 60);
+    color: white;
+    border-radius: 25px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    border: 1px solid black;
+}
+.loginBtn:hover {
+    background-color: rgb(226, 121, 0);
+}
+.loginContainer{
+	flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 20px;
-    border: 3px solid rgb(255 154 60);
+    height:100%;
+	width:100%;
     border-radius: 70px;
     background-color: rgb(255 154 60);
 }
 
-/* 입력 필드 스타일 */
-#loginForm label {
+.loginForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgb(255 154 60);
+	width:60%;
+    margin-top:120px;
+}
+.loginForm label {
     display: block;
     text-align: left;
     font-weight: bold;
     margin-bottom: 5px;
-    width: 100%;
 }
-
-#loginForm input {
-	flex: 1;
-	flex-direction: column;
-    align-items: center;
-    height: 20px;
+.loginForm input{
     border: none;
     border-radius: 10px;
-    padding: 10px;
+    width: 100%;
+    height: 30px;
     background-color: rgb(255, 239, 216);
-    margin-bottom: 5px;
 }
-
-
-
-/* 오른쪽 회원가입 폼 */
-#signupForm {
+.signupForm {
     flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 100px;
 }
-
-
-/* 오른쪽 회원가입 안내 영역 */
-#signupSection {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    background-color: rgb(230, 151, 87);
-    height: 100%;
-    border-top-left-radius: 50px;
-    border-bottom-left-radius: 50px;
-    padding: 20px;
-}
-
-#signupSection h2 {
-    color: white;
-    margin-bottom: 20px;
-}
-
-#checkResult {
-	font-size: 13px;
-	line-height: 1px;
-}
-
-/* 회원가입 버튼 */
-#loginForm a {
-	width: 100%;
-    height: 50px;
-	background-color: rgb(255, 154, 60);
-    color: white;
-    border: none;
-    border-radius: 25px;
-    font-size: 18px;
-    font-weight: bold;
-    cursor: pointer;
-    margin-top: 10px;
-    transition: 0.3s;
-}
-
-
-#signupForm h2 {
-    color: black;
-    margin-bottom: 20px;
-}
-
-#signupForm a {
+.signUpBtn{
 	text-decoration: none;
 	text-align: center;
-	padding: 20px 5px 0px 5px;
-    width: 100%;
-    height: 50px;
+	padding: 5px 15px 10px 15px;
+    height: 20px;
+    width:240px;
     background-color: rgb(255, 130, 60);
     color: white;
     border: 1px solid black;
@@ -137,27 +86,8 @@ body {
     font-size: 18px;
     font-weight: bold;
     cursor: pointer;
-    margin-top: 10px;
     transition: 0.3s;
 }
-
-/*로그인  버튼 */
-#loginBtn {
-    width: 100%;
-    height: 50px;
-    background-color: rgb(255, 130, 60);
-    color: white;
-    border: none;
-    border-radius: 25px;
-    font-size: 18px;
-    font-weight: bold;
-    cursor: pointer;
-    margin-top: 30px;
-    transition: 0.3s;
-    border: 1px solid black;
-}
-
-
-#loginBtn:hover {
+.signUpBtn:hover {
 	 background-color: rgb(226, 121, 0);
 }

@@ -136,47 +136,43 @@
     </script>
 </head>
 <body>
-	<div id="totalSignForm">
-	
-	<div id="loginForm">
-	<h2>가입을 환영해요!</h2>
-	<h2>리뉴를 즐겨볼까요?</h2>
-<!-- 	<img src="C:\Users\Admin\Downloads./logo.png"> -->
-	<a href="/user/login.do">로그인</a>
-	</div>
-	
-	<div id="signupForm">
-	<h2>회원가입</h2>
-	<form id="joinForm">
-	     <div id="id-container">
-		<label for="userId">아이디&nbsp;&nbsp;<span id="checkResult" style="font-size: 15px;"></span></label>
-		<input type="text" id="userId" name="userId" maxlength="20" placeholder="아이디 입력" required />
-		<button type="button" id="checkUserIdBtn">중복 체크</button> 
-        </div>
-		 <br />
-		<label for="password">비밀번호</label>		 
-		<input type="password" id="password" name="password" placeholder="비밀번호 입력" required /> <br /> 
-		<label for="email">이메일</label> 
-		<input type="email" id="email" name="email" maxlength="100" placeholder="이메일 입력" required /> <br />
-		
-		<div id="birthGenderContainer">
-			<label for="birthdate">생년월일 </label> 
-			<input type="date" id="birthdate" name="birthdate">
-			    
-			<label for="gender">성별</label>
-		    <select id="gender" name="gender">
-		        <option value="">성별</option>
-		        <option value="male">남성</option>
-		        <option value="female">여성</option>
-		    </select>
+	<div class="totalSignForm">
+		<div class="loginForm">
+			<h2>가입을 환영해요!</h2>
+			<h2>리뉴를 즐겨볼까요?</h2>
+			<!-- 	<img src="C:\Users\Admin\Downloads./logo.png"> -->
+			<a href="/user/login.do" class="loginBtn">로그인</a>
 		</div>
-		
-		
-		<button type="submit" id="registerBtn">가입하기</button>
-	</form>
-	</div>
-	    
-	
+		<div class="signupForm" id="signupForm">
+		    <h2>회원가입</h2>
+			<form id="joinForm" class="joinForm">
+				<div class="idContainer">
+					<label for="userId">아이디&nbsp;&nbsp;<span id="checkResult" style="font-size: 15px;"></span></label>
+					<div class="idInputContainer">
+					<input type="text" id="userId" name="userId" class="userIdInput" maxlength="20" placeholder="아이디 입력" required />
+					<button type="button" id="checkUserIdBtn" class="checkUserIdBtn">중복체크</button>
+					</div>
+				</div> 
+				<label for="password">비밀번호</label> <input type="password"
+					id="password" name="password" placeholder="비밀번호 입력" required /> <br />
+				<label for="email">이메일</label> <input type="email" id="email"
+					name="email" maxlength="100" placeholder="이메일 입력" required /> <br />
+				<div class="birthGenderContainer">
+					<div class="birthContainer">
+						<label for="birthdate">생년월일 </label> 
+						<input type="date" id="birthdate" name="birthdate" class="birthdate">
+					</div>
+					<div class="genderContainer">
+						<label for="gender">성별</label> <select id="gender" name="gender" class="gender">
+							<option value="">성별</option>
+							<option value="male">남성</option>
+							<option value="female">여성</option>
+						</select>
+					</div>
+				</div>
+				<button type="submit" id="registerBtn" class="registerBtn">가입하기</button>
+			</form>
+		</div>
 	</div>
 </body>
 </html>

@@ -9,23 +9,21 @@
 <link rel="stylesheet" href="/css/login.css">
 </head>
 <body>
-	<div id=totalSignForm>
-	<div id=loginContainer>
-		<h2>로그인</h2>
-		<form id="loginForm">
+	<div class=totalSignForm>
+	<div class=loginContainer>
+		<form class="loginForm" id="loginForm">
+			<h2>로그인</h2>
 			<label for="userId">아이디</label> 
 			<input type="text" id="userId" name="userId" maxlength="20" placeholder="아이디 입력" required />
 			<label for="password">비밀번호</label>		 
 			<input type="password" id="password" name="password" placeholder="비밀번호 입력" required /> <br />
-			<button type="submit" id="loginBtn">로그인</button>
+			<button type="submit" id="loginBtn" class="loginBtn">로그인</button>
 		</form>
 	</div>
-		
-		
-	<div id=signupForm>
+	<div class=signupForm>
 		<h2>환영해요!</h2>
 		<h2>리뉴는 처음이신가요?</h2>
-		<a href="/user/join.do">회원가입 페이지로 이동</a>
+		<a href="/user/join.do" class="signUpBtn">회원가입 페이지로 이동</a>
 	</div>
 
 </div>
@@ -34,8 +32,7 @@
 		//로긴 폼에 섬밋이벤트시 작동
 	    $("#loginForm").submit(function(event) {
 	        event.preventDefault(); // 기본 폼 제출 방지
-
-            
+      
 	        $.ajax({
 	            url: '/user/loginCheck.do', // 로그인 요청 URL
 	            type: 'POST',

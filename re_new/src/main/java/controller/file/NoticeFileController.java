@@ -1,0 +1,189 @@
+package controller.file;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.net.URLEncoder;
+import java.util.HashMap;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.json.JSONObject;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import model.common.NoticePostFile;
+import service.file.NoticeFileService;
+import service.file.NoticeFileServiceImpl;
+
+
+@WebServlet("/noticefile/*")
+@MultipartConfig(fileSizeThreshold = 1024 * 1024, // 1MB
+		maxFileSize = 10 * 1024 * 1024, // 10MB
+		maxRequestSize = 50 * 1024 * 1024 // 50MB
+)
+public class NoticeFileController extends HttpServlet {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5939703672566257803L;
+	private static final Logger logger = LogManager.getLogger(NoticeFileController.class);
+	private NoticeFileService noticeFileService;
+
+	public NoticeFileController() {
+		super();
+		noticeFileService = new NoticeFileServiceImpl();
+	}
+
+	/**
+	 * GET 화면 이동용 및 조회용
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		logger.info("NoticeFileController doGet");
+		String path = request.getRequestURI();
+		logger.info("NoticeFileController doGet path" + path);
+
+		if ("/noticefile/down.do".equals(path)) {
+			int fileId = Integer.parseInt(request.getParameter("fileId"));
+			NoticePostFile file = new NoticePostFile();
+			file.setFileId(fileId);
+
+			NoticePostFile selectFile = noticeFileService.getFileByFileId(file);
+
+			if (selectFile == null) {
+				response.getWriter().write("파일을 찾을 수 없습니다.");
+				return;
+			}
+
+			String filePath = selectFile.getFilePath();
+			File downloadFile = new File(filePath);
+
+			if (!downloadFile.exists()) {
+				response.getWriter().write("파일이 존재하지 않습니다.");
+				return;
+			}
+
+			// 파일 이름 추출
+			String fileName = selectFile.getFileName();
+
+			// 응답 헤더 설정
+			response.setContentType("application/octet-stream");
+			response.setContentLength((int) downloadFile.length());
+
+			// 파일 다운로드 헤더 설정
+			String downloadHeader = "attachment; filename=" + URLEncoder.encode(fileName, "UTF-8");
+			response.setHeader("Content-Disposition", downloadHeader);
+
+			// 파일을 읽어서 응답 스트림으로 전송
+			try {
+				FileInputStream fis = new FileInputStream(downloadFile);
+				OutputStream out = response.getOutputStream();
+
+				byte[] buffer = new byte[4096];
+				int bytesRead;
+
+				while ((bytesRead = fis.read(buffer)) != -1) {
+					out.write(buffer, 0, bytesRead);
+				}
+			} catch (IOException e) {
+				response.getWriter().write("파일 다운로드중 오류가 발생했습니다.");
+			}
+		} else if ("/noticefile/imgDown.do".equals(path)) {
+			int fileId = Integer.parseInt(request.getParameter("fileId"));
+			NoticePostFile file = new NoticePostFile();
+			file.setFileId(fileId);
+
+			NoticePostFile selectFile = noticeFileService.getFileByFileId(file);
+
+			if (selectFile == null) {
+				response.getWriter().write("파일을 찾을 수 없습니다.");
+				return;
+			}
+
+			String filePath = selectFile.getFilePath();
+			File downloadFile = new File(filePath);
+
+			if (!downloadFile.exists()) {
+				response.getWriter().write("파일이 존재하지 않습니다.");
+				return;
+			}
+
+			// 파일 이름 추출
+			String fileName = selectFile.getFileName();
+
+			// MIME 타입을 파일 확장자에 맞게 설정
+			String mimeType = getServletContext().getMimeType(filePath);
+			if (mimeType == null) {
+				mimeType = "application/octet-stream";
+			}
+
+			// 응답 헤더 설정
+			response.setContentType(mimeType);
+			response.setContentLength((int) downloadFile.length());
+
+			// 파일 다운로드 헤더 설정
+			String downloadHeader = "inline; filename=" + URLEncoder.encode(fileName, "UTF-8");
+			response.setHeader("Content-Disposition", downloadHeader);
+
+			// 파일을 읽어서 응답 스트림으로 전송
+			try {
+				FileInputStream fis = new FileInputStream(downloadFile);
+				OutputStream out = response.getOutputStream();
+
+				byte[] buffer = new byte[4096];
+				int bytesRead;
+
+				while ((bytesRead = fis.read(buffer)) != -1) {
+					out.write(buffer, 0, bytesRead);
+				}
+			} catch (IOException e) {
+				response.getWriter().write("파일 다운로드중 오류가 발생했습니다.");
+			}
+		}
+
+	}
+
+	/**
+	 * POST ajax 로직 처리용
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		logger.info("NoticeFileController doPost");
+		String path = request.getRequestURI();
+		response.setContentType("application/json; charset=UTF-8"); // 응답 타입 설정
+		PrintWriter out = response.getWriter(); // PrintWriter 객체 생성
+		JSONObject jsonResponse = new JSONObject(); // JSON 응답 객체 생성
+		try {
+			logger.info("NoticeFileController doPost path: " + path);
+
+			if ("/file/imgUpload.do".equals(path)) {
+
+				HashMap resultMap = noticeFileService.insertBoardFiles(request);
+
+				boolean isUploadFile = (boolean) resultMap.get("result");
+				jsonResponse.put("success", isUploadFile);
+				jsonResponse.put("message", isUploadFile ? "파일 업로드를 성공하였습니다." : "파일 업로드를 실패하였습니다.");
+				if (isUploadFile) {
+					jsonResponse.put("url", "/file/imgDown.do?fileId=" + resultMap.get("fileId"));
+				}
+			}
+		} catch (Exception e) {
+			jsonResponse.put("success", false); // 오류 발생 시
+			jsonResponse.put("message", "서버 오류 발생"); // 오류 메시지
+			logger.error("Error in NoticeFileController doPost", e); // 오류 로그 추가
+		}
+
+		logger.info("jsonResponse.toString() : ", jsonResponse.toString());
+		// JSON 응답 출력
+		out.print(jsonResponse.toString());
+		out.flush();
+	}
+}

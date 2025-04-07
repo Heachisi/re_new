@@ -7,9 +7,7 @@ body {
     width: 100vh;   
     margin:auto;       
 }
-
-
-#totalSignForm {
+.totalSignForm {
 	margin:auto;
 	flex:1;
     display: flex;
@@ -20,165 +18,135 @@ body {
     height: 537.41px;
     border: 3px solid rgb(255 154 60);
     border-radius: 80px;
-   
 }
-
-#loginForm {
+.loginForm {
 	flex: 1;
-	align-items:center;
-	justify-content:center;
-	text-align:center;
-
-
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
-
-#loginForm img {
-	flex: 1;
-	align-items: center;
+.loginBtn{
+	text-decoration: none;
+	text-align: center;
+	padding: 5px 15px 10px 15px;
+    height: 20px;
+    width:240px;
+    background-color: rgb(255, 130, 60);
+    color: white;
+    border: 1px solid black;
+    border-radius: 25px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: 0.3s;
 }
-
-
-
-/* 오른쪽 회원가입 폼 */
-#signupForm {
+.loginBtn:hover {
+    background-color: rgb(226, 121, 0);
+}
+.signupForm {
     flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 0px;
+    height:100%;
+    gap:20px;
     border: 3px solid rgb(255 154 60);
     border-radius: 70px;
     background-color: rgb(255 154 60);
 }
-
-
-/* 전체 컨테이너 - 화면 중앙 배치 */
-#signupContainer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 900px; /* 화면을 꽉 채우지 않음 */
-    height: 500px;
-    background-color: rgb(255, 253, 247);
-    border-radius: 50px; /* 모서리를 더 둥글게 */
-    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.15);
-    padding: 40px;
-    margin: 100px auto; /* 화면 중앙 정렬 */
-    overflow: hidden;
-}
-
-/* 왼쪽 로그인 안내 영역 */
-#loginSection {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    background-color: rgb(230, 151, 87);
-    height: 100%;
-    border-top-left-radius: 50px;
-    border-bottom-left-radius: 50px;
-    padding: 20px;
-}
-
-#signupForm h2 {
+.signupForm h2 {
     color: white;
-    margin-bottom: 20px;
 }
-
-/* 입력 필드 스타일 */
-#joinForm label {
+.joinForm{
+	height:100%;
+	
+}
+.joinForm label {
     display: block;
     text-align: left;
     font-weight: bold;
-    margin-bottom: 5px;
     width: 100%;
+	margin-top:20px;
+	margin-bottom:5px;
 }
-
-/* 우측 입력 필드 */
-#joinForm input:not(#userId):not(#birthdate) {
+.joinForm input:not(.birthdate):not(.userid) {
     border: none;
     border-radius: 10px;
     width: 100%;
-    height: 90%;
-    padding: 10px;
+    height: 30px;
     background-color: rgb(255, 239, 216);
-    margin-bottom: 5px;
 }
-
-/* userId 입력란만 별도 스타일 */
-#userId {
-    width: 60%; /* 크기 조절 */
-    height: 20px;
+.idContainer {
+	display:flex;
+	flex-direction:column;
+}
+.userIdInput{
+	flex:4;
+}
+.idInputContainer{
+	display:flex;
+	flex-direction:row;
+	gap:10px;
+}
+.checkUserIdBtn {
+    flex: 1;
+    width: auto;
+    height: 35px;
+    background-color: rgb(255, 130, 60);
+    color: white;
     border: none;
-    border-radius: 10px;
-    padding: 10px;
-    background-color: rgb(255, 239, 216);
-    margin-bottom: 10px;
+    border-radius: 15px;
+    cursor: pointer;
+    font-weight: bold;
+    white-space: nowrap;
+    border: 1px solid black;
 }
-
-/* 생년월일과 성별을 감싸는 컨테이너 */
-#birthGenderContainer {
+.birthGenderContainer {
     display: flex;
-    gap: 10px; /* 요소 사이 여백 */
-    width: 100%; /* 부모 요소 크기에 맞춤 */
+    gap: 10px;
+    width: 100%; 
 }
-
-/* 생일 입력 필드 스타일 */
-#birthdate {
-    height: 40px;
+input.birthdate  {
+    border: none;
     border-radius: 10px;
-    padding: 10px;
+    height: 30px;
+    width:150px;
+    background-color: rgb(255, 239, 216);
+}
+select.gender  {
+    height: 30px;
+    width:100px;
+    border-radius: 10px;
     background-color: rgb(255, 239, 216);
     border: none;
 }
-
-
-/* 성별 선택 드롭다운 스타일 */
-#gender {
-
-    height: 40px;
-    border-radius: 10px;
-    padding: 10px;
-    background-color: rgb(255, 239, 216);
-    border: none;
-}
-
-	
-
-/* 아이디 입력란 및 중복 체크 버튼 정렬 */
-#userIdContainer {
+.userIdContainer {
     display: flex;
     align-items: center;
     width: 100%;
 }
 
-
-#checkUserIdBtn {
-    flex: 1;
-    width: auto;
-    height: 40px;
-    background-color: rgb(255, 130, 60);
-    color: white;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    font-weight: bold;
-    margin-left: 10px;
-    white-space: nowrap;
-    border: 1px solid black;
-    
-}
-
-#checkUserIdBtn:hover {
+.checkUserIdBtn:hover {
 	 background-color: rgb(226, 121, 0);
 }
+.birthGenderContainer{
+	justify-content:row;
+	display:flex;
+}
 
-/* 가입하기 버튼 */
-#registerBtn {
+.birthContainer {
+	flex:2;
+	flex-direction:column;
+}
+.genderContainer {
+	flex:1;
+	flex-direction:column;
+}
+.registerBtn {
     width: 100%;
-    height: 50px;
+    height:40px;
     background-color: rgb(255, 130, 60);
     color: white;
     border: none;
@@ -186,28 +154,10 @@ body {
     font-size: 18px;
     font-weight: bold;
     cursor: pointer;
-    margin-top: 10px;
+    margin-top: 30px;
     transition: 0.3s;
     border: 1px solid black;
 }
-
-#loginForm a {
-	text-decoration: none;
-	text-align: center;
-	padding: 10px 15px 10px 15px;
-    width: 100%;
-    height: 50px;
-    background-color: rgb(255, 130, 60);
-    color: white;
-    border: 1px solid black;
-    border-radius: 25px;
-    font-size: 18px;
-    font-weight: bold;
-    cursor: pointer;
-    margin-top: 10px;
-    transition: 0.3s;
-}
-
-#registerBtn:hover {
+.registerBtn:hover {
     background-color: rgb(226, 121, 0);
 }
