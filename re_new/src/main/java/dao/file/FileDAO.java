@@ -22,7 +22,7 @@ public class FileDAO {
 	    }
 	}
 
-    // 게시글에 첨부된 파일을 저장
+    // 게시글에 첨부된 파일 저장
     public boolean insertBoardFile(SqlSession session, PostFile file) {
     	int result = session.insert("FileMapper.insertFile", file);
         return result > 0;

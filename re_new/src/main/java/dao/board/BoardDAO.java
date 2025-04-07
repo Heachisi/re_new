@@ -36,7 +36,7 @@ public class BoardDAO {
 	  
 	  public boolean createBoard(SqlSession session, Board board) {
 	        int result = session.insert("BoardMapper.create", board);
-	        return result > 0; // 삽입 성공 여부 반환
+	        return result > 0; 
 	    }
 	  public boolean updateBoard(SqlSession session, Board board) {
 		  int result=session.update("BoardMapper.update", board);

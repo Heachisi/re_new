@@ -56,7 +56,7 @@
 		    
 	</insert>
 
-    <!-- 파일 삭제 처리 (DEL_YN을 'Y'로 업데이트) -->
+    <!-- 파일 삭제 처리  -->
     <update id="deleteFile" parameterType="model.common.PostFile">
         UPDATE POST_FILE
         SET 

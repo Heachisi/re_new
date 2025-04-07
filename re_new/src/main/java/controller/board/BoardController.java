@@ -114,9 +114,9 @@ public class BoardController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		logger.info("BoardController doPost");
         String path = request.getRequestURI();
-        response.setContentType("application/json; charset=UTF-8"); // 응답 타입 설정
+        response.setContentType("application/json; charset=UTF-8");
         PrintWriter out = response.getWriter(); // PrintWriter 객체 생성
-        JSONObject jsonResponse = new JSONObject(); // JSON 응답 객체 생성
+        JSONObject jsonResponse = new JSONObject(); 
         try {
             logger.info("BoardController doPost path: " + path);
             

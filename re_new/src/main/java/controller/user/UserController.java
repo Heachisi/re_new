@@ -96,7 +96,7 @@ public class UserController extends HttpServlet {
             	user.setBirthdate(request.getParameter("birthdate"));
             	user.setGender(request.getParameter("gender"));
         		user.setCreateId("SYSTEM");
-        		jsonResponse.put("success", userService.registerUser(user)); // 오류 발생 시
+        		jsonResponse.put("success", userService.registerUser(user)); 
             		
 
             } else if ("/user/loginCheck.do".equals(path)) { 
@@ -181,7 +181,7 @@ public class UserController extends HttpServlet {
         } catch (Exception e) {
             jsonResponse.put("success", false); // 오류 발생 시
             jsonResponse.put("message", "서버 오류 발생"); // 오류 메시지
-            logger.error("Error in UserController doPost", e); // 오류 로그 추가
+            logger.error("Error in UserController doPost", e); // 
         }
 
         logger.info("jsonResponse.toString() : ", jsonResponse.toString()); 

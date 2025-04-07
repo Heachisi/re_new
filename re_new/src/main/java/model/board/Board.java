@@ -9,7 +9,6 @@ public class Board extends Model{
 	private String searchText;
 	private String startDate;
 	private String endDate;
-	
 	private String boardId;
 	private String title;
 	private String content;
