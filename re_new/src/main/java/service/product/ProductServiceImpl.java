@@ -10,7 +10,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import dao.product.ProductDAO;
-import dao.file.FileDAO;
+import dao.file.ProductFileDAO;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.Part;
 import model.product.Product;
@@ -22,13 +22,13 @@ import util.MybatisUtil;
 public class ProductServiceImpl implements ProductService {
     private static final Logger logger = LogManager.getLogger(ProductServiceImpl.class);
     private ProductDAO productDAO;
-    private FileDAO fileDAO;
+    private ProductFileDAO productFileDAO;
 
     private SqlSessionFactory sqlSessionFactory; // MyBatis SQL 세션 팩토리
    
     public ProductServiceImpl() {
         this.productDAO = new ProductDAO();
-        this.fileDAO = new FileDAO();
+        this.productFileDAO = new ProductFileDAO();
         try {
             sqlSessionFactory = MybatisUtil.getSqlSessionFactory(); // SQL 세션 팩토리 초기화
         } catch (Exception e) {
@@ -41,7 +41,7 @@ public class ProductServiceImpl implements ProductService {
         SqlSession session = sqlSessionFactory.openSession(); // 데이터베이스 세션 열기
         Product selectProduct = productDAO.getProductById(session, productId); // 게시글 기본 정보 조회
      // DB에서 파일 목록을 가져와서(getFilesByProductId) 게시글 객체(selectProduct)에 세팅
-        selectProduct.setPostFiles(fileDAO.getFilesByProductId(session, productId)); 
+        selectProduct.setPostFiles(productFileDAO.getFilesByProductId(session, productId)); 
      // DB에서 댓글 목록을 가져와서(getCommentList) 게시글 객체(selectProduct)에 세팅
         selectProduct.setComments(productDAO.getCommentList(session, productId));
      // 실제 화면 출력은 Controller가 View(JSP)에 selectProduct를 전달할 때 이루어짐
@@ -67,7 +67,7 @@ public class ProductServiceImpl implements ProductService {
 
             // 첨부파일 정보를 DB에 저장
             for (PostFile postFile : fileList) {
-                fileDAO.insertProductFile(session, postFile);
+                productFileDAO.insertProductFile(session, postFile);
             }
             session.commit(); // DB 변경사항 반영
         } catch (Exception e) {
@@ -88,7 +88,7 @@ public class ProductServiceImpl implements ProductService {
                 if(postFilesParam != null && !postFilesParam.trim().isEmpty()) {
                     postFiles = Arrays.asList(postFilesParam.split(",")); // 유지할 파일 목록
                 }
-                List<PostFile> existingFiles = fileDAO.getFilesByProductId(session, product.getProductId()); // 기존 첨부파일 조회
+                List<PostFile> existingFiles = productFileDAO.getFilesByProductId(session, product.getProductId()); // 기존 첨부파일 조회
 
                 // 삭제된 파일 처리
                 if(existingFiles!=null && existingFiles.size() > 0) {
@@ -103,7 +103,7 @@ public class ProductServiceImpl implements ProductService {
                         }
                         if(!fileExists) {
                             existingFile.setUpdateId(product.getUpdateId());
-                            boolean deleteSuccess = fileDAO.deleteFile(session, existingFile);
+                            boolean deleteSuccess = productFileDAO.deleteFile(session, existingFile);
                             if (!deleteSuccess) {
                                 session.rollback();
                                 return false;
@@ -125,7 +125,7 @@ public class ProductServiceImpl implements ProductService {
 
                 // 새 첨부파일 정보 DB 저장
                 for (PostFile postFile : fileList) {
-                    fileDAO.insertProductFile(session, postFile);
+                    productFileDAO.insertProductFile(session, postFile);
                 }
             }
             session.commit(); // DB 변경사항 반영
