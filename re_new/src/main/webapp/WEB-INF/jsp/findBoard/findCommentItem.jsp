@@ -57,7 +57,7 @@
 				</div>
 			</div>
 			
-				<jsp:include page="bulletinCommentItem.jsp">
+			<jsp:include page="findCommentItem.jsp">
 					<jsp:param name="commentId" value="${comment.commentId}"/>
 				</jsp:include>
 			</div>
