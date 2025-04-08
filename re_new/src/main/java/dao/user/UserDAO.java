@@ -43,7 +43,7 @@ public class UserDAO {
     }
     
     public boolean deleteUser(SqlSession session, User user) {
-        int result = session.update("UserMapper.deleteUser", user); // 
+        int result = session.update("UserMapper.deleteUser", user); // 사용자 삭제 쿼리 실행
         return result > 0; // 삭제 성공 여부 반환
     }
 

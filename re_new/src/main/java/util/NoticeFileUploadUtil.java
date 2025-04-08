@@ -11,6 +11,8 @@ import jakarta.servlet.http.Part;
 import model.common.NoticePostFile;
 
 
+
+
 public class NoticeFileUploadUtil {
     private static final String UPLOAD_DIR = "uploads"; // 업로드 파일이 저장될 폴더 이름
 

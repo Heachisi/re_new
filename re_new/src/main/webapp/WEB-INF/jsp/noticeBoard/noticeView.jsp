@@ -10,7 +10,7 @@
 <title>게시판 상세</title>
 <script src="/js/jquery-3.7.1.min.js"></script>
 <script src="/js/common.js"></script>
-<link rel="stylesheet" href="/css/noticeView.css?ver=1">
+<link rel="stylesheet" href="/css/bulletinView.css?ver=1">
 	<jsp:include page="/WEB-INF/jsp/common/header.jsp"/>
 
 </head>

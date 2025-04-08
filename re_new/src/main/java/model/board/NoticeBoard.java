@@ -3,6 +3,7 @@ package model.board;
 import java.util.List;
 
 import model.Model;
+import model.common.NoticePostFile;
 import model.common.PostFile;
 
 public class NoticeBoard extends Model{
@@ -21,7 +22,7 @@ public class NoticeBoard extends Model{
 	private int totalCount;
 	private int totalPages;
 	
-	private List<PostFile> postFiles;
+	private List<NoticePostFile> postFiles;
 	
 	private List<NoticeComment> comments;
 
@@ -137,11 +138,11 @@ public class NoticeBoard extends Model{
 		this.totalPages = totalPages;
 	}
 
-	public List<PostFile> getPostFiles() {
+	public List<NoticePostFile> getPostFiles() {
 		return postFiles;
 	}
 
-	public void setPostFiles(List<PostFile> postFiles) {
+	public void setPostFiles(List<NoticePostFile> postFiles) {
 		this.postFiles = postFiles;
 	}
 

@@ -17,7 +17,7 @@
 	width:80%;
 	}
 	</style>
-	<link rel="stylesheet" href="/css/bulletinList.css">
+	<link rel="stylesheet" href="/css/bulletinList.css?ver=1">
 	<jsp:include page="/WEB-INF/jsp/common/header.jsp"/>
 	<script>
 		function search(page, checkNow) {
@@ -26,7 +26,7 @@
 				let searchText = $("#searchText").val();
 				let startDate = $("#startDate").val();
 				let endDate = $("#endDate").val();
-				window.location.href = "/noticeBoard/noticeList.do?"
+				window.location.href = "/noticeboard/noticeList.do?"
 									  +"searchText="+searchText+"&"
 									  +"startDate="+startDate+"&"
 									  +"endDate="+endDate+"&"
@@ -36,7 +36,7 @@
 				let searchText = '${board.searchText}';
 				let startDate = '${board.startDate}';
 				let endDate = '${board.endDate}';
-				window.location.href = "/noticeBoard/noticeList.do?"
+				window.location.href = "/noticeboard/noticeList.do?"
 									  +"searchText="+searchText+"&"
 									  +"startDate="+startDate+"&"
 									  +"endDate="+endDate+"&"
@@ -88,7 +88,7 @@
 			</tr>
 		</thead>
 		<tbody>
-		   <c:forEach var="board" items="${noticeBoardList}">
+		   <c:forEach var="board" items="${boardList}">
 		      <tr>
 		      <td>${board.rn}</td>
 		         <td><a href="noticeView.do?id=${board.boardId}" style="text-decoration: none; color:black;">${board.title}</a></td>
@@ -125,7 +125,7 @@
 	</div>
 	<div class="createBtnContainer">
 	<div class="createBtn">
-	<a href="/noticeBoard/noticeCreate.do">글쓰기</a>
+	<a href="/noticeboard/noticeCreate.do">글쓰기</a>
 	</div>
 	</div>
 	</div>

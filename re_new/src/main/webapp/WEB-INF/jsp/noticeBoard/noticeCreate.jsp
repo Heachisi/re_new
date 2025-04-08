@@ -69,14 +69,14 @@
 		                }
  */
 						ajaxRequestFile(
-							"/noticeBoard/noticeCreate.do",
+							"/noticeboard/noticeCreate.do",
 							formData,
 							/* $("#boardCreateForm")
 							.serialize(), */
 							function(response) {
 								if (response.success) {
 									alert("게시물을 생성하였습니다. 게시판 목록으로 이동합니다.");
-									window.location.href = "/noticeBoard/noticeList.do";
+									window.location.href = "/noticeboard/noticeList.do";
 								} else {
 									alert("게시글 생성에 실패하였습니다."
 											+ response.message);

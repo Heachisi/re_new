@@ -100,6 +100,7 @@
   pointer-events: none;
   transition: opacity 0.3s;
   box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+  z-index: 100;
 }
 .menuItem:hover .submenu {
   opacity: 1;
@@ -112,6 +113,14 @@
 .submenu li:hover {
   font-weight:bold;
 }
+#adminPage {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
   
   
   

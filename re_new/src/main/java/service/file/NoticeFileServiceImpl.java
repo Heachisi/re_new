@@ -13,8 +13,8 @@ import dao.file.NoticeFileDAO;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.Part;
 import model.common.NoticePostFile;
-import util.MybatisUtil;
 import util.NoticeFileUploadUtil;
+import util.MybatisUtil;
 
 public class NoticeFileServiceImpl implements NoticeFileService {
 	private static final Logger logger = LogManager.getLogger(NoticeFileServiceImpl.class);
@@ -43,7 +43,6 @@ public class NoticeFileServiceImpl implements NoticeFileService {
 		NoticePostFile selectPostFile = fileDAO.getFileByFileId(session, file);
 		return selectPostFile;
 	}
-	
 	
 	@Override
 	public HashMap insertBoardFiles(HttpServletRequest request) {

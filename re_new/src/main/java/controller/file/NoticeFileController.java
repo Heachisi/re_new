@@ -35,11 +35,11 @@ public class NoticeFileController extends HttpServlet {
 	 */
 	private static final long serialVersionUID = -5939703672566257803L;
 	private static final Logger logger = LogManager.getLogger(NoticeFileController.class);
-	private NoticeFileService noticeFileService;
+	private NoticeFileService fileService;
 
 	public NoticeFileController() {
 		super();
-		noticeFileService = new NoticeFileServiceImpl();
+		fileService = new NoticeFileServiceImpl();
 	}
 
 	/**
@@ -47,16 +47,16 @@ public class NoticeFileController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		logger.info("NoticeFileController doGet");
+		logger.info("FileController doGet");
 		String path = request.getRequestURI();
-		logger.info("NoticeFileController doGet path" + path);
+		logger.info("FileController doGet path" + path);
 
 		if ("/noticefile/down.do".equals(path)) {
 			int fileId = Integer.parseInt(request.getParameter("fileId"));
 			NoticePostFile file = new NoticePostFile();
 			file.setFileId(fileId);
 
-			NoticePostFile selectFile = noticeFileService.getFileByFileId(file);
+			NoticePostFile selectFile = fileService.getFileByFileId(file);
 
 			if (selectFile == null) {
 				response.getWriter().write("파일을 찾을 수 없습니다.");
@@ -101,7 +101,7 @@ public class NoticeFileController extends HttpServlet {
 			NoticePostFile file = new NoticePostFile();
 			file.setFileId(fileId);
 
-			NoticePostFile selectFile = noticeFileService.getFileByFileId(file);
+			NoticePostFile selectFile = fileService.getFileByFileId(file);
 
 			if (selectFile == null) {
 				response.getWriter().write("파일을 찾을 수 없습니다.");
@@ -156,17 +156,17 @@ public class NoticeFileController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		logger.info("NoticeFileController doPost");
+		logger.info("FileController doPost");
 		String path = request.getRequestURI();
 		response.setContentType("application/json; charset=UTF-8"); // 응답 타입 설정
 		PrintWriter out = response.getWriter(); // PrintWriter 객체 생성
 		JSONObject jsonResponse = new JSONObject(); // JSON 응답 객체 생성
 		try {
-			logger.info("NoticeFileController doPost path: " + path);
+			logger.info("FileController doPost path: " + path);
 
 			if ("/file/imgUpload.do".equals(path)) {
 
-				HashMap resultMap = noticeFileService.insertBoardFiles(request);
+				HashMap resultMap = fileService.insertBoardFiles(request);
 
 				boolean isUploadFile = (boolean) resultMap.get("result");
 				jsonResponse.put("success", isUploadFile);
@@ -178,7 +178,7 @@ public class NoticeFileController extends HttpServlet {
 		} catch (Exception e) {
 			jsonResponse.put("success", false); // 오류 발생 시
 			jsonResponse.put("message", "서버 오류 발생"); // 오류 메시지
-			logger.error("Error in NoticeFileController doPost", e); // 오류 로그 추가
+			logger.error("Error in FileController doPost", e); // 오류 로그 추가
 		}
 
 		logger.info("jsonResponse.toString() : ", jsonResponse.toString());

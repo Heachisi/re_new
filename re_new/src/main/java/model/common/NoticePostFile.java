@@ -7,6 +7,7 @@ public class NoticePostFile extends Model {
     private int boardId;
     private String fileName;
     private String filePath;
+
     private String delYn;
 
 	public int getFileId() {

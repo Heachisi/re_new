@@ -96,7 +96,7 @@ public class UserController extends HttpServlet {
             	user.setBirthdate(request.getParameter("birthdate"));
             	user.setGender(request.getParameter("gender"));
         		user.setCreateId("SYSTEM");
-        		jsonResponse.put("success", userService.registerUser(user)); 
+        		jsonResponse.put("success", userService.registerUser(user)); // 오류 발생 시
             		
 
             } else if ("/user/loginCheck.do".equals(path)) { 
@@ -144,7 +144,7 @@ public class UserController extends HttpServlet {
                 }
                 
             //로그아웃 처리
-            }else if ("/user/logout.do".equals(path)) {
+            } else if ("/user/logout.do".equals(path)) {
                 HttpSession session = request.getSession();
                 User user = (User) session.getAttribute("user");
 
@@ -156,8 +156,7 @@ public class UserController extends HttpServlet {
                     jsonResponse.put("success", false);
                     jsonResponse.put("message", "로그아웃할 사용자 정보가 없습니다.");
                 }
-            }
-            else if ("/user/delete.do".equals(path)) {
+            } else if ("/user/delete.do".equals(path)) {
                 String userId = request.getParameter("userId");
                 String updateId = request.getParameter("updateId");
                 
@@ -174,14 +173,23 @@ public class UserController extends HttpServlet {
                 	HttpSession session = request.getSession();
                 	session.invalidate();
                 }
-            } 
+            } else if ("/user/getUserRole.do".equals(path)) {
+                HttpSession session = request.getSession();
+                User user = (User) session.getAttribute("user");
+                if (user != null) {
+                    jsonResponse.put("adminYn", user.getAdminYn());  // 'Y' 또는 'N' 반환
+                } else {
+                    jsonResponse.put("adminYn", "N");  // 기본값 설정
+                }
+                response.setContentType("application/json; charset=UTF-8");
+            }
             
             
             
         } catch (Exception e) {
             jsonResponse.put("success", false); // 오류 발생 시
             jsonResponse.put("message", "서버 오류 발생"); // 오류 메시지
-            logger.error("Error in UserController doPost", e); // 
+            logger.error("Error in UserController doPost", e); // 오류 로그 추가
         }
 
         logger.info("jsonResponse.toString() : ", jsonResponse.toString()); 

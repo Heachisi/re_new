@@ -3,7 +3,7 @@
 <mapper namespace="NoticeFileMapper">
 
     <!-- 게시글에 첨부된 파일 목록 조회 -->
-    <select id="getFilesByBoardId" parameterType="String" resultType="model.common.NoticePostFile">
+    <select id="getFilesByBoardId" parameterType="string" resultType="model.common.PostFile">
         SELECT 
             FILE_ID,
             BOARD_ID,
@@ -20,7 +20,7 @@
     </select>
     
      <!-- 게시글에 첨부된 파일 조회 -->
-    <select id="getFileByFileId" parameterType="model.common.PostFile" resultType="model.common.NoticePostFile">
+    <select id="getFileByFileId" parameterType="model.common.PostFile" resultType="model.common.PostFile">
         SELECT 
             FILE_ID,
             BOARD_ID,
@@ -37,11 +37,11 @@
     </select>
 
     <!-- 게시글에 새로운 파일 등록 -->
-	<insert id="insertFile" parameterType="model.common.NoticePostFile">
+	<insert id="insertFile" parameterType="model.common.PostFile">
 	        INSERT INTO NOTICE_FILE (
 	            FILE_ID, BOARD_ID, FILE_NAME, FILE_PATH, CREATE_ID, CREATE_DT
 	        ) VALUES (
-	            SEQ_POST_FILE.NEXTVAL,  
+	            SEQ_PSOT_FILE.NEXTVAL,  
 	            #{boardId},
 	            #{fileName},
 	            #{filePath},
@@ -56,7 +56,7 @@
 	</insert>
 
     <!-- 파일 삭제 처리 (DEL_YN을 'Y'로 업데이트) -->
-    <update id="deleteFile" parameterType="model.common.NoticePostFile">
+    <update id="deleteFile" parameterType="model.common.PostFile">
         UPDATE NOTICE_FILE
         SET 
             DEL_YN = 'Y',

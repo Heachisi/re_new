@@ -70,6 +70,7 @@ public class UserServiceImpl implements UserService {
     		String password = user.getPassword();
     		String encryptedPassword = password != null ? SHA256Util.encrypt(password) : null;
     		
+    		logger.info(encryptedPassword+":"+selectUser.getPassword());
     		
     		// 입력된 비밀번호와 DB에 저장된 비밀번호 비교
     		result = encryptedPassword.equals(selectUser.getPassword()); // 비밀번호 비교
