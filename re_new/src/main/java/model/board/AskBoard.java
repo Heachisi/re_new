@@ -3,7 +3,7 @@ package model.board;
 import java.util.List;
 
 import model.Model;
-import model.common.PostFile;
+import model.common.AskPostFile;
 
 public class AskBoard extends Model{
 	private String searchText;
@@ -25,7 +25,7 @@ public class AskBoard extends Model{
 	private int totalCount;
 	private int totalPages;
 	
-	private List<PostFile> postFiles;
+	private List<AskPostFile> postFiles;
 	
 	private List<AskComment> comments;
 
@@ -141,11 +141,11 @@ public class AskBoard extends Model{
 		this.totalPages = totalPages;
 	}
 
-	public List<PostFile> getPostFiles() {
+	public List<AskPostFile> getPostFiles() {
 		return postFiles;
 	}
 
-	public void setPostFiles(List<PostFile> postFiles) {
+	public void setPostFiles(List<AskPostFile> postFiles) {
 		this.postFiles = postFiles;
 	}
 

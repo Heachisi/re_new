@@ -30,7 +30,7 @@
 		</div> 
 		<c:if test="${sessionScope.user.userId == board.createId}">
 		<div class="update">
-		<a href="/bulletinboard/bulletinUpdate.do?id=${board.boardId}" class="updatae">수정</a>
+		<a href="/askboard/askUpdate.do?id=${board.boardId}" class="update">수정</a>
 		</div>
 		<div id="delete">
 		<a href="#" id="delete">삭제</a>

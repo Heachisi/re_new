@@ -9,29 +9,30 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import dao.board.BoardDAO;
-import dao.file.FileDAO;
+import dao.board.AskBoardDAO;
+import dao.file.AskFileDAO;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.Part;
-import model.board.Board;
-import model.board.Comment;
-import model.common.PostFile;
-import util.FileUploadUtil;
+import model.board.AskBoard;
+import model.board.AskComment;
+import model.common.AskPostFile;
+import util.AskFileUploadUtil;
 import util.MybatisUtil;
 
-public class AskBoardServiceImpl implements BoardService {
+public class AskBoardServiceImpl implements AskBoardService {
 	private static final Logger logger = LogManager.getLogger(AskBoardServiceImpl.class);
-	private BoardDAO boardDAO;// DB접속용
-	private FileDAO fileDAO;
+	private AskBoardDAO boardDAO;// DB접속용
+	private AskFileDAO fileDAO;
 
 	private SqlSessionFactory sqlSessionFactory; // MyBatis SQL 세션 팩토리
+	private Object AskBoardMapper;
 
 	/**
 	 * BoardServiceImpl 생성자 //서비스 생성 이유: 비즈니스 로직을 담기 위해(하나의 비즈니스 로직은 하나의 함수만 담음)
 	 */
 	public AskBoardServiceImpl() {
-		this.boardDAO = new BoardDAO();
-		this.fileDAO = new FileDAO();
+		this.boardDAO = new AskBoardDAO();			
+		this.fileDAO = new AskFileDAO();
 		try {
 			sqlSessionFactory = MybatisUtil.getSqlSessionFactory(); // SQL 세션 팩토리 초기화
 		} catch (Exception e) {
@@ -40,9 +41,9 @@ public class AskBoardServiceImpl implements BoardService {
 	}
 
 	// 유저 정보를 조회
-	public Board getBoardById(String boardId) {
+	public AskBoard getBoardById(String boardId) {
 		SqlSession session = sqlSessionFactory.openSession();
-		Board selectBoard = boardDAO.getBoardById(session, boardId);
+		AskBoard selectBoard = boardDAO.getBoardById(session, boardId);
 		//파일 목록 조회
 		selectBoard.setPostFiles(fileDAO.getFilesByBoardId(session,boardId));
 		
@@ -51,10 +52,10 @@ public class AskBoardServiceImpl implements BoardService {
 		return selectBoard;
 	}
 
-	public boolean createBoard(Board board, HttpServletRequest request) {
+	public boolean createBoard(AskBoard board, HttpServletRequest request) {
 		SqlSession session = sqlSessionFactory.openSession();
 		boolean result = false;
-
+		
 		try {
 			result = boardDAO.createBoard(session, board);
 
@@ -67,10 +68,10 @@ public class AskBoardServiceImpl implements BoardService {
 				}
 			}
 			// 업로드 된 파일들을 처리하여 PostFile 객체 리스트 반환
-			List<PostFile> fileList = FileUploadUtil.uploadFiles(fileParts, "board",
+			List<AskPostFile> fileList = AskFileUploadUtil.uploadFiles(fileParts, "board",
 					Integer.parseInt(board.getBoardId()), board.getCreateId());
 
-			for (PostFile postFile : fileList) {
+			for (AskPostFile postFile : fileList) {
 				fileDAO.insertBoardFile(session, postFile);
 			}
 
@@ -82,7 +83,7 @@ public class AskBoardServiceImpl implements BoardService {
 		return result;
 	}
 
-	public boolean updateBoard(Board board, HttpServletRequest request) {
+	public boolean updateBoard(AskBoard board, HttpServletRequest request) {
 		SqlSession session = sqlSessionFactory.openSession();
 		boolean result = false;
 		try {
@@ -95,12 +96,12 @@ public class AskBoardServiceImpl implements BoardService {
 					postFiles = Arrays.asList(postFilesParam.split(","));
 				}
 				// 기존 파일 조회
-				List<PostFile> existingFiles = fileDAO.getFilesByBoardId(session, (board.getBoardId()));
+				List<AskPostFile> existingFiles = fileDAO.getFilesByBoardId(session, (board.getBoardId()));
 
 				// 기존 파일 리스트가 있을 때
 				if (existingFiles != null && existingFiles.size() > 0) {
 					boolean fileExists = false;
-					for (PostFile existingFile : existingFiles) {
+					for (AskPostFile existingFile : existingFiles) {
 						fileExists = false;
 						// 새로 넘어온 파일 목록에 기존 파일이 포함되어 있는지 체크
 						for (String fileId : postFiles) {
@@ -130,10 +131,10 @@ public class AskBoardServiceImpl implements BoardService {
 					}
 				}
 				// 업로드 된 파일들을 처리하여 PostFile 객체 리스트 반환
-				List<PostFile> fileList = FileUploadUtil.uploadFiles(fileParts, "board",
+				List<AskPostFile> fileList = AskFileUploadUtil.uploadFiles(fileParts, "board",
 						Integer.parseInt(board.getBoardId()), board.getUpdateId());
 
-				for (PostFile postFile : fileList) {
+				for (AskPostFile postFile : fileList) {
 					fileDAO.insertBoardFile(session, postFile);
 				}
 			}
@@ -147,7 +148,7 @@ public class AskBoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public boolean deleteBoard(Board board) {
+	public boolean deleteBoard(AskBoard board) {
 		SqlSession session = sqlSessionFactory.openSession();
 		boolean result = false;
 		try {
@@ -161,18 +162,16 @@ public class AskBoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public List<Board> getBoardList(Board board) {
+	public List<AskBoard> getBoardList(AskBoard board) {
 		SqlSession session = sqlSessionFactory.openSession();
 
 		int page = board.getPage();
 		int size = board.getSize();
 
-		String searchKey = board.getSearchKey();
-		String searchQuery = board.getSearchQuery();
 		
-		int totalCount = boardDAO.getTotalBoardCount(session, searchKey, searchQuery);
+		int totalCount = boardDAO.getTotalBoardCount(session, board);
 		int totalPages = (int) Math.ceil((double) totalCount / size);
-
+		
 		int startRow = (page - 1) * size + 1;
 		int endRow = page * size;
 
@@ -181,13 +180,13 @@ public class AskBoardServiceImpl implements BoardService {
 		board.setStartRow(startRow);
 		board.setEndRow(endRow);
 
-		List<Board> list = boardDAO.getBoardList(session, board, searchKey, searchQuery);
-
+		List<AskBoard> list = boardDAO.getBoardList(session, board);
+		
 		return list;
 	}
 
 	@Override
-	public boolean createComment(Comment comment) {
+	public boolean createComment(AskComment comment) {
 		SqlSession session = sqlSessionFactory.openSession();
 		boolean result = false;
 		try {
@@ -201,7 +200,7 @@ public class AskBoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public boolean updateComment(Comment comment) {
+	public boolean updateComment(AskComment comment) {
 		SqlSession session = sqlSessionFactory.openSession();
 		boolean result = false;
 		try {
@@ -215,7 +214,7 @@ public class AskBoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public boolean deleteComment(Comment comment) {
+	public boolean deleteComment(AskComment comment) {
 		SqlSession session = sqlSessionFactory.openSession();
 		boolean result = false;
 		try {
@@ -227,4 +226,13 @@ public class AskBoardServiceImpl implements BoardService {
 		}
 		return result;
 	}
+
+	//조회수
+	@Override
+	public void increaseViewCount(String boardId) {
+		 try (SqlSession session = sqlSessionFactory.openSession()) {
+		        boardDAO.increaseViewCount(session, boardId);
+		        session.commit();
+		    }
+		}
 }

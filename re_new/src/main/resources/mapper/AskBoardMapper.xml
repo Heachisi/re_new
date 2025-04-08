@@ -97,7 +97,7 @@
          CREATE_DT
          )
         VALUES (
-        SEQ_BOARD.NEXTVAL,
+        SEQ_ASK_BOARD.NEXTVAL,
         #{title},
         #{content},
         #{viewCount},
@@ -105,7 +105,7 @@
         SYSDATE
         )
      <selectKey keyProperty="boardId" resultType="string" order="AFTER">
-    	 SELECT SEQ_BOARD.CURRVAL FROM DUAL
+    	 SELECT SEQ_ASK_BOARD.CURRVAL FROM DUAL
      </selectKey>
     </insert>
     

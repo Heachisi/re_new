@@ -42,7 +42,7 @@ public class AskBoardController extends HttpServlet {
 	
 	public AskBoardController() {
         super();
-        AskBoardServiceImpl boardService = new AskBoardServiceImpl(); 
+        boardService = new AskBoardServiceImpl(); 
     }
 	
 	private static final int DEFAULT_PAGE = 1;

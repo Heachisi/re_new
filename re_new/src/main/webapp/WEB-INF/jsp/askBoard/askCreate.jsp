@@ -90,7 +90,7 @@
 <body>
 
 	<div class="createForm">
-	<form id="askCreateForm">
+	<form id="boardCreateForm">
 		<div class="titleArea">
 		<label for="title"></label> 
 		<input type="text" class="title" id="title" name="title" maxlength="100" placeholder="제목 입력" required />
