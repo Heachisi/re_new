@@ -29,14 +29,7 @@
             "maxprice=" + maxprice + "&" +
             "page=" + page + "&" +
             "size=${size}";
-			if(viewcategory==null){
-				window.location.href = "/product/list.do?"+
-				"searchText=" +searchText+"&"+
-				"startDate=" +startDate+"&"+
-				"endDate=" +endDate+"&"+
-				"page=" +page+"&"+
-				"size=${size}";
-			}
+		
 	    }
 	 
 	    function sortByCategory(page,viewcategory) {
