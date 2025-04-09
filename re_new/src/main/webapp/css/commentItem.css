@@ -1,0 +1,6 @@
+@charset "UTF-8";
+.texta{ 
+  	border: 1px solid rgb(245,183,89);
+  	width: 800px;   
+    height: 40px;
+  }
