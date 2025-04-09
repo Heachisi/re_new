@@ -210,7 +210,6 @@ public class UserController extends HttpServlet {
                 }
                 jsonResponse.put("success", true);
       
-                
             } else if ("/user/age-group.do".equals(path)) {
                 logger.info("Fetching age group data");
                 jsonResponse.put("data", userService.getAgeGroupCounts());

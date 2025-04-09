@@ -10,8 +10,8 @@
 <title>회원정보 수정</title>
 <script src="/js/jquery-3.7.1.min.js"></script>
 <script src="/js/common.js"></script>
-<jsp:include page="/WEB-INF/jsp/common/header.jsp" />
 <link rel="stylesheet" href="/css/updateUser.css">
+<jsp:include page="/WEB-INF/jsp/common/header.jsp" />
 <script>
         $(document).ready(function () {
             $("#updateForm").submit(function (event) {
@@ -98,29 +98,38 @@
 	<div class="bottomSection">
 		<form id="updateForm" class="updateForm">
 			<h2>회원정보 수정</h2>
-			<label for="userId">아이디:</label> ${sessionScope.user.userId}
-			<label for="password">비밀번호:</label> 
+			<div class="userId">
+			<label for="userId">아이디</label> ${sessionScope.user.userId}
+			</div>
+			<div class="password">
+			<label for="password">비밀번호 <span class="required">*</span></label> 
 			<input type="password" id="password" name="password" maxlength="20"
 				placeholder="비밀번호 3~12자리" value="" /> <br /> 
-			<label for="email">이메일:</label>
+			</div>
+			<div class="email">
+			<label for="email">이메일 <span class="required">*</span></label>
 			<input type="email" id="email" name="email" maxlength="100"
 				placeholder="이메일 입력" value="${sessionScope.user.email}" /> <br />
-			<div class="birthGenderLabel">
-			<label for="birthdate">생년월일:</label> <label for="gender">성별:</label>
-			</div>
+				</div>
 			<div class="birthGenderContainer">
-				<input type="date" id="birthdate" name="birthdate" maxlength="15"
+				<div class="birtContainer">
+				<label for="birthdate">생년월일</label>
+				<input type="date" id="birthdate"  class="birthdate" name="birthdate" maxlength="15"
 					value="${fn:substring(sessionScope.user.birthdate, 0, 10)}" /> <br />
-				<select id="gender" name="gender">
-					<option value=""
+				</div>
+				<div class="genderContainer">
+				<label for="gender" >성별</label>
+				<select id="gender" class="gender" name="gender">
+					<option value="성별"
 						${sessionScope.user.gender == '' ? 'selected' : ''}>성별</option>
 					<option value="woman"
 						${sessionScope.user.gender == 'woman' ? 'selected' : ''}>여자</option>
 					<option value="man"
 						${sessionScope.user.gender == 'man' ? 'selected' : ''}>남자</option>
 				</select>
+				</div>
 			</div>
-
+		
 			<button type="submit" id="updateBtn" class="updateBtn">저장</button>
 			</br>
 			<button type="button" id="deleteBtn" class="deleteBtn">회원탈퇴</button>
