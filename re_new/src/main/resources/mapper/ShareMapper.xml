@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ShareMapper"> <!-- 매퍼의 네임스페이스 설정 -->
+
+    <!-- 사용자 ID로 사용자 정보 조회 -->
+      <select id="getShareList" parameterType="model.share.Share" resultType="model.share.Share">
+        SELECT
+            B.RN,
+		    B.SHARE_ID,
+		    B.TITLE,
+		    B.CONTENT,
+		    B.VIEW_COUNT,
+		    B.CREATE_ID,
+		    B.UPDATE_ID,
+		    B.CREATE_DT,
+		    B.UPDATE_DT,
+		    B.DEL_YN
+        FROM(
+        SELECT
+            ROWNUM  AS RN,
+		    A.SHARE_ID,
+		    A.TITLE,
+		    A.CONTENT,
+		    A.VIEW_COUNT,
+		    A.CREATE_ID,
+		    A.UPDATE_ID,
+		    TO_CHAR(A.CREATE_DT,'YYYY-MM-DD') AS CREATE_DT,
+		    TO_CHAR(A.UPDATE_DT,'YYYY-MM-DD') AS UPDATE_DT,
+		    A.DEL_YN
+		  FROM SHARE_BOARD A
+		  <where>
+   			AND A.DEL_YN = 'N'
+   			<if test="searchText != null and searchText != ''">
+   				AND (
+   					A.TITLE LIKE '%'||#{searchText}||'%'
+   				OR  A.CONTENT LIKE '%'||#{searchText}||'%'
+   				)
+   			</if>
+   			<if test="startDate != null and startDate != ''">
+   				<![CDATA[ AND A.CREATE_DT >= TO_DATE(#{startDate}, 'YYYY-MM-DD']]>
+   			</if>
+   			<if test="endDate != null and endDate != ''">
+   				<![CDATA[ AND A.CREATE_DT >= TO_DATE(#{endDate}, 'YYYY-MM-DD']]>
+   			</if>
+   		</where>
+			
+	   )B
+		  WHERE B.RN BETWEEN #{startRow} AND #{endRow}
+    </select> 
+    
+	 <select id="getTotalShareCount" parameterType="model.share.Share" resultType="int">
+	        SELECT COUNT(B.SHARE_ID)
+	        FROM (
+	        		SELECT
+	        			A.SHARE_ID,
+	        			A.CONTENT,
+	        			A.VIEW_COUNT,
+	        			A.CREATE_ID,
+	        			A.UPDATE_ID,
+	        			A.CREATE_DT,
+	        			A.UPDATE_DT,
+	        			TO_CHAR(A.CREATE_DT,'YYYY-MM-DD') AS CREATE_DT,
+		   				TO_CHAR(A.UPDATE_DT,'YYYY-MM-DD') AS UPDATE_DT,
+		    			A.DEL_YN
+		    		FROM SHARE_BOARD A
+		    		<where>
+		    			AND A.DEL_YN = 'N'
+		    			<if test="searchText != null and searchText != ''">
+		    				AND (
+		    					A.TITLE LIKE '%'||#{searchText}||'%'
+		    				OR  A.CONTENT LIKE '%'||#{searchText}||'%'
+		    				)
+		    			</if>
+		    			<if test="startDate != null and startDate != ''">
+		    				<![CDATA[ AND A.CREATE_DT >= TO_DATE(#{startDate}, 'YYYY-MM-DD']]>
+		    			</if>
+		    			<if test="endDate != null and endDate != ''">
+		    				<![CDATA[ AND A.CREATE_DT >= TO_DATE(#{endDate}, 'YYYY-MM-DD']]>
+		    			</if>
+		    		</where>
+	        ) B
+   	 </select> 
+	
+    <select id="getShareById" parameterType="string" resultType="model.share.Share">
+        SELECT
+		    SHARE_ID,
+		    TITLE,
+		    CONTENT,
+		    VIEW_COUNT,
+		    CREATE_ID,
+		    UPDATE_ID,
+		    CREATE_DT,
+		    UPDATE_DT,
+		    DEL_YN
+		  FROM SHARE_BOARD
+		  WHERE SHARE_ID = #{shareId}
+		  AND DEL_YN = 'N'
+    </select> 
+    
+    <insert id="create" parameterType="model.share.Share">
+        INSERT INTO SHARE_BOARD 
+	        (
+	        SHARE_ID, 
+	        TITLE, 
+	        CONTENT, 
+	        VIEW_COUNT, 
+	        CREATE_ID,
+	        CREATE_DT
+	        )
+	        VALUES
+	        (
+	        SEQ_SHARE_BOARD.NEXTVAL,
+	        #{title}, 
+	        #{content}, 
+	        #{viewcount},
+	        #{createId},
+	        SYSDATE
+	        )
+        <selectKey keyProperty="shareId" resultType="string" order="AFTER">
+        SELECT SEQ_SHARE_BOARD.CURRVAL FROM DUAL
+        </selectKey>
+    </insert>
+    
+    <update id="update" parameterType="model.share.Share">
+	    UPDATE SHARE_BOARD
+	    SET TITLE = #{title},
+	        CONTENT = #{content},
+	        VIEW_COUNT = #{viewcount},
+	        UPDATE_ID = #{updateId},
+	        UPDATE_DT = SYSDATE
+	    WHERE SHARE_ID = #{shareId}
+	</update>
+	
+	 <update id="delete" parameterType="model.share.Share">
+        UPDATE SHARE_BOARD 
+        SET DEL_YN = 'Y',  <!-- 삭제된 사용자 표시 -->
+            UPDATE_ID = #{updateId}  <!-- 삭제를 수행한 관리자 ID -->
+        WHERE SHARE_ID = #{shareId}
+    </update>
+    
+    <!-- 댓글 등록 -->
+    <insert id="insertComment" parameterType="model.share.Comment">
+        INSERT INTO SHARE_COMMENT (COMMENT_ID, SHARE_ID, PARENT_COMMENT_ID, CONTENT, CREATE_ID)
+        VALUES (SEQ_SHARE_COMMENT.NEXTVAL, #{shareId}, #{parentCommentId}, #{content}, #{createId})
+    </insert>
+
+    <!-- 게시글에 대한 댓글 조회 (대댓글 포함) -->
+    <select id="getCommentsByShareId" parameterType="string" resultType="model.share.Comment">
+        SELECT 
+			COMMENT_ID,
+			SHARE_ID,
+			PARENT_COMMENT_ID,
+			CONTENT,
+			CREATE_ID,
+			UPDATE_ID,
+			TO_CHAR(CREATE_DT, 'YYYY-MM-DD') AS CREATE_DT,
+			TO_CHAR(UPDATE_DT, 'YYYY-MM-DD') AS UPDATE_DT,
+			DEL_YN
+        FROM SHARE_COMMENT
+        WHERE SHARE_ID = #{shareId}
+          AND DEL_YN = 'N'
+        ORDER BY PARENT_COMMENT_ID, CREATE_DT ASC
+    </select>
+
+    <!-- 댓글 조회 -->
+    <select id="getCommentById" parameterType="string" resultType="model.share.Comment">
+        SELECT *
+        FROM SHARE_COMMENT
+        WHERE COMMENT_ID = #{commentId}
+          AND DEL_YN = 'N'
+    </select>
+
+    <!-- 댓글 수정 -->
+    <update id="updateComment" parameterType="model.share.Comment">
+        UPDATE SHARE_COMMENT
+        SET CONTENT = #{content},
+            UPDATE_ID = #{updateId},
+            UPDATE_DT = SYSDATE
+        WHERE COMMENT_ID = #{commentId}
+    </update>
+
+    <!-- 댓글 삭제 -->
+    <update id="deleteComment" parameterType="model.share.Comment">
+        UPDATE SHARE_COMMENT
+        SET DEL_YN = 'Y',
+        UPDATE_ID = #{updateId},
+        UPDATE_DT = SYSDATE
+        WHERE COMMENT_ID = #{commentId}
+    </update>
+    
+</mapper>

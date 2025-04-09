@@ -108,12 +108,7 @@
 <div class="list">
 	<div class="notice">
 	<table style="border: 1px solid rgb(245,183,89); border-collapse: collapse;">
-			<thead>
-				<tr>
-					<th class="th">공지</th>
-					<th class="th2">작성일</th>
-				</tr>
-			</thead>
+			
 			<tbody>
 				<c:forEach var="notice" items="${noticeList}">
 					<tr>
