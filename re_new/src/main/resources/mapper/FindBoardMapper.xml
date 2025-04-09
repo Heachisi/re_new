@@ -182,8 +182,9 @@
     SET VIEW_COUNT = view_count+1
     WHERE board_id = #{boardId}
     </update>
+    
     <select id="getMyProducts" parameterType="string" resultType="model.product.Product">
-    	SELECT BOARD_ID, TITLE
+    	SELECT PRODUCT_ID, TITLE
     	FROM PRODUCT_BOARD
     	WHERE CREATE_ID = #{userId}
     		AND DEL_YN  = 'N'

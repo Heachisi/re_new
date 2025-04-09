@@ -288,7 +288,7 @@
                for (var i = 0; i < products.length; i++) {
                    var product = products[i];
                    html += "<div class='productItem'>" +
-                           "<input type='checkbox' class='productCheckbox' value='" + product.boardId + "' data-name='" + product.title + "'>" +
+                           "<input type='checkbox' class='productCheckbox' value='" + product.productId + "' data-name='" + product.title + "'>" +
                            product.title +
                            "</div>";
                }
