@@ -52,7 +52,6 @@
 		$(document).ready(function () {
 			 ajaxRequest("/user/getUserRole.do", {}, function(response) {
 			        console.log("서버 응답:", response);
-			        alert(response.adminYn); 
 
 			        if (response.adminYn === "Y") {
 			            $(".createBtn").show();
