@@ -300,5 +300,188 @@ function setupFileUploadUpdate(options) {
 
 
 
+function photoUpload(options) {
+    let dropZone = $(options.dropZone || '#photoDropZone');
+    let fileInput = $(options.fileInput || '#photoInput');
+    let previewContainer = $(options.previewContainer || '#photoPreview');
+
+    let selectedImage = null; // 현재 선택된 이미지 파일
+
+    // 드롭 이벤트 처리
+    dropZone.on('dragover', function(e) {
+        e.preventDefault();
+        dropZone.addClass('dragover');
+    });
+
+    dropZone.on('dragleave', function(e) {
+        e.preventDefault();
+        dropZone.removeClass('dragover');
+    });
+
+    dropZone.on('drop', function(e) {
+        e.preventDefault();
+        dropZone.removeClass('dragover');
+        const files = e.originalEvent.dataTransfer.files;
+        handleImage(files[0]);
+    });
+
+    // 클릭 시 파일 선택 창
+    dropZone.on('click', function () {
+        fileInput.click();
+    });
+
+    fileInput.on('change', function () {
+        handleImage(this.files[0]);
+        fileInput.val('');
+    });
+
+    function handleImage(file) {
+        if (!file) return;
+
+        if (!file.type.startsWith("image/")) {
+            alert("이미지 파일만 업로드할 수 있습니다.");
+            return;
+        }
+
+        if (file.size > (options.maxFileSize || 5 * 1024 * 1024)) {
+            alert("이미지 크기는 최대 5MB입니다.");
+            return;
+        }
+
+        selectedImage = file;
+
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            previewContainer.html(`
+                <img src="${e.target.result}" alt="업로드 이미지" style="max-width: 200px; max-height: 200px; border: 1px solid #ccc; border-radius: 4px;">
+            `);
+        };
+        reader.readAsDataURL(file);
+    }
+
+    // 외부에서 이미지 파일 가져갈 수 있도록 반환
+    return {
+        getImageFile: function () {
+            return selectedImage;
+        }
+    };
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function setupFileUploadUpdate(options) {
+    // 기본 설정값
+    let dropZone = $(options.dropZone || '#dropZone');
+    let fileInput = $(options.fileInput || '#files');
+    let newFileList = $(options.newFileList || '#newFileList');
+    let existingFileList = $(options.existingFileList || '#existingFileList');
+    let remainingFileIds = $(options.remainingFileIds || '#remainingFileIds');
+    let maxFileSize = options.maxFileSize || 10 * 1024 * 1024; // 기본 10MB 제한
+
+    let uploadedFiles = []; // 새로 업로드된 파일 목록
+    let existingFiles = []; // 기존 파일 목록
+
+	// 기존 파일 목록을 읽어 existingFiles 배열에 추가
+    existingFileList.find('button[name="removeBtn"]').each(function() {
+        let fileId = $(this).data('file');
+        existingFiles.push(fileId);
+    });
+	
+    // 드래그 앤 드롭 이벤트 핸들러
+    dropZone.on('dragover', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        dropZone.addClass('dragover');
+    });
+
+    dropZone.on('dragleave', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        dropZone.removeClass('dragover');
+    });
+
+    dropZone.on('drop', function(e) {
+        e.preventDefault();
+        dropZone.removeClass('dragover');
+        handleNewFiles(e.originalEvent.dataTransfer.files);
+    });
+
+    dropZone.on('click', function() {
+        fileInput.click();
+    });
+
+    fileInput.on('change', function() {
+        handleNewFiles(this.files);
+        fileInput.val('');
+    });
+
+    function handleNewFiles(files) {
+        for (let i = 0; i < files.length; i++) {
+            let file = files[i];
+
+            if (file.size > maxFileSize) {
+                alert("파일 크기는 10MB를 초과할 수 없습니다: " + file.name);
+                continue;
+            }
+
+            if (uploadedFiles.some(f => f.name === file.name)) {
+                alert("같은 파일은 여러 번 추가할 수 없습니다: " + file.name);
+                continue;
+            }
+
+            uploadedFiles.push(file);
+			
+			// UI에 추가
+			newFileList.append('<li>' + files[i].name + 
+			                    ' <button name="newFileRemoveBtn" data-file="'+ files[i].name +'">제거</button></li>'); // 화면에 파일명과 제거 버튼 추가
+        }
+    }
+
+    newFileList.on('click', '[name="newFileRemoveBtn"]', function() {
+        let fileName = $(this).data('file');
+		// uploadedFiles 배열에서 해당 파일을 제거
+		uploadedFiles = uploadedFiles.filter(function(file) {
+		    return file.name !== fileName;
+		});
+         $(this).parent().remove();
+    });
+
+    existingFileList.on('click', '[name="removeBtn"]', function() {
+        let fileId = $(this).data('file'); // 기존 파일 ID
+		// existingFiles 배열에서 해당 파일 ID를 제거
+		existingFiles = existingFiles.filter(function(id) {
+		    return id !== fileId;
+		});
+        $(this).parent().remove();
+        updateRemainingFileIds();
+    });
+
+    function updateRemainingFileIds() {
+        remainingFileIds.val(existingFiles.join(','));
+    }
+	
+	// 새로 업로드된 파일 목록 가져오기
+	function getUploadedFiles() {
+	    return uploadedFiles;
+	}
+	
+	return {
+	       getUploadedFiles: getUploadedFiles,
+	       updateRemainingFileIds: updateRemainingFileIds
+	};
+}
+
+
 
 

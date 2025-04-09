@@ -48,6 +48,11 @@
    				OR  A.CONTENT LIKE '%'||#{searchText}||'%'
    				)
    			</if>
+   			<if test="category != null and category != ''">
+   				AND (
+   					A.CATEGORY LIKE '%'||#{category}||'%'
+   				)
+   			</if>
    			<if test="startDate != null and startDate != ''">
    				<![CDATA[ AND A.CREATE_DT >= TO_DATE(#{startDate}, 'YYYY-MM-DD']]>
    			</if>
@@ -123,6 +128,11 @@
    				AND (
    					A.TITLE LIKE '%'||#{searchText}||'%'
    				OR  A.CONTENT LIKE '%'||#{searchText}||'%'
+   				)
+   			</if>
+   			<if test="category != null and category != ''">
+   				AND (
+   					A.CATEGORY LIKE '%'||#{searchText}||'%'
    				)
    			</if>
    			<if test="startDate != null and startDate != ''">

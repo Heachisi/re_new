@@ -94,9 +94,14 @@
 	<br/>
 	<label for="category"><h3>카테고리 선택</h3></label>
 	<select id="category" name="category">
-            <option value="">카테고리 선택</option>
-            <option value="전자제품">전자제품</option>
-            <option value="의류">의류</option>
+            <option value="">전체</option>
+            <option value="전자제품">패션</option>
+            <option value="의류">가전제품</option>
+            <option value="의류">전자제품</option>
+            <option value="의류">인테리어</option>
+            <option value="의류">유아동</option>
+            <option value="의류">리빙</option>
+            <option value="의류">기타</option>
     </select>
 	<br/>
 	<label for="content"><h3>상품설명</h3></label>

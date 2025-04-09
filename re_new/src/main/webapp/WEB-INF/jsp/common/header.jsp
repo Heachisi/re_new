@@ -57,16 +57,16 @@
 				<nav class="navbar">
 					<!-- 메뉴바 -->
 					<ul class="menu">
-						<li class="menuItem">중고거래
+						<li class="menuItem"><a href="/product/list.do"">중고거래</a>
 							<ul class="submenu">
-								<li>전체</li>
-								<li>패션</li>
-								<li>가전제품</li>
-								<li>전자제품</li>
-								<li>인테리어</li>
-								<li>유아동</li>
-								<li>리빙</li>
-								<li>기타</li>
+								<li><a href="/product/list.do">전체</a></li>
+								<li><a href="/product/list.do?category=패션">패션</a></li>
+								<li><a href="/product/list.do?category=가전제품">가전제품</a></li>
+								<li><a href="/product/list.do?category=전자제품">전자제품</a></li>
+								<li><a href="/product/list.do?category=인테리어">인테리어</a></li>
+								<li><a href="/product/list.do?category=유아동">유아동</a></li>
+								<li><a href="/product/list.do?category=리빙">리빙</a></li>
+								<li><a href="/product/list.do?category=기타">기타</a></li>
 							</ul>
 						</li>
 						<li class="menuItem">나눔</li>

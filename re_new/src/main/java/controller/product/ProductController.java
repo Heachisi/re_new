@@ -18,9 +18,12 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
-import model.product.Product;
+import model.board.NoticeBoard;
 import model.product.Comment;
+import model.product.Product;
 import model.user.User;
+import service.board.NoticeBoardService;
+import service.board.NoticeBoardServiceImpl;
 import service.product.ProductService;
 import service.product.ProductServiceImpl;
 
@@ -36,12 +39,14 @@ public class ProductController extends HttpServlet {
 	private static final long serialVersionUID = 5726041575375068755L;
 	private static final Logger logger = LogManager.getLogger(ProductController.class); 
 	private ProductService productService;
+	private NoticeBoardService noticeService;
 	private static final int DEFAULT_PAGE = 1;
 	private static final int DEFAULT_SIZE = 12;
 	
 	public ProductController() {
         super();
         productService = new ProductServiceImpl(); 
+        noticeService = new NoticeBoardServiceImpl(); 
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -78,9 +83,10 @@ public class ProductController extends HttpServlet {
 	    	  int size = request.getParameter("size") != null ?
 	    			  Integer.parseInt(request.getParameter("size"))
 	    			  : DEFAULT_SIZE;
-	    	  
+	    	
 	    	  
 	    	  Product product = new Product();
+	    	  NoticeBoard notice = new NoticeBoard();
 	    	  
 	    	  String endDate = request.getParameter("endDate");
 	    	  String startDate = request.getParameter("startDate");
@@ -90,6 +96,10 @@ public class ProductController extends HttpServlet {
 	    	  String maxprice = request.getParameter("maxprice");
 	    	  String likecount = request.getParameter("likecount");
 	    	  String liked = request.getParameter("liked");
+	    	  String category = request.getParameter("category");
+	    	  
+	    	  notice.setPage(1); // 필수
+	    	  notice.setSize(5); // 원하는 공지 개수
 	    	  
 	    	  product.setSize(size);
 	    	  product.setPage(page);
@@ -101,9 +111,11 @@ public class ProductController extends HttpServlet {
 	    	  product.setMaxprice(maxprice);
 	    	  product.setLikecount(likecount);
 	    	  product.setLiked(liked);
+	    	  product.setCategory(category);     
 	    	  
 	    	 
 	    	  List productList = productService.getProductList(product);
+	    	  List<NoticeBoard> noticeList = noticeService.getBoardList(notice);
 	    	  
 	    	  request.setAttribute("productList", productList);
 	    	  request.setAttribute("currentPage", page);
@@ -115,7 +127,9 @@ public class ProductController extends HttpServlet {
 	    	  request.setAttribute("maxprice", maxprice);
 	    	  request.setAttribute("likecount", likecount);
 	    	  request.setAttribute("liked", liked);
-	    	  logger.info("확인확인확인확인확인확인확인확인확인확인확인확인"+likecount); 
+	    	  request.setAttribute("noticeList", noticeList);
+	    	  request.setAttribute("category", category);  
+	    	  logger.info("공지 개수: " + noticeList.size());
 	    	  request.getRequestDispatcher("/WEB-INF/jsp/product/list.jsp").forward(request, response);
 
 	      }  else if ("/product/mylist.do".equals(path)) {

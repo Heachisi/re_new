@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="/css/list.css?ver=1.1">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nouislider@15.7.0/dist/nouislider.min.css">
     <script src="https://cdn.jsdelivr.net/npm/nouislider@15.7.0/dist/nouislider.min.js"></script>
+    <jsp:include page="/WEB-INF/jsp/common/header.jsp"/>
     <script>
 	    function url(page, sellstatus){
 	    	let searchText = $("#searchText").val();

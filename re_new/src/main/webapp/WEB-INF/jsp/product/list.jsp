@@ -35,6 +35,8 @@
 				"searchText=" +searchText+"&"+
 				"startDate=" +startDate+"&"+
 				"endDate=" +endDate+"&"+
+				"minprice=" + minprice + "&" +
+	            "maxprice=" + maxprice + "&" +
 				"page=" +page+"&"+
 				"size=${size}";
 			}
@@ -53,7 +55,7 @@
 	    }
 	    
     	$(document).ready(function() {
-    		$("#searchBtn").click(function() {
+    		$("#searchButton").click(function() {
     			url(1, null);
     		});
     		$("#viewcategory").change(function() {
@@ -97,13 +99,12 @@
     </script>
 </head>
 <body>
-	<input class="search" type="text" id="searchText" name="searchText" value="${product.searchText}">
+	
 	<label hidden>시작 날짜</label>
 	<input hidden type="date" id="startDate" name="startDate" value="${product.startDate}">
 	<label hidden>종료 날짜</label>
 	<input hidden type="date" id="endDate" name="endDate" value="${product.endDate}">
 	<input type="hidden" id="likecount" name="likecount"value="0">
-	<button type="button" id="searchBtn" class="searchBtn">검색</button>
 <div class="list">
 	<div class="notice">
 	<table style="border: 1px solid rgb(245,183,89); border-collapse: collapse;">
@@ -114,10 +115,10 @@
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach var="product" items="${productList}">
+				<c:forEach var="notice" items="${noticeList}">
 					<tr>
-						<td class="th">${product.title}</td>
-						<td class="th2">${product.createDt}</td>
+						<td class="th">${notice.title}</td>
+						<td class="th2">${notice.createDt}</td>
 					</tr>
 				</c:forEach>
 			</tbody>
@@ -133,8 +134,8 @@
 	  <input type="hidden" id="minprice" name="minprice" value="${product.minprice}" />
 	  <input type="hidden" id="maxprice" name="maxprice" value="${product.maxprice}" />
 	</div>
-	<select id="viewcategory" name="viewcategory" style="height:20px;">
-            <option value="">카테고리 선택</option>
+	<select class="viewcategory" id="viewcategory" name="viewcategory" style="height:20px;">
+            <option value="">정렬 방식</option>
             <option value="최신순">최신순</option>
             <option value="낮은 가격순">낮은 가격순</option>
             <option value="높은 가격순">높은 가격순</option>
@@ -181,6 +182,13 @@
 	  bottom:40px;
 	  left:1px;
 	  width:150px; 
+  	}
+  	.viewcategory{
+	  position:relative;
+	  bottom:40px;
+	  right:300px;
+	  width:150px; 
+	  height:40px;
   	}
   	.price{
 	  position:absolute;
