@@ -97,7 +97,7 @@ function ajaxRequestFile(url, data, successCallback) {
 }
 
 
-// 공통 에러 처리 함수
+// 공통 에러 처리 함수 ㄹ
 function handleAjaxError(response, xhr, status, error) {
     if (response) {
         alert("요청 처리에 실패했습니다: " + (response.message || "알 수 없는 오류"));
