@@ -16,6 +16,9 @@
 	text-align: center;
 	width:80%;
 	}
+	.createBtn{
+    display: none; /* 기본적으로 숨김 */
+    }
 	</style>
 	<link rel="stylesheet" href="/css/bulletinList.css?ver=1">
 	<jsp:include page="/WEB-INF/jsp/common/header.jsp"/>
@@ -47,6 +50,17 @@
 		}
 		
 		$(document).ready(function () {
+			 ajaxRequest("/user/getUserRole.do", {}, function(response) {
+			        console.log("서버 응답:", response);
+			        alert(response.adminYn); 
+
+			        if (response.adminYn === "Y") {
+			            $(".createBtn").show();
+			        } else {
+			            $(".createBtn").hide();
+			        }
+			    });
+
 			$("#searchBtn").click(function () {
 				search(1,true);
 			});
@@ -125,7 +139,10 @@
 	</div>
 	<div class="createBtnContainer">
 	<div class="createBtn">
-	<a href="/noticeboard/noticeCreate.do">글쓰기</a>
+	
+    <a href="/noticeboard/noticeCreate.do">글쓰기</a>
+    
+
 	</div>
 	</div>
 	</div>

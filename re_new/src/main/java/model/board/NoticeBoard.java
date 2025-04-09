@@ -4,7 +4,6 @@ import java.util.List;
 
 import model.Model;
 import model.common.NoticePostFile;
-import model.common.PostFile;
 
 public class NoticeBoard extends Model{
 	private String searchText;

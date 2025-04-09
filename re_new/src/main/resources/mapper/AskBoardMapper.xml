@@ -40,7 +40,7 @@
     </if>
 </select>
     
-    <select id="getTotalBoardCount" resultType="int">
+    <select id="getTotalBoardCount" resultType="int"  parameterType="model.board.AskBoard">
     	SELECT COUNT(B.BOARD_ID)
     		FROM (
     			SELECT

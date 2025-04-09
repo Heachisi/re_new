@@ -5,9 +5,13 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
 <script src="/js/jquery-3.7.1.min.js"></script>
+<script src="/js/common.js"></script>
 <link rel="stylesheet" href="/css/mainHeader.css">
 <link rel="stylesheet" href="/css/common.css">
+
+
 <script>
     	$(document).ready(function() {
     		$("#searchButton").click(function() {
@@ -74,7 +78,7 @@
 						</li>
 						<li class="menuItem">고객센터
 							<ul class="submenu">
-								<li><a href="/askBoard/askList.do">문의게시판</a></li>
+								<li><a href="/askboard/askList.do">문의게시판</a></li>
 								<li><a href="/noticeboard/noticeList.do">공지사항</a></li>
 							</ul>
 						</li>
@@ -85,12 +89,34 @@
 								<li><a href="/user/updateUser.do">회원정보 수정</a></li>
 							</ul>
 						</li>
+						<li class="menuItem" id="adminPage">관리
+							<ul class="submenu">
+								<li>통계</li>
+								<li>유저관리</li>
+								<li><a href="/user/updateUser.do">정보수정</a></li>
+							</ul>
+						</li>	
 				</nav>
 				</div>
 			</header>
 			<script>
 				$(document).ready(function() {
-					
+					ajaxRequest(
+					        "/user/getUserRole.do",
+					        {},
+					        function(response) {
+					            console.log("서버 응답:", response); 
+					            if (response.adminYn === "Y") {
+					          
+                        			$("#adminPage").show();
+					                $("#myPage").hide();
+					            } else {
+					                $("#adminPage").hide();
+					                $("#myPage").show();
+					            } 
+					        }
+				          
+					   );
 
 					//로그아웃 폼에 섬밋이벤트시 작동
 					$("#logoutForm").submit(function(event) {

@@ -1,5 +1,8 @@
 package service.user;
 
+import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.logging.log4j.LogManager;
@@ -132,4 +135,36 @@ public class UserServiceImpl implements UserService {
 		}
         return result;
 	}
+
+	 @Override
+	    public List<Map<String, Object>> getAgeGroupCounts() {
+	        try (SqlSession session = sqlSessionFactory.openSession()) {
+	            return session.selectList("UserMapper.getAgeGroupCounts");
+	        } catch (Exception e) {
+	            logger.error("연령대 통계 조회 중 오류 발생", e);
+	            return null;
+	        }
+	    }
+
+	    @Override
+	    public List<Map<String, Object>> getGenderCounts() {
+	        try (SqlSession session = sqlSessionFactory.openSession()) {
+	            return session.selectList("UserMapper.getGenderCounts");
+	        } catch (Exception e) {
+	            logger.error("성별 통계 조회 중 오류 발생", e);
+	            return null;
+	        }
+	    }
+
+		@Override
+		public boolean toggleUserDeletion(User user) {
+			  try (SqlSession session = sqlSessionFactory.openSession()) {
+			        boolean result = session.update("UserMapper.toggleUserDeletion", user) > 0;
+			        if (result) session.commit(); // 변경 성공 시 commit 수행
+			        return result;
+			    } catch (Exception e) {
+			        logger.error("회원 상태 변경 중 오류 발생", e);
+			        return false;
+			    }
+		}
 }

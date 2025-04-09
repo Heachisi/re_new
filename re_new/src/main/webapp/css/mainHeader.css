@@ -84,6 +84,14 @@
   padding: 15px 25px;
   cursor: pointer;
 }
+
+.admin-mode #myPage {
+    display: none;
+}
+
+#adminPage {
+    display: none; 
+}
 .menuItem:hover {
   background-color: rgb(159 92 47);
 }
@@ -112,13 +120,6 @@
 }
 .submenu li:hover {
   font-weight:bold;
-}
-#adminPage {
-    display: none;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
 }
 
   
