@@ -26,7 +26,7 @@ public class ProductFileDAO {
     // 게시글에 첨부된 파일 목록을 저장
     public boolean insertProductFile(SqlSession session, PostFile file) {
         try {
-            session.insert("FileMapper.insertFile", file);
+            session.insert("ProductFileMapper.insertFile", file);
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -36,17 +36,17 @@ public class ProductFileDAO {
     
     // 게시글 ID와 파일 ID로 첨부된 파일 조회
     public PostFile getFileByProductIdAndFileId(SqlSession session, PostFile file) {
-    	  return session.selectOne("FileMapper.getFileByProductIdAndFileId",file);  // 파일을 찾지 못한 경우
+    	  return session.selectOne("ProductFileMapper.getFileByProductIdAndFileId",file);  // 파일을 찾지 못한 경우
          } 
     
     // 게시글 ID로 첨부된 파일 목록 조회
     public List<PostFile> getFilesByProductId(SqlSession session, String productId) {
-            return session.selectList("FileMapper.getFilesByProductId", productId);
+            return session.selectList("ProductFileMapper.getFilesByProductId", productId);
     }
 
     public boolean deleteFile(SqlSession session, PostFile file) {
         try {
-            int result = session.delete("FileMapper.deleteFile", file);
+            int result = session.delete("ProductFileMapper.deleteFile", file);
             return result > 0;
         } catch (Exception e) {
             e.printStackTrace();

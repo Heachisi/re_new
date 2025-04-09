@@ -135,7 +135,16 @@
 	
 		</form>
 	</div>
-	
+	<script>
+		function validateForm() {
+		  const category = document.getElementById("category").value;
+		  if (!category) {
+		    alert("카테고리를 선택해주세요.");
+		    return false;
+		  }
+		  return true;
+		}
+	</script>
 	<c:if test="${not empty product.postFiles}">
 		<ul id="existingFileList">
 			<c:forEach var="file" items="${product.postFiles}">

@@ -265,7 +265,8 @@
 	        UPDATE_DT = SYSDATE,
 	        CATEGORY = #{category},
 	        PRICE = #{price},
-	        PHOTO = #{photo}
+	        PHOTO = #{photo},
+	        SELL_STATUS = #{sellstatus}
 	    WHERE PRODUCT_ID = #{productId}
 	</update>
 	
