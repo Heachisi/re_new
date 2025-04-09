@@ -1,5 +1,8 @@
 package dao.user;
 
+import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.session.SqlSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -46,6 +49,15 @@ public class UserDAO {
         int result = session.update("UserMapper.deleteUser", user); // 사용자 삭제 쿼리 실행
         return result > 0; // 삭제 성공 여부 반환
     }
+    
+    public List<Map<String, Object>> getAgeGroupCounts(SqlSession session) {
+        return session.selectList("UserMapper.getAgeGroupCounts");
+    }
+
+    public List<Map<String, Object>> getGenderCounts(SqlSession session) {
+        return session.selectList("UserMapper.getGenderCounts");
+    }
+
 
 
 }

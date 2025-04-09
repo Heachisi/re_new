@@ -3,7 +3,6 @@ package controller.user;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.JSONObject;
@@ -56,6 +55,11 @@ public class UserController extends HttpServlet {
 	      }else if("/user/updateUser.do".equals(path)) {
 	            request.getRequestDispatcher("/WEB-INF/jsp/user/updateUser.jsp").forward(request, response);
 	           
+	      }else if("/user/adminChart.do".equals(path)) {
+	            request.getRequestDispatcher("/WEB-INF/jsp/user/adminChart.jsp").forward(request, response);
+		           
+	      }else if("/user/adminUserManage.do".equals(path)) {
+	            request.getRequestDispatcher("/WEB-INF/jsp/user/adminUserManage.jsp").forward(request, response);
 	      }
 	      
 	      
@@ -173,7 +177,25 @@ public class UserController extends HttpServlet {
                 	HttpSession session = request.getSession();
                 	session.invalidate();
                 }
-            } else if ("/user/getUserRole.do".equals(path)) {
+            } else if ("/user/toggleUserDeletion.do".equals(path)) {
+                String userId = request.getParameter("userId");
+                String delYn = request.getParameter("delYn"); // 'Y' 또는 'N'
+                String updateId = request.getParameter("updateId"); // 변경을 수행한 사용자 ID
+
+                if (userId == null || delYn == null || updateId == null) {
+                    jsonResponse.put("success", false);
+                    jsonResponse.put("message", "필수 데이터가 부족합니다.");
+                } else {
+                    User user = new User();
+                    user.setUserId(userId);
+                    user.setDelYn(delYn);
+                    user.setUpdateId(updateId);
+
+                    boolean result = userService.toggleUserDeletion(user);
+                    jsonResponse.put("success", result);
+                    jsonResponse.put("message", result ? "회원 상태 변경 성공" : "회원 상태 변경 실패");
+                }response.getWriter().print(jsonResponse.toString());
+            }else if ("/user/getUserRole.do".equals(path)) {
                 HttpSession session = request.getSession();
                 User user = (User) session.getAttribute("user");
                 if (user != null) {
@@ -182,6 +204,41 @@ public class UserController extends HttpServlet {
                     jsonResponse.put("adminYn", "N");  // 기본값 설정
                 }
                 response.setContentType("application/json; charset=UTF-8");
+            } else if ("/user/age-group.do".equals(path)) {
+                // 연령대 데이터 조회
+                logger.info("Fetching age group data");
+                jsonResponse.put("data", userService.getAgeGroupCounts());
+                jsonResponse.put("success", true);
+
+            } else if ("/user/gender-stats.do".equals(path)) {
+                // 성별 데이터 조회
+                logger.info("Fetching gender stats");
+                jsonResponse.put("data", userService.getGenderCounts());
+                jsonResponse.put("success", true);
+
+            }else if ("/user/getUserInfo.do".equals(path)) {
+                String userId = request.getParameter("userId");
+
+
+                if (userId == null || userId.trim().isEmpty()) {
+                    jsonResponse.put("success", false);
+                    jsonResponse.put("message", "검색할 사용자 ID를 입력하세요.");
+                } else {
+                    User user = userService.getUserById(userId);
+
+                    if (user != null) {
+                        jsonResponse.put("success", true);
+                        jsonResponse.put("userId", user.getUserId());
+                        jsonResponse.put("createDt", user.getCreateDt()); // 회원가입 날짜
+                        jsonResponse.put("createId", user.getCreateId()); // 가입자 ID
+                        jsonResponse.put("delYn", user.getDelYn()); // 삭제 여부
+                    } else {
+                        jsonResponse.put("success", false);
+                        jsonResponse.put("message", "해당 ID를 가진 사용자가 없습니다.");
+                    }
+                }
+
+                response.getWriter().print(jsonResponse.toString());
             }
             
             

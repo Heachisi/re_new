@@ -57,7 +57,7 @@
 </head>
 <body>
 <div class="bottomSection">
-	<h2>리뉴 커뮤니티</h2>
+	<h2>문의 게시판</h2>
 	<div class="searchOption">
 	<div class="startDateContainer">
 	<label>시작 날짜</label>

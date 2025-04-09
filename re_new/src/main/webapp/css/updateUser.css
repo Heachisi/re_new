@@ -9,14 +9,16 @@ body {
 }
 
 
+
 /* 회원수정 폼 */
 #updateForm {
+    margin-top: 25px;
     flex: 1;
     display: flex;
-    flex-direction: column;
+    flex-direction: colume;
     align-items: center;
     padding: 20px;
-    border: 2px;
+    width: 370px;
     border-radius: 25px;
     border: 1px solid black;
     background-color: #e6e6e6;
@@ -26,6 +28,7 @@ body {
 /* 전체 컨테이너 - 화면 중앙 배치 */
 #updateFormContainer {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
     align-items: center;
     width: 900px; /* 화면을 꽉 채우지 않음 */
@@ -78,6 +81,7 @@ body {
 
 /* 생년월일 및 성별 텍스트를 감싸는 컨테이너 */
 #birthGenderLabel {
+    margin-right: 365px;
 	display: flex;
     gap: 10px; /* 요소 사이 여백 */
     width: 100%; /* 부모 요소 크기에 맞춤 */
@@ -88,10 +92,9 @@ body {
 
 /* 생년월일과 성별을 감싸는 컨테이너 */
 #birthGenderContainer {
-    display: flex;
-    gap: 10px; /* 요소 사이 여백 */
-    width: 100%; /* 부모 요소 크기에 맞춤 */
-    margin-bottom: 20px;
+	display: flex;
+    flex-direction: row;
+    padding-right: 90px;
 }
 
 /* 생일 입력 필드 스타일 */

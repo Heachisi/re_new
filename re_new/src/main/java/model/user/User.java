@@ -9,10 +9,15 @@ public class User extends Model {
    private String email;
    private String birthdate;
    private String gender;
+   private String delYn;
+
    
 
    
-   public User() { 
+
+
+
+public User() { 
 	      
    }
 
@@ -86,6 +91,17 @@ public String getGender() {
 
 public void setGender(String gender) {
 	this.gender = gender;
+}
+
+
+public String getDelYn() {
+	return delYn;
+}
+
+
+
+public void setDelYn(String delYn) {
+	this.delYn = delYn;
 }
 
 
