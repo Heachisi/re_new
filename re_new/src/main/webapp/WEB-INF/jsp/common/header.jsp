@@ -73,7 +73,7 @@
 						<li class="menuItem">커뮤니티
 							<ul class="submenu">
 								<li><a href="/bulletinboard/bulletinList.do">리뉴 커뮤니티</a></li>
-								<li>구매글 게시판</li>
+								<li><a href="/findboard/findList.do">구매글 게시판</a></li>
 							</ul>
 						</li>
 						<li class="menuItem">고객센터
@@ -84,15 +84,15 @@
 						</li>
 						<li  class="menuItem" id="myPage">마이페이지
 							<ul class="submenu">
-								<li>제품관리</li>
-								<li>내 물건 목록</li>
+								<li><a href="/product/create.do">제품관리</a></li>
+								<li><a href="/product/mylist.do">내 물건 목록</a></li>
 								<li><a href="/user/updateUser.do">회원정보 수정</a></li>
 							</ul>
 						</li>
 						<li class="menuItem" id="adminPage">관리
 							<ul class="submenu">
-								<li>통계</li>
-								<li>유저관리</li>
+								<li><a href="/user/adminChart.do">통계</a></li>
+								<li><a href="/user/adminUserManage.do">유저관리</a></li>
 								<li><a href="/user/updateUser.do">정보수정</a></li>
 							</ul>
 						</li>	

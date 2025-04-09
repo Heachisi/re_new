@@ -14,45 +14,38 @@
 <script>
 $(document).ready(function () {
     // 연령대 데이터 가져오기
-    $.ajax({
-        type: "POST",
-        url: "/user/age-group.do",
-        contentType: "application/json",
-        success: function (response) {
+    ajaxRequest(
+        "/user/age-group.do",
+        {},
+        function (response) {
             if (response.success) {
                 renderAgeChart(response.data);
             } else {
                 console.error("연령대 데이터 가져오기 실패");
             }
-        },
-        error: function () {
-            console.error("서버 오류 발생");
         }
-    });
+    );
 
     // 성별 데이터 가져오기
-    $.ajax({
-        type: "POST",
-        url: "/user/gender-stats.do",
-        contentType: "application/json",
-        success: function (response) {
+    ajaxRequest(
+        "/user/gender-stats.do",
+        {},
+        function (response) {
             if (response.success) {
                 renderGenderChart(response.data);
             } else {
                 console.error("성별 데이터 가져오기 실패");
             }
-        },
-        error: function () {
-            console.error("서버 오류 발생");
         }
-    });
-});
+        
+      );
+    
 
 // 연령대 막대 그래프 렌더링
 function renderAgeChart(ageData) {
     const labels = ageData.map(item => item.age_group);
     const counts = ageData.map(item => item.count);
-
+    console.log(labels);
     const ctxAge = document.getElementById('ageChart').getContext('2d');
     new Chart(ctxAge, {
         type: 'bar',
@@ -98,6 +91,9 @@ function renderGenderChart(genderData) {
         }
     });
 }
+
+});
+
 </script>
 </body>
 </html>
