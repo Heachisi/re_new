@@ -8,7 +8,25 @@
 <script src="/js/jquery-3.7.1.min.js"></script>
 <link rel="stylesheet" href="/css/mainHeader.css">
 <link rel="stylesheet" href="/css/common.css">
+<script>
+    	$(document).ready(function() {
+    		$("#searchButton").click(function() {
+    			let searchText = $("#searchText").val();
+    			let startDate = $("#startDate").val();
+    			let endDate = $("#endDate").val();
+    			let minprice = $("#minprice").val();
+    			let maxprice = $("#maxprice").val();
+    			
+            	window.location.href = "/product/list.do?"+
+            	"searchText=" + searchText + "&" +
+                "viewcategory=" + null + "&" +
+                "page=" + 1 + "&" +
+                "size=12";
+    		});
+    	});
+    </script>
 </head>
+
 <body>
 	<c:choose>
 		<c:when test="${empty sessionScope.user}">
@@ -27,7 +45,7 @@
 					</div>
 					<div class="search" id="search">
 						<!-- 검색창 -->
-						<input class="searchInput" id="seacrhInput"
+						<input class="searchText" id="searchText" 
 							placeholder="검색어를 입력하세요" />
 						<button class="searchButton" id="searchButton">검색</button>
 					</div>
