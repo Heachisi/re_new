@@ -8,7 +8,7 @@
 
 <script src="/js/jquery-3.7.1.min.js"></script>
 <script src="/js/common.js"></script>
-<link rel="stylesheet" href="/css/mainHeader.css">
+<link rel="stylesheet" href="/css/mainHeader.css?var=2">
 <link rel="stylesheet" href="/css/common.css">
 
 
@@ -44,14 +44,16 @@
 							value="${sessionScope.user.userId}">
 						<button type="submit" class="logoutBtn">로그아웃</button>
 					</form>
+					<div class="logoSearchContainer">
 					<div class="logoContainer">
-						<a href="#"> <img src="#" class="logo"></a>
+						<a href="/user/main.do"> <img src="/img/logo.png" class="logo"></a>
 					</div>
 					<div class="search" id="search">
 						<!-- 검색창 -->
 						<input class="searchText" id="searchText" 
 							placeholder="검색어를 입력하세요" />
 						<button class="searchButton" id="searchButton">검색</button>
+					</div>
 					</div>
 				</div>
 				<nav class="navbar">

@@ -6,23 +6,31 @@
 <title>로그인 화면</title>
 <script src="/js/jquery-3.7.1.min.js"></script>
 <script src="/js/common.js"></script>
-<link rel="stylesheet" href="/css/login.css">
+<link rel="stylesheet" href="/css/login.css? var=2">
 </head>
 <body>
 	<div class=totalSignForm>
 	<div class=loginContainer>
 		<form class="loginForm" id="loginForm">
 			<h2>로그인</h2>
+			<div class="idContainer">
 			<label for="userId">아이디</label> 
 			<input type="text" id="userId" name="userId" maxlength="20" placeholder="아이디 입력" required />
+			</div>
+			<div class="passwordContainer">
 			<label for="password">비밀번호</label>		 
 			<input type="password" id="password" name="password" placeholder="비밀번호 입력" required /> <br />
+			</div>
 			<button type="submit" id="loginBtn" class="loginBtn">로그인</button>
 		</form>
 	</div>
 	<div class=signupForm>
 		<h2>환영해요!</h2>
 		<h2>리뉴는 처음이신가요?</h2>
+		
+		<div class="welcomeImgContainer">
+		<img src="/img/welcome.gif" class="welcomeImg">
+		</div>
 		<a href="/user/join.do" class="signUpBtn">회원가입 페이지로 이동</a>
 	</div>
 

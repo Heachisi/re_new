@@ -26,10 +26,21 @@
 	
 }
 .logoutBtn{
-	
+	width: 80px;
+    height: 35px;
+    border:2px solid #FF5C5C;
+	background-color:#FF5C5C;
+	color:white;
+    border-radius: 20px;
+	margin-top:10px;
+
+}
+.logoSearchContainer{
+	display:flex;
+	flex-direction:row;
 }
 .logoContainer{
-	width:100%;
+	width:0%;
 }
 .logo{
 	
@@ -46,16 +57,19 @@
     width:450px;
     height:40px;
     border-radius: 20px;
-    border:2px solid rgb(245, 183, 89);   
+    border:2px solid #FF5C5C;   
 }
 .searchButton{
     width: 80px;
     height: 46px;
-    border:2px solid rgb(245, 183, 89);
-	background-color:rgb(221, 127, 64);
+    border:2px solid #FF5C5C;
+	background-color:#FF5C5C;
 	color:white;
     border-radius: 20px;
     margin:-50px;
+}
+.searchButton:hover{
+	background-color:	#E74C3C;
 }
 .navbar{
     display: flex;
@@ -70,7 +84,7 @@
   text-align:center;
   display: flex;
   justify-content: space-evenly;
-  background-color: rgb(221, 127, 64);
+  background-color: #2E0D6C;
   width:1200px;
   color: #fff;
   list-style: none;
@@ -78,11 +92,21 @@
   margin: 0;
   font-family: Arial, sans-serif;
 }
+
 .menuItem {
 	flex:1;
   position: relative;
   padding: 15px 25px;
   cursor: pointer;
+	
+}
+.menu a{
+	text-decoration:none;
+	color:white;
+}
+.menuItem ul a{
+	text-decoration:none;
+	color:black;
 }
 
 .admin-mode #myPage {
@@ -93,7 +117,7 @@
     display: none; 
 }
 .menuItem:hover {
-  background-color: rgb(159 92 47);
+  background-color: #1e0846;
 }
 .submenu {
   position: absolute;
@@ -121,7 +145,10 @@
 .submenu li:hover {
   font-weight:bold;
 }
-
+.logo{
+	width:120px;
+	height:auto;
+}
   
   
   

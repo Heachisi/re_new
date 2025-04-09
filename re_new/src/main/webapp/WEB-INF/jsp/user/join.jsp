@@ -10,7 +10,7 @@
 <title>회원가입</title>
 <script src="/js/jquery-3.7.1.min.js"></script>
 <script src="/js/common.js?ver=1.3"></script>
-<link rel="stylesheet" href="/css/join.css">
+<link rel="stylesheet" href="/css/join.css?var=2">
 <script>
    let isUserIdChecked = false; // 중복 체크 완료 여부를 저장
 
@@ -140,23 +140,25 @@
 		<div class="loginForm">
 			<h2>가입을 환영해요!</h2>
 			<h2>리뉴를 즐겨볼까요?</h2>
-			<!-- 	<img src="C:\Users\Admin\Downloads./logo.png"> -->
+			<div class="loginImgcontainer">
+				<img src="/img/login.gif" class="loginImg">
+			</div>
 			<a href="/user/login.do" class="loginBtn">로그인</a>
 		</div>
 		<div class="signupForm" id="signupForm">
 		    <h2>회원가입</h2>
 			<form id="joinForm" class="joinForm">
 				<div class="idContainer">
-					<label for="userId">아이디&nbsp;&nbsp;<span id="checkResult" style="font-size: 15px;"></span></label>
+					<label for="userId">아이디 <span id="checkResult" style="font-size: 15px;"><span class="required">*</span></span></label>
 					<div class="idInputContainer">
 					<input type="text" id="userId" name="userId" class="userIdInput" maxlength="20" placeholder="아이디 입력" required />
 					<button type="button" id="checkUserIdBtn" class="checkUserIdBtn">중복체크</button>
 					</div>
 				</div> 
-				<label for="password">비밀번호</label> <input type="password"
-					id="password" name="password" placeholder="비밀번호 입력" required /> <br />
-				<label for="email">이메일</label> <input type="email" id="email"
-					name="email" maxlength="100" placeholder="이메일 입력" required /> <br />
+				<label for="password">비밀번호 <span class="required">*</span></label> 
+				<input type="password" id="password" name="password" placeholder="비밀번호 입력" required /> <br />
+				<label for="email">이메일 <span class="required">*</span></label> 
+				<input type="email" id="email" name="email" maxlength="100" placeholder="이메일 입력" required /> <br />
 				<div class="birthGenderContainer">
 					<div class="birthContainer">
 						<label for="birthdate">생년월일 </label> 

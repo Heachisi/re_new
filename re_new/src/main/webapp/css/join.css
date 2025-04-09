@@ -16,7 +16,7 @@ body {
     justify-content: center;
     width: 900px;
     height: 537.41px;
-    border: 3px solid rgb(255 154 60);
+    border: 3px solid #2E0D6C;
     border-radius: 80px;
 }
 .loginForm {
@@ -31,9 +31,9 @@ body {
 	padding: 5px 15px 10px 15px;
     height: 20px;
     width:240px;
-    background-color: rgb(255, 130, 60);
+    background-color: #FF5C5C;
     color: white;
-    border: 1px solid black;
+    border: 1px solid #FF5C5C;
     border-radius: 25px;
     font-size: 18px;
     font-weight: bold;
@@ -42,7 +42,7 @@ body {
     transition: 0.3s;
 }
 .loginBtn:hover {
-    background-color: rgb(226, 121, 0);
+    background-color: #E74C3C;
 }
 .signupForm {
     flex: 1;
@@ -52,9 +52,9 @@ body {
     padding: 0px;
     height:100%;
     gap:20px;
-    border: 3px solid rgb(255 154 60);
+    border: 3px solid #2E0D6C;
     border-radius: 70px;
-    background-color: rgb(255 154 60);
+    background-color: #2E0D6C;
 }
 .signupForm h2 {
     color: white;
@@ -70,13 +70,14 @@ body {
     width: 100%;
 	margin-top:20px;
 	margin-bottom:5px;
+	color: white;
 }
 .joinForm input:not(.birthdate):not(.userid) {
     border: none;
     border-radius: 10px;
     width: 100%;
     height: 30px;
-    background-color: rgb(255, 239, 216);
+    background-color: 	#BFA5E2
 }
 .idContainer {
 	display:flex;
@@ -94,14 +95,14 @@ body {
     flex: 1;
     width: auto;
     height: 35px;
-    background-color: rgb(255, 130, 60);
+    background-color: #FF5C5C;
     color: white;
     border: none;
     border-radius: 15px;
     cursor: pointer;
     font-weight: bold;
     white-space: nowrap;
-    border: 1px solid black;
+    border: 1px solid #FF5C5C;
 }
 .birthGenderContainer {
     display: flex;
@@ -113,14 +114,16 @@ input.birthdate  {
     border-radius: 10px;
     height: 30px;
     width:150px;
-    background-color: rgb(255, 239, 216);
+    background-color: 	#BFA5E2;
+	color: gray;
 }
 select.gender  {
     height: 30px;
     width:100px;
     border-radius: 10px;
-    background-color: rgb(255, 239, 216);
+    background-color: 	#BFA5E2;
     border: none;
+	color: gray;
 }
 .userIdContainer {
     display: flex;
@@ -129,7 +132,7 @@ select.gender  {
 }
 
 .checkUserIdBtn:hover {
-	 background-color: rgb(226, 121, 0);
+	 background-color: #E74C3C;
 }
 .birthGenderContainer{
 	justify-content:row;
@@ -147,7 +150,7 @@ select.gender  {
 .registerBtn {
     width: 100%;
     height:40px;
-    background-color: rgb(255, 130, 60);
+    background-color: #FF5C5C;
     color: white;
     border: none;
     border-radius: 25px;
@@ -156,8 +159,15 @@ select.gender  {
     cursor: pointer;
     margin-top: 30px;
     transition: 0.3s;
-    border: 1px solid black;
+    border: 1px solid #FF5C5C;
 }
 .registerBtn:hover {
-    background-color: rgb(226, 121, 0);
+    background-color: #E74C3C;
+}
+.required{
+	color: red;
+}
+.loginImg{
+	width:260px;
+	height: auto;
 }
