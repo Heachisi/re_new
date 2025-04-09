@@ -1,4 +1,4 @@
-package controller.Product;
+package controller.product;
 
 import java.io.File;
 import java.io.IOException;
