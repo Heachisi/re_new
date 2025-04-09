@@ -1,19 +1,20 @@
 @charset "UTF-8";
-#commentList{
+.commentList{
 	margin-left: 20px;
 	
 }
 
-#commentDateArea{
+.commentDateArea{
 	display: flex;
 	flex-direction: row;
 	justify-content:space-between;
 	margin-right:85%;
 }
-#commentDateArea a{
+.commentDateArea a{
 	font-size:12px;
+	cursor: pointer;
 }
-#commentContent{
+.commentContent{
 	display:flex;
     flex-wrap:wrap;
 }
@@ -23,11 +24,11 @@
 .replyComment{
 	width:100%;
 }
-#updateCommentArea{
+.updateCommentArea{
 	display: flex;
 	flex-direction: row-reverse;
 }
-#updateCommentArea button{
+.updateCommentArea button{
 	width: 60px;
 	height: 25px;
 	border:none;
@@ -36,12 +37,13 @@
     margin-left:5px;
     margin-right:5px;
     margin-bottom:10px;
+    cursor: pointer;
 }
-#replyCommentArea{
+.replyCommentArea{
 	display:flex;
 	flex-direction: row-reverse;
 }
-#replyCommentArea button{
+.replyCommentArea button{
 	width: 60px;
 	height: 25px;
 	border:none;
@@ -50,5 +52,6 @@
     margin-left:5px;
     margin-right:5px;
     margin-bottom:10px;
+    cursor: pointer;
 }
 	

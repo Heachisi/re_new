@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ProductMapper"> <!-- 매퍼의 네임스페이스 설정 -->
+
+    <!-- 사용자 ID로 사용자 정보 조회 -->
+      <select id="getProductList" parameterType="model.product.Product" resultType="model.product.Product">
+        SELECT
+            B.RN,
+		    B.PRODUCT_ID,
+		    B.TITLE,
+		    B.CONTENT,
+		    B.VIEW_COUNT,
+		    B.CREATE_ID,
+		    B.UPDATE_ID,
+		    B.CREATE_DT,
+		    B.UPDATE_DT,
+		    B.DEL_YN,
+		    B.PRICE,
+		    B.LIKE_COUNT,
+		    B.CATEGORY,
+		    B.PHOTO,
+		    B.LIKED
+        FROM(
+        SELECT
+            ROWNUM  AS RN,
+		    A.PRODUCT_ID,
+		    A.TITLE,
+		    A.CONTENT,
+		    A.VIEW_COUNT,
+		    A.CREATE_ID,
+		    A.UPDATE_ID,
+		    TO_CHAR(A.CREATE_DT,'YYYY-MM-DD') AS CREATE_DT,
+		    TO_CHAR(A.UPDATE_DT,'YYYY-MM-DD') AS UPDATE_DT,
+		    A.DEL_YN,
+		    A.PRICE,
+		    A.LIKE_COUNT,
+		    A.CATEGORY,
+		    A.PHOTO,
+		    A.LIKED
+		  FROM PRODUCT_BOARD A
+		  <where>
+   			AND A.DEL_YN = 'N'
+   			<if test="searchText != null and searchText != ''">
+   				AND (
+   					A.TITLE LIKE '%'||#{searchText}||'%'
+   				OR  A.CONTENT LIKE '%'||#{searchText}||'%'
+   				)
+   			</if>
+   			<if test="startDate != null and startDate != ''">
+   				<![CDATA[ AND A.CREATE_DT >= TO_DATE(#{startDate}, 'YYYY-MM-DD']]>
+   			</if>
+   			<if test="endDate != null and endDate != ''">
+   				<![CDATA[ AND A.CREATE_DT >= TO_DATE(#{endDate}, 'YYYY-MM-DD']]>
+   			</if>
+   			<if test="minprice != null and minprice != ''">
+		        AND A.PRICE &gt;= #{minprice}
+		    </if>
+		    <if test="maxprice != null and maxprice != ''">
+		        AND A.PRICE &lt;= #{maxprice}
+		    </if>
+   		</where>
+   			<if test="viewcategory != null and viewcategory.equals('최신순')">
+				ORDER BY A.CREATE_DT DESC
+			</if>
+			<if test="viewcategory != null and viewcategory.equals('낮은 가격순')">
+				ORDER BY A.PRICE ASC
+			</if>
+			<if test="viewcategory != null and viewcategory.equals('높은 가격순')">
+				ORDER BY A.PRICE DESC
+			</if>
+			<if test="viewcategory != null and viewcategory.equals('추천순')">
+				ORDER BY A.LIKE_COUNT DESC
+			</if>
+			
+	   )B
+		  WHERE B.RN BETWEEN #{startRow} AND #{endRow}
+    </select> 
+    <select id="getMyProductList" parameterType="model.product.Product" resultType="model.product.Product">
+        SELECT
+            B.RN,
+		    B.PRODUCT_ID,
+		    B.TITLE,
+		    B.CONTENT,
+		    B.VIEW_COUNT,
+		    B.CREATE_ID,
+		    B.UPDATE_ID,
+		    B.CREATE_DT,
+		    B.UPDATE_DT,
+		    B.DEL_YN,
+		    B.PRICE,
+		    B.LIKE_COUNT,
+		    B.CATEGORY,
+		    B.PHOTO,
+		    B.LIKED,
+		    B.SELL_STATUS
+        FROM(
+        SELECT
+            ROWNUM  AS RN,
+		    A.PRODUCT_ID,
+		    A.TITLE,
+		    A.CONTENT,
+		    A.VIEW_COUNT,
+		    A.CREATE_ID,
+		    A.UPDATE_ID,
+		    TO_CHAR(A.CREATE_DT,'YYYY-MM-DD') AS CREATE_DT,
+		    TO_CHAR(A.UPDATE_DT,'YYYY-MM-DD') AS UPDATE_DT,
+		    A.DEL_YN,
+		    A.PRICE,
+		    A.LIKE_COUNT,
+		    A.CATEGORY,
+		    A.PHOTO,
+		    A.LIKED,
+		    A.SELL_STATUS
+		  FROM PRODUCT_BOARD A
+		  <where>
+   			AND A.DEL_YN = 'N' 
+   			<if test="createId != null and createId != ''">
+		        AND A.CREATE_ID = #{createId}
+		    </if>
+   			<if test="searchText != null and searchText != ''">
+   				AND (
+   					A.TITLE LIKE '%'||#{searchText}||'%'
+   				OR  A.CONTENT LIKE '%'||#{searchText}||'%'
+   				)
+   			</if>
+   			<if test="startDate != null and startDate != ''">
+   				<![CDATA[ AND A.CREATE_DT >= TO_DATE(#{startDate}, 'YYYY-MM-DD']]>
+   			</if>
+   			<if test="endDate != null and endDate != ''">
+   				<![CDATA[ AND A.CREATE_DT >= TO_DATE(#{endDate}, 'YYYY-MM-DD']]>
+   			</if>
+   			<if test="minprice != null and minprice != ''">
+		        AND A.PRICE &gt;= #{minprice}
+		    </if>
+		    <if test="maxprice != null and maxprice != ''">
+		        AND A.PRICE &lt;= #{maxprice}
+		    </if>
+   		</where>
+  			<if test="sellstatus != null and sellstatus == '00' ">
+			    ORDER BY A.SELL_STATUS ASC
+			</if>
+			<if test="sellstatus != null and sellstatus == '11' ">
+			    ORDER BY A.SELL_STATUS DESC
+			</if>
+	   )B
+		  WHERE B.RN BETWEEN #{startRow} AND #{endRow}
+    </select> 
+    
+    <select id="getMaxPrice" resultType="int">
+    SELECT MAX(price) FROM PRODUCT_BOARD WHERE DEL_YN = 'N'
+	</select>
+	
+	<select id="getMinPrice" resultType="int">
+	    SELECT MIN(price) FROM PRODUCT_BOARD WHERE DEL_YN = 'N'
+	</select>
+
+	 <select id="getTotalProductCount" parameterType="model.product.Product" resultType="int">
+	        SELECT COUNT(B.PRODUCT_ID)
+	        FROM (
+	        		SELECT
+	        			A.PRODUCT_ID,
+	        			A.CONTENT,
+	        			A.VIEW_COUNT,
+	        			A.CREATE_ID,
+	        			A.UPDATE_ID,
+	        			A.CREATE_DT,
+	        			A.UPDATE_DT,
+	        			TO_CHAR(A.CREATE_DT,'YYYY-MM-DD') AS CREATE_DT,
+		   				TO_CHAR(A.UPDATE_DT,'YYYY-MM-DD') AS UPDATE_DT,
+		    			A.DEL_YN,
+					    A.PRICE,
+					    A.LIKE_COUNT,
+					    A.CATEGORY,
+					    A.PHOTO,
+		  			    A.LIKED,
+		   				A.SELL_STATUS
+		    		FROM PRODUCT_BOARD A
+		    		<where>
+		    			AND A.DEL_YN = 'N'
+		    			<if test="searchText != null and searchText != ''">
+		    				AND (
+		    					A.TITLE LIKE '%'||#{searchText}||'%'
+		    				OR  A.CONTENT LIKE '%'||#{searchText}||'%'
+		    				)
+		    			</if>
+		    			<if test="startDate != null and startDate != ''">
+		    				<![CDATA[ AND A.CREATE_DT >= TO_DATE(#{startDate}, 'YYYY-MM-DD']]>
+		    			</if>
+		    			<if test="endDate != null and endDate != ''">
+		    				<![CDATA[ AND A.CREATE_DT >= TO_DATE(#{endDate}, 'YYYY-MM-DD']]>
+		    			</if>
+		    		</where>
+	        ) B
+   	 </select> 
+  
+  
+  	<update id="updateProductLike" parameterType="model.product.Product">
+	    UPDATE PRODUCT_BOARD
+	    SET 
+	    LIKE_COUNT = #{likecount},
+	    LIKED = #{liked}
+	    WHERE PRODUCT_ID = #{productId}
+	</update>
+	
+    <select id="getProductById" parameterType="string" resultType="model.product.Product">
+        SELECT
+		    PRODUCT_ID,
+		    TITLE,
+		    CONTENT,
+		    VIEW_COUNT,
+		    CREATE_ID,
+		    UPDATE_ID,
+		    CREATE_DT,
+		    UPDATE_DT,
+		    DEL_YN,
+		    PRICE,
+		    LIKE_COUNT,
+		    CATEGORY,
+		    PHOTO,
+		    LIKED,
+		    SELL_STATUS
+		  FROM PRODUCT_BOARD
+		  WHERE PRODUCT_ID = #{productId}
+		  AND DEL_YN = 'N'
+    </select> 
+    
+    <insert id="create" parameterType="model.product.Product">
+        INSERT INTO PRODUCT_BOARD 
+	        (
+	        PRODUCT_ID, 
+	        TITLE, 
+	        CONTENT, 
+	        VIEW_COUNT, 
+	        CREATE_ID,
+	        CREATE_DT,
+	        CATEGORY,
+	        PRICE,
+	        PHOTO
+	        )
+	        VALUES
+	        (
+	        SEQ_PRODUCT_BOARD.NEXTVAL,
+	        #{title}, 
+	        #{content}, 
+	        #{viewCount},
+	        #{createId},
+	        SYSDATE,
+	        #{category},
+	        #{price},
+	        #{photo}
+	        )
+        <selectKey keyProperty="productId" resultType="string" order="AFTER">
+        SELECT SEQ_PRODUCT_BOARD.CURRVAL FROM DUAL
+        </selectKey>
+    </insert>
+    
+    <update id="update" parameterType="model.product.Product">
+	    UPDATE PRODUCT_BOARD
+	    SET TITLE = #{title},
+	        CONTENT = #{content},
+	        VIEW_COUNT = #{viewCount},
+	        UPDATE_ID = #{updateId},
+	        UPDATE_DT = SYSDATE,
+	        CATEGORY = #{category},
+	        PRICE = #{price},
+	        PHOTO = #{photo}
+	    WHERE PRODUCT_ID = #{productId}
+	</update>
+	
+	 <update id="delete" parameterType="model.product.Product">
+        UPDATE PRODUCT_BOARD 
+        SET DEL_YN = 'Y',  <!-- 삭제된 사용자 표시 -->
+            UPDATE_ID = #{updateId}  <!-- 삭제를 수행한 관리자 ID -->
+        WHERE PRODUCT_ID = #{productId}
+    </update>
+    
+    <!-- 댓글 등록 -->
+    <insert id="insertComment" parameterType="model.product.Comment">
+        INSERT INTO PRODUCT_COMMENT (COMMENT_ID, PRODUCT_ID, PARENT_COMMENT_ID, CONTENT, CREATE_ID)
+        VALUES (SEQ_PRODUCT_COMMENT.NEXTVAL, #{productId}, #{parentCommentId}, #{content}, #{createId})
+    </insert>
+
+    <!-- 게시글에 대한 댓글 조회 (대댓글 포함) -->
+    <select id="getCommentsByProductId" parameterType="string" resultType="model.product.Comment">
+        SELECT 
+			COMMENT_ID,
+			PRODUCT_ID,
+			PARENT_COMMENT_ID,
+			CONTENT,
+			CREATE_ID,
+			UPDATE_ID,
+			TO_CHAR(CREATE_DT, 'YYYY-MM-DD') AS CREATE_DT,
+			TO_CHAR(UPDATE_DT, 'YYYY-MM-DD') AS UPDATE_DT,
+			DEL_YN
+        FROM PRODUCT_COMMENT
+        WHERE PRODUCT_ID = #{productId}
+          AND DEL_YN = 'N'
+        ORDER BY PARENT_COMMENT_ID, CREATE_DT ASC
+    </select>
+
+    <!-- 댓글 조회 -->
+    <select id="getCommentById" parameterType="string" resultType="model.product.Comment">
+        SELECT *
+        FROM PRODUCT_COMMENT
+        WHERE COMMENT_ID = #{commentId}
+          AND DEL_YN = 'N'
+    </select>
+
+    <!-- 댓글 수정 -->
+    <update id="updateComment" parameterType="model.product.Comment">
+        UPDATE PRODUCT_COMMENT
+        SET CONTENT = #{content},
+            UPDATE_ID = #{updateId},
+            UPDATE_DT = SYSDATE
+        WHERE COMMENT_ID = #{commentId}
+    </update>
+
+    <!-- 댓글 삭제 -->
+    <update id="deleteComment" parameterType="model.product.Comment">
+        UPDATE PRODUCT_COMMENT
+        SET DEL_YN = 'Y',
+        UPDATE_ID = #{updateId},
+        UPDATE_DT = SYSDATE
+        WHERE COMMENT_ID = #{commentId}
+    </update>
+    
+</mapper>

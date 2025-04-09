@@ -300,5 +300,71 @@ function setupFileUploadUpdate(options) {
 
 
 
+function photoUpload(options) {
+    let dropZone = $(options.dropZone || '#photoDropZone');
+    let fileInput = $(options.fileInput || '#photoInput');
+    let previewContainer = $(options.previewContainer || '#photoPreview');
+
+    let selectedImage = null; // 현재 선택된 이미지 파일
+
+    // 드롭 이벤트 처리
+    dropZone.on('dragover', function(e) {
+        e.preventDefault();
+        dropZone.addClass('dragover');
+    });
+
+    dropZone.on('dragleave', function(e) {
+        e.preventDefault();
+        dropZone.removeClass('dragover');
+    });
+
+    dropZone.on('drop', function(e) {
+        e.preventDefault();
+        dropZone.removeClass('dragover');
+        const files = e.originalEvent.dataTransfer.files;
+        handleImage(files[0]);
+    });
+
+    // 클릭 시 파일 선택 창
+    dropZone.on('click', function () {
+        fileInput.click();
+    });
+
+    fileInput.on('change', function () {
+        handleImage(this.files[0]);
+        fileInput.val('');
+    });
+
+    function handleImage(file) {
+        if (!file) return;
+
+        if (!file.type.startsWith("image/")) {
+            alert("이미지 파일만 업로드할 수 있습니다.");
+            return;
+        }
+
+        if (file.size > (options.maxFileSize || 5 * 1024 * 1024)) {
+            alert("이미지 크기는 최대 5MB입니다.");
+            return;
+        }
+
+        selectedImage = file;
+
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            previewContainer.html(`
+                <img src="${e.target.result}" alt="업로드 이미지" style="max-width: 200px; max-height: 200px; border: 1px solid #ccc; border-radius: 4px;">
+            `);
+        };
+        reader.readAsDataURL(file);
+    }
+
+    // 외부에서 이미지 파일 가져갈 수 있도록 반환
+    return {
+        getImageFile: function () {
+            return selectedImage;
+        }
+    };
+}
 
 
