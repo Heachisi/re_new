@@ -4,6 +4,41 @@
 
 <mapper namespace="UserMapper"> <!-- 매퍼의 네임스페이스 설정 -->
 
+<select id="getUserList" parameterType="model.user.User" resultType="model.user.User">
+    SELECT * FROM (
+        SELECT B.*, ROWNUM AS RN
+        FROM (
+            SELECT
+                A.USER_ID,
+                A.ADMIN_YN,
+                A.PASSWORD,
+                A.EMAIL,
+                A.BIRTHDATE,
+                A.GENDER,
+                TO_CHAR(A.CREATE_DT, 'YYYY-MM-DD') AS CREATE_DT,
+                TO_CHAR(A.UPDATE_DT, 'YYYY-MM-DD') AS UPDATE_DT,
+                A.DEL_YN
+            FROM USERS A
+            WHERE A.DEL_YN = 'N'
+            <if test="searchText != null and searchText != ''">
+                AND (A.USER_ID '%' || #{searchText} || '%')
+            </if>
+            <if test="startDate != null and startDate !=''">
+                <![CDATA[ AND A.CREATE_DT >= TO_DATE(#{startDate}, 'YYYY-MM-DD')]]>
+            </if>
+            <if test="endDate != null and endDate !=''">
+                <![CDATA[ AND A.CREATE_DT <= TO_DATE(#{endDate}, 'YYYY-MM-DD')+1]]>
+            </if>
+            ORDER BY A.USER_ID DESC
+        ) B
+        WHERE ROWNUM &lt;= #{endRow}
+    )
+    WHERE RN >= #{startRow}
+    <if test="boardId != null">
+        AND USER_ID = #{userId}
+    </if>
+</select>
+
     <!-- 사용자 ID로 사용자 정보 조회 -->
     <select id="getUserById" parameterType="string" resultType="model.user.User">
         SELECT 
@@ -99,14 +134,14 @@
          FROM USERS
          WHERE DEL_YN = 'N'
         )a
-    GROUP BY a.age_group;
+    GROUP BY a.age_group
    </select>
    
    <select id="getGenderCounts" resultType="map">
     SELECT GENDER, COUNT(*) AS count
     FROM USERS
     WHERE DEL_YN = 'N'
-    GROUP BY GENDER;
+    GROUP BY GENDER
    </select>
    
    <update id="toggleUserDeletion" parameterType="model.user.User">

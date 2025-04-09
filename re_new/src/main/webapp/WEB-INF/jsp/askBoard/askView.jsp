@@ -60,7 +60,7 @@
 	</c:if>
 	<div id="comment">
 	<c:if test="${not empty sessionScope.user.userId}">
-		<h4>댓글</h4>
+		<h4>관리자 답변</h4>
 		<textarea class="commentContent"id="commentContent" rows="4" placeholder="댓글을 입력하세요"></textarea>
 		<br/>
 		<div class="commentCreate">
@@ -237,6 +237,23 @@
        				}
 				}
 			);
+	});
+	
+	$(document).ready(function () {
+		 ajaxRequest("/user/getUserRole.do", {}, function(response) {
+		        console.log("서버 응답:", response);
+
+		        if (response.adminYn === "Y") {
+		            $("#comment").show();
+		        } else {
+		            $("#comment").hide();
+		        }
+		    });
+
+		$("#searchBtn").click(function () {
+			search(1,true);
+		});
+		
 	});
 	})
 	</script>

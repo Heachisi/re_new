@@ -22,6 +22,15 @@ public class UserDAO {
      * @param email 이메일
      * @return 성공 여부
      */
+    
+    
+    
+    public boolean getUserList(SqlSession session, User user) {
+        int result = session.insert("UserMapper.getUserList", user); // 사용자 등록 쿼리 실행
+        return result > 0; // 삽입 성공 여부 반환
+    }
+
+    
     public boolean registerUser(SqlSession session, User user) {
         int result = session.insert("UserMapper.registerUser", user); // 사용자 등록 쿼리 실행
         return result > 0; // 삽입 성공 여부 반환

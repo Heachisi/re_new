@@ -38,13 +38,13 @@ $(document).ready(function () {
             }
         }
         
-      );
+      ); 
     
 
 // 연령대 막대 그래프 렌더링
 function renderAgeChart(ageData) {
-    const labels = ageData.map(item => item.age_group);
-    const counts = ageData.map(item => item.count);
+    const labels = ageData.map(item => item.AGE_GROUP);
+    const count = ageData.map(item => item.COUNT);
     console.log(labels);
     const ctxAge = document.getElementById('ageChart').getContext('2d');
     new Chart(ctxAge, {
@@ -53,7 +53,7 @@ function renderAgeChart(ageData) {
             labels: labels,
             datasets: [{
                 label: '연령별 인원 수',
-                data: counts,
+                data: count,
                 backgroundColor: 'rgba(54, 162, 235, 0.6)',
                 borderColor: 'rgba(54, 162, 235, 1)',
                 borderWidth: 1
@@ -70,10 +70,10 @@ function renderAgeChart(ageData) {
     });
 }
 
-// 성별 원 그래프 렌더링
+ // 성별 원 그래프 렌더링
 function renderGenderChart(genderData) {
     const labels = genderData.map(item => item.GENDER);
-    const counts = genderData.map(item => item.count);
+    const counts = genderData.map(item => item.COUNT);
 
     const ctxGender = document.getElementById('genderChart').getContext('2d');
     new Chart(ctxGender, {

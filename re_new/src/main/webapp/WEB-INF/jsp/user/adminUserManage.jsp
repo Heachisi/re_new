@@ -6,8 +6,146 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <jsp:include page="/WEB-INF/jsp/common/header.jsp"/>
+<style>
+	table{
+    border-collapse:collapse; 
+	border:1px solid black;
+	text-align: center;
+	width:80%;
+	}
+</style>
 </head>
 <body>
+
+<script>
+		function search(page, checkNow) {
+			
+			if(checkNow) {
+				let searchText = $("#searchText").val();
+				let startDate = $("#startDate").val();
+				let endDate = $("#endDate").val();
+				window.location.href = "/user/adminUserMange.do?"
+									  +"searchText="+searchText+"&"
+									  +"startDate="+startDate+"&"
+									  +"endDate="+endDate+"&"
+									  +"page="+page+"&"
+									  +"size=${size}";
+			} else {
+				let searchText = '${board.searchText}';
+				let startDate = '${board.startDate}';
+				let endDate = '${board.endDate}';
+				window.location.href = "/noticeboard/noticeList.do?"
+									  +"searchText="+searchText+"&"
+									  +"startDate="+startDate+"&"
+									  +"endDate="+endDate+"&"
+									  +"page="+page+"&"
+									  +"size=${size}";
+				
+			}
+		}
+		
+		$(document).ready(function () {
+			 ajaxRequest("/user/getUserRole.do", {}, function(response) {
+			        console.log("서버 응답:", response);
+
+			        if (response.adminYn === "Y") {
+			            $(".createBtn").show();
+			        } else {
+			            $(".createBtn").hide();
+			        }
+			    });
+
+			$("#searchBtn").click(function () {
+				search(1,true);
+			});
+			
+		});
+	
+	</script>
+
+<div class="bottomSection">
+	<h2>공지사항</h2>
+	<div class="searchOption">
+	<div class="startDateContainer">
+	<label>시작 날짜</label>
+	<input type="date" id="startDate" name="startDate" value="${board.startDate}">
+	</div>
+	<div class="endDateContainer">
+	<label>종료 날짜</label>
+	<input type="date" id="endDate" name="endDate" value="${board.endDate}">
+	</div>
+	<div class="searchContainer">
+	<label></label>
+	<input type="text" id="searchText" name="searchText" value="${board.searchText}">
+	</div>
+	<div class="searchBtnContainer">
+	<button type="button" id="searchBtn">검색</button>
+	</div>
+	</div>
+	
+	<div class="listContainer">
+	<table border="1" class="boardList" id="boardList">
+		<thead>
+			<tr>
+				<th >번호</th>
+			  	<th class="title">제목</th>
+			  	<th class="writer">작성자</th>
+			  	<th class="createDate">작성일</th>
+			  	<th class="viewCount">조회수</th>
+			</tr>
+		</thead>
+		<tbody>
+		   <c:forEach var="board" items="${boardList}">
+		      <tr>
+		      <td>${board.rn}</td>
+		         <td><a href="noticeView.do?id=${board.boardId}" style="text-decoration: none; color:black;">${board.title}</a></td>
+		         <td>${board.createId}</td>
+		         <td>${board.createDt}</td>
+				<td>${board.viewCount}</td>
+		      </tr>
+		   </c:forEach>
+		</tbody>
+	</table>
+	</div>
+	<div class="pageContainer">
+	<ul>
+	 <c:if test="${currentPage > 1}">
+
+        <a href="noticeList.do?page=${currentPage - 1}&searchText=${board.searchText}&startDate=${board.startDate}&endDate=${board.endDate}" 
+        	class="preArrow"onclick="search(${currentPage - 1}, false)">&laquo;</a>
+
+	</c:if>
+	<c:forEach begin="1" end="${totalPages}" var="i">
+		<a href="noticeList.do?page=${i}&searchText=${board.searchText}&startDate=${board.startDate}&endDate=${board.endDate}" 
+			class="pagination" onclick="search(${i}, false)"
+        <c:if test="${i == currentPage}"> style="font-weight: bold;" </c:if>
+        >${i}</a>
+ 
+	</c:forEach>
+	<c:if test="${currentPage < totalPages}">
+
+        <a href="noticeList.do?page=${currentPage + 1}&searchText=${board.searchText}&startDate=${board.startDate}&endDate=${board.endDate}" 
+        class="postArrow" onclick="search(${currentPage + 1}, false)">&raquo;</a>
+
+	</c:if>
+	</ul>
+	</div>
+	<div class="createBtnContainer">
+	<div class="createBtn">
+	
+    <a href="/noticeboard/noticeCreate.do">글쓰기</a>
+    
+
+	</div>
+	</div>
+	</div>
+
+	
+	
+	<a href="/user/login.do">메인으로 이동</a><br/>
+	<a href="/noticeboard/noticeCreate.do">게시글 생성 이동</a><br/>
+
+	>
 <h2>회원 검색</h2>
 <input type="text" id="searchUserId" placeholder="회원 ID 입력">
 <button onclick="searchUser()">검색</button>
@@ -33,13 +171,13 @@
 
 <script>
 function searchUser() {
+	
     const userId = $("#searchUserId").val();
 
-    $.ajax({
-        type: "POST",
-        url: "/user/getUserInfo.do",
-        data: { userId: userId },
-        success: function(response) {
+	ajaxRequest(
+        "/user/adminUserManage.do",
+        { userId: userId },
+        function(response) {
             if (response.success) {
                 $("#userId").text(response.userId);
                 $("#createDt").text(response.createDt);
@@ -50,21 +188,19 @@ function searchUser() {
                 alert(response.message);
                 $("#userTable").hide();
             }
-        },
-        error: function() {
-            alert("서버 오류 발생");
         }
-    });
+    );
 }
 
 function toggleUser(delYn) {
+	
     const userId = $("#userId").text();
 
-    $.ajax({
-        type: "POST",
-        url: "/user/toggleUserDeletion.do",
-        data: { userId: userId, delYn: delYn, updateId: "adminUser" },
-        success: function(response) {
+    ajaxRequest(
+        
+        "/user/toggleUserDeletion.do",
+        { userId: userId, delYn: delYn, updateId: "adminUser" },
+        function(response) {
             if (response.success) {
                 alert(response.message);
                 searchUser(); // 상태 변경 후 다시 검색
@@ -75,7 +211,7 @@ function toggleUser(delYn) {
         error: function() {
             alert("서버 오류 발생");
         }
-    });
+    );
 }
 </script>
 </body>
