@@ -23,13 +23,13 @@
 		function search(page, checkNow) {
 			
 			if(checkNow) {
-				let searchText = $("#searchText").val();
-				let startDate = $("#startDate").val();
-				let endDate = $("#endDate").val();
+				let searchText = $("#findSearchText").val();
+				let startDate = $("#findStartDate").val();
+				let endDate = $("#findEndDate").val();
 				window.location.href = "/findboard/findList.do?"
-									  +"searchText="+searchText+"&"
-									  +"startDate="+startDate+"&"
-									  +"endDate="+endDate+"&"
+									  +"findSearchText="+searchText+"&"
+									  +"findStartDate="+startDate+"&"
+									  +"findEndDate="+endDate+"&"
 									  +"page="+page+"&"
 									  +"size=${size}";
 			} else {
@@ -37,9 +37,9 @@
 				let startDate = '${board.startDate}';
 				let endDate = '${board.endDate}';
 				window.location.href = "/findboard/findList.do?"
-									  +"searchText="+searchText+"&"
-									  +"startDate="+startDate+"&"
-									  +"endDate="+endDate+"&"
+									  +"findSearchText="+searchText+"&"
+									  +"findStartDate="+startDate+"&"
+									  +"findEndDate="+endDate+"&"
 									  +"page="+page+"&"
 									  +"size=${size}";
 				
@@ -47,7 +47,7 @@
 		}
 		
 		$(document).ready(function () {
-			$("#searchBtn").click(function () {
+			$("#findSearchBtn").click(function () {
 				search(1,true);
 			});
 			
@@ -69,18 +69,18 @@
 	<div class="searchOption">
 	<div class="startDateContainer">
 	<label>시작 날짜</label>
-	<input type="date" id="startDate" name="startDate" value="${board.startDate}">
+	<input type="date" id="findStartDate" name="startDate" value="${board.startDate}">
 	</div>
 	<div class="endDateContainer">
 	<label>종료 날짜</label>
-	<input type="date" id="endDate" name="endDate" value="${board.endDate}">
+	<input type="date" id="findEndDate" name="endDate" value="${board.endDate}">
 	</div>
 	<div class="searchContainer">
 	<label></label>
-	<input type="text" id="searchText" name="searchText" value="${board.searchText}">
+	<input type="text" id="findSearchText" name="searchText" value="${board.searchText}">
 	</div>
 	<div class="searchBtnContainer">
-	<button type="button" id="searchBtn">검색</button>
+	<button type="button" id="findSearchBtn">검색</button>
 	</div>
 	</div>
 	
@@ -112,12 +112,12 @@
 	<ul>
 	 <c:if test="${currentPage > 1}">
 
-        <a href="findList.do?page=${currentPage - 1}&searchText=${board.searchText}&startDate=${board.startDate}&endDate=${board.endDate}" 
+        <a href="findList.do?page=${currentPage - 1}&findSearchText=${board.searchText}&findStartDate=${board.startDate}&findEndDate=${board.endDate}" 
         	class="preArrow"onclick="search(${currentPage - 1}, false)">&laquo;</a>
 
 	</c:if>
 	<c:forEach begin="1" end="${totalPages}" var="i">
-		<a href="findList.do?page=${i}&searchText=${board.searchText}&startDate=${board.startDate}&endDate=${board.endDate}" 
+		<a href="findList.do?page=${i}&findSearchText=${board.searchText}&fndStartDate=${board.startDate}&findEndDate=${board.endDate}" 
 			class="pagination" onclick="search(${i}, false)"
         <c:if test="${i == currentPage}"> style="font-weight: bold;" </c:if>
         >${i}</a>
@@ -125,7 +125,7 @@
 	</c:forEach>
 	<c:if test="${currentPage < totalPages}">
 
-        <a href="findList.do?page=${currentPage + 1}&searchText=${board.searchText}&startDate=${board.startDate}&endDate=${board.endDate}" 
+        <a href="findList.do?page=${currentPage + 1}&findSearchText=${board.searchText}&fndStartDate=${board.startDate}&findEndDate=${board.endDate}" 
         class="postArrow" onclick="search(${currentPage + 1}, false)">&raquo;</a>
 
 	</c:if>

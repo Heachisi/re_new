@@ -41,7 +41,7 @@
 	        INSERT INTO BULLETIN_FILE (
 	            FILE_ID, BOARD_ID, FILE_NAME, FILE_PATH, CREATE_ID, CREATE_DT
 	        ) VALUES (
-	            SEQ_PSOT_FILE.NEXTVAL,  
+	            SEQ_POST_FILE.NEXTVAL,  
 	            #{boardId},
 	            #{fileName},
 	            #{filePath},

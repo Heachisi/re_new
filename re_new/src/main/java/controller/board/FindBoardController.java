@@ -104,9 +104,9 @@ public class FindBoardController extends HttpServlet {
 	    			  Integer.parseInt(request.getParameter("size"))
 	    			  :DEFAULT_SIZE;
 	    	  
-	    	  String searchText = request.getParameter("searchText");
-	    	  String startDate = request.getParameter("startDate");
-	    	  String endDate = request.getParameter("endDate");
+	    	  String searchText = request.getParameter("findSearchText");
+	    	  String startDate = request.getParameter("findStartDate");
+	    	  String endDate = request.getParameter("findEndDate");
 	    	  
 	    	  logger.info("검색어: " + searchText);
 	    	    logger.info("시작 날짜: " + startDate);

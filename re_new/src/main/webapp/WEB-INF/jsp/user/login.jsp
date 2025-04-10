@@ -51,7 +51,7 @@
 	                // 응답 처리
 	                if (response.success) {
 	                    alert("로그인 성공하셨습니다.");
-	                    window.location.href ='/user/main.do'; // 로그인 성공 후 메인 페이지로 이동
+	                    window.location.href ='/product/list.do'; // 로그인 성공 후 메인 페이지로 이동
 	                } else {
 	                	alert("로그인에 실패하셨습니다.");
 	                }

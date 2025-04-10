@@ -2,6 +2,7 @@ package controller.user;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -13,6 +14,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import model.board.NoticeBoard;
 import model.user.User;
 import service.user.UserService;
 import service.user.UserServiceImpl;
@@ -28,6 +30,8 @@ public class UserController extends HttpServlet {
         super();
         userService= new UserServiceImpl();
     }
+	private static final int DEFAULT_PAGE = 1;
+	private static final int DEFAULT_SIZE = 15;
 	/**
 	 * get 화면 이동용 및 조회용
 	 */
@@ -60,6 +64,7 @@ public class UserController extends HttpServlet {
 		           
 	      }else if("/user/adminUserManage.do".equals(path)) {
 	            request.getRequestDispatcher("/WEB-INF/jsp/user/adminUserManage.jsp").forward(request, response);
+	            
 	      }
 	      
 	      
@@ -239,6 +244,8 @@ public class UserController extends HttpServlet {
                     }
                 }
                 response.getWriter().print(jsonResponse.toString());
+            }else if("/user/adminUserManage.do".equals(path)) {
+            	
             }
             
             

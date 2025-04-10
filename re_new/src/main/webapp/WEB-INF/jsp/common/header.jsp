@@ -8,7 +8,7 @@
 
 <script src="/js/jquery-3.7.1.min.js"></script>
 <script src="/js/common.js"></script>
-<link rel="stylesheet" href="/css/mainHeader.css?var=2">
+<link rel="stylesheet" href="/css/mainHeader.css?var=3">
 <link rel="stylesheet" href="/css/common.css">
 
 
@@ -40,8 +40,9 @@
 			<header class="topSection">
 				<div class="buttonContainer">
 					<form method="post" id="logoutForm" class="logoutForm">
-						<input type="hidden" name="id" class="showId"
-							value="${sessionScope.user.userId}">
+						<div name="id" class="showId">
+							${sessionScope.user.userId}
+						</div>
 						<button type="submit" class="logoutBtn">로그아웃</button>
 					</form>
 					<div class="logoSearchContainer">
