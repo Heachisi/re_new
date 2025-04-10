@@ -11,7 +11,7 @@
 <script src="/js/jquery-3.7.1.min.js"></script>
 <script src="/js/common.js"></script>
 <link rel="stylesheet" href="/css/bulletinView.css?ver=1">
-<link rel="stylesheet" href="/css/modal.css?ver=1">
+<link rel="stylesheet" href="/css/modal.css?ver=2">
 	<jsp:include page="/WEB-INF/jsp/common/header.jsp"/>
 
 </head>
@@ -77,16 +77,19 @@
 		<button type="button" class="attachProductBtn" id="attachProductBtn">상품 첨부</button>
 		<div class="modal">
 	        <div class="modalPopup">
-	        	<div class="modalTitle">
-	            <h3>상품 페이지 첨부</h3>
+	        	<div class="modalTop">
+		        	<div class="modalTitle">
+		            <h3>상품 페이지 첨부</h3>
+		            </div>
+		            <div class="close">
+		            <button type="button" class="closeBtn">X</button>
+		            </div>
 	            </div>
 	            <form>
 	            <div id="product" class="product">
 	            </div>
 	            </form> 
-	            <br/>
 	            <div class="modalBtnArea">
-	            <button type="button" class="closeBtn">닫기</button>
 	            <button type="button" class="attachBtn">첨부</button>
 	            </div>
 	        </div>
