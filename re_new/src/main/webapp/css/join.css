@@ -117,6 +117,9 @@ input.birthdate  {
     background-color: 	#BFA5E2;
 	color: gray;
 }
+.birthdate:valid{
+	color:black;
+}
 select.gender  {
     height: 30px;
     width:100px;
@@ -124,6 +127,9 @@ select.gender  {
     background-color: 	#BFA5E2;
     border: none;
 	color: gray;
+}
+.gender:valid{
+	color:black;
 }
 .userIdContainer {
     display: flex;

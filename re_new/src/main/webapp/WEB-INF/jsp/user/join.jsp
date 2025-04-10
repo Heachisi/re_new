@@ -162,10 +162,10 @@
 				<div class="birthGenderContainer">
 					<div class="birthContainer">
 						<label for="birthdate">생년월일 </label> 
-						<input type="date" id="birthdate" name="birthdate" class="birthdate">
+						<input type="date" id="birthdate" name="birthdate" class="birthdate"  required>
 					</div>
 					<div class="genderContainer">
-						<label for="gender">성별</label> <select id="gender" name="gender" class="gender">
+						<label for="gender">성별</label> <select id="gender" name="gender" class="gender"  required>
 							<option value="">성별</option>
 							<option value="male">남성</option>
 							<option value="female">여성</option>
