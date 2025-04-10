@@ -18,35 +18,46 @@
 <div class="boardArea">
 	<form id="boardForm">
 		<div class="title">
-		<label for="title"></label> 
-		${board.title} 
-		<input type="hidden" id="boardId" value="${board.boardId}">
+			<label for="title"></label> 
+			${board.title} 
+			<input type="hidden" id="boardId" value="${board.boardId}">
 		</div>
-		<div class="btnArea">
-		<div class="writer"> 
-		<label for="createId"></label> 
-		${board.createId}
-		<input type="hidden" id="updateId" name="updateId" value="${sessionScope.user.userId}" />
-		</div> 
-		<c:if test="${sessionScope.user.userId == board.createId}">
-		<div class="update">
-		<a href="/bulletinboard/bulletinUpdate.do?id=${board.boardId}" class="updatae">수정</a>
+		
+		
+		<div class="allArea">
+			<div id="infoArea">
+				<div class="writer"> 
+					<label for="createId"></label> 
+					${board.createId}
+					<input type="hidden" id="updateId" name="updateId" value="${sessionScope.user.userId}" />
+				</div> 
+				
+				<div id="createDate">
+				   <label for="createDt"></label>
+				   ${fn:substring(board.createDt, 0,10)} 
+				</div>
+			</div>
+			
+			<div id="btnArea">
+			    <c:if test="${sessionScope.user.userId == board.createId}">
+				<div class="update">
+					<a href="/bulletinboard/bulletinUpdate.do?id=${board.boardId}" class="update">수정</a>
+				</div>
+				
+				<div id="delete">
+					<a href="#" id="delete">삭제</a>
+				</div>
+				</c:if>
+			</div>
 		</div>
-		<div id="delete">
-		<a href="#" id="delete">삭제</a>
-		</div>
-		</c:if>
-		</div>
-		<div id="date">
-		</div>
-		<div id="createDate">
-		<label for="createDt"></label>
-		${fn:substring(board.createDt, 0,10)} 
-		</div>
+		
+		
+		
 		<div class="content">
 		<label for="content"></label>
 		${board.content} <br />
 		</div>
+		
 	</form>
 	<c:if test="${not empty board.postFiles}">
 		<ul>
@@ -58,13 +69,18 @@
 			</c:forEach>
 		</ul>
 	</c:if>
-	<div id="comment">
+	<div id="comment" style="border: 1px solid gray">
 	<c:if test="${not empty sessionScope.user.userId}">
+		<div id="commentMain">
 		<h4>댓글</h4>
-		<textarea class="commentContent"id="commentContent" rows="4" placeholder="댓글을 입력하세요"></textarea>
-		<br/>
-		<div class="commentCreate">
-		<button type="button" class="commentCreateBtn"id="commentCreateBtn" onclick="addComment()">댓글 작성</button>
+		</div>
+		
+		<div id="commentCreator">
+			<textarea class="commentContent"id="commentContent" rows="4" placeholder="댓글을 입력하세요"></textarea>
+			<br/>
+			<div class="commentCreate">
+			<button type="button" class="commentCreateBtn"id="commentCreateBtn" onclick="addComment()">댓글 작성</button>
+			</div>
 		</div>
 	</c:if>
 	

@@ -3,7 +3,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
 <link rel="stylesheet" href="/css/bulletinCommentItem.css?ver=1">
+
 <c:if test="${not empty comments}">
 	<c:forEach var="comment" items="${comments}">
 		<c:if test="${comment.parentCommentId == param.commentId}">
@@ -49,11 +51,13 @@
 				</div>
 			
 			<!-- 대댓글 작성 폼 -->
-			<div id="replyForm_${comment.commentId}" style="display:none; margin-left: 20px;">
-				<textarea class="replyComment" id="replyContent_${comment.commentId}" rows="3" placeholder="답글을 입력하세요"></textarea>
-				<div id="replyCommentArea" class="replyCommentArea">
-				<button type="button" onclick="addComment(${comment.commentId})">작성</button>
-				<button type="button" onclick="toggleReplyComment(${comment.commentId})">취소</button>
+			<div id="replyForm">
+				<div id="replyForm_${comment.commentId}" style="display:none; margin-left: 20px;">
+					<textarea class="replyComment" id="replyContent_${comment.commentId}" rows="3" placeholder="답글을 입력하세요"></textarea>
+					<div id="replyCommentArea" class="replyCommentArea">
+					<button type="button" onclick="addComment(${comment.commentId})">작성</button>
+					<button type="button" onclick="toggleReplyComment(${comment.commentId})">취소</button>
+					</div>
 				</div>
 			</div>
 			
