@@ -23,8 +23,7 @@
     	$(document).ready(function() {
     		
     		$("#searchBtn").click(function() {
-    			alert($("#searchText").val())
-    			let searchText = $("#searchText").val();
+    			let searchText = $("#searchText1").val();
     			let startDate = $("#startDate").val();
     			let endDate = $("#endDate").val();
     			
@@ -68,12 +67,12 @@
 	<input type="date" id="endDate" name="endDate" value="${share.endDate}">
 	</div>
 	<div class="searchContainer">
-	<label></label>
-	<input type="text" id="searchText" name="searchText" value="${share.searchText}">
+	<input type="text" id="searchText1" name="searchText1" >
 	</div>
 	<div class="searchBtnContainer">
 	<button type="button" id="searchBtn">검색</button>
 	</div>
+</div>
 <div class="listContainer">
 	<table border="1" class="boardList" id="boardList">
 			<thead>
@@ -87,7 +86,7 @@
 			<tbody>
 				<c:forEach var="item" items="${shareList}">
 						<tr>
-							<td><a href="view.do?id=${item.shareId}">${item.title}</a></td>
+							<td><a href="view.do?id=${item.shareId}" style="text-decoration: none; color:black;">${item.title}</a></td>
 							<td>${item.createId}</td>
 							<td>${item.createDt}</td>
 							<td>${item.viewcount}</td>
@@ -95,16 +94,17 @@
 				</c:forEach>
 			</tbody>
 		</table>
+	</div>
 	<div class="pageContainer">
 	<ul>
 	 <c:if test="${currentPage > 1}">
 
-        <a href="bulletinList.do?page=${currentPage - 1}&searchText=${share.searchText}&startDate=${share.startDate}&endDate=${share.endDate}" 
+        <a href="list.do?page=${currentPage - 1}&searchText=${share.searchText}&startDate=${share.startDate}&endDate=${share.endDate}" 
         	class="preArrow"onclick="search(${currentPage - 1}, false)">&laquo;</a>
 
 	</c:if>
 	<c:forEach begin="1" end="${totalPages}" var="i">
-		<a href="bulletinList.do?page=${i}&searchText=${share.searchText}&startDate=${share.startDate}&endDate=${share.endDate}" 
+		<a href="list.do?page=${i}&searchText=${share.searchText}&startDate=${share.startDate}&endDate=${share.endDate}" 
 			class="pagination" onclick="search(${i}, false)"
         <c:if test="${i == currentPage}"> style="font-weight: bold;" </c:if>
         >${i}</a>
@@ -112,7 +112,7 @@
 	</c:forEach>
 	<c:if test="${currentPage < totalPages}">
 
-        <a href="bulletinList.do?page=${currentPage + 1}&searchText=${share.searchText}&startDate=${share.startDate}&endDate=${share.endDate}" 
+        <a href="list.do?page=${currentPage + 1}&searchText=${share.searchText}&startDate=${share.startDate}&endDate=${share.endDate}" 
         class="postArrow" onclick="search(${currentPage + 1}, false)">&raquo;</a>
 
 	</c:if>

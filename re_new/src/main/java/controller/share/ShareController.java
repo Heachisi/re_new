@@ -76,25 +76,25 @@ public class ShareController extends HttpServlet {
 	    	  
 	    	  String endDate = request.getParameter("endDate");
 	    	  String startDate = request.getParameter("startDate");
-	    	  String searchText = request.getParameter("searchText");
+	    	  String searchText1 = request.getParameter("searchText");
 
 	    	  
 	    	  share.setSize(size);
 	    	  share.setPage(page);
-	    	  share.setSearchText(searchText);
+	    	  share.setSearchText(searchText1);
 	    	  share.setStartDate(startDate);
-	    	  share.setEndDate(endDate); 	
-	    	  
-	    	 
-	    	  List shareList = shareService.getShareList(share);
+	    	  share.setEndDate(endDate); 	 
+	    	  List shareList = shareService.getShareList(share); 
 	    	  
 	    	  request.setAttribute("shareList", shareList);
-	    	  request.setAttribute("searchText", searchText);
+	    	  request.setAttribute("searchText", searchText1);
 	    	  request.setAttribute("currentPage", page);
 	    	  request.setAttribute("totalPages", share.getTotalPages());
 	    	  request.setAttribute("size", size);
 	    	  request.setAttribute("share", share);
 	    	  request.getRequestDispatcher("/WEB-INF/jsp/share/list.jsp").forward(request, response);
+	    	  logger.info("searchText: " + share.getSearchText());
+	    	  logger.info("공지 개수: " + shareList.size());
 
 	      }  
 	}
@@ -121,7 +121,6 @@ public class ShareController extends HttpServlet {
                 share.setViewcount(viewcount); 
                 share.setCreateId(createId);
 
-             
             	boolean isCreate = shareService.createShare(share, request);
                 jsonResponse.put("success", isCreate);
             	jsonResponse.put("message", isCreate ? "게시글이 성공적으로 등록되었습니다." : "등록 실패");

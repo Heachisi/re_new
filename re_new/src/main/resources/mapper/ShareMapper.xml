@@ -42,7 +42,7 @@
    				<![CDATA[ AND A.CREATE_DT >= TO_DATE(#{startDate}, 'YYYY-MM-DD']]>
    			</if>
    			<if test="endDate != null and endDate != ''">
-   				<![CDATA[ AND A.CREATE_DT >= TO_DATE(#{endDate}, 'YYYY-MM-DD']]>
+   				<![CDATA[ AND A.CREATE_DT <= TO_DATE(#{endDate}, 'YYYY-MM-DD']]>
    			</if>
    		</where>
 			

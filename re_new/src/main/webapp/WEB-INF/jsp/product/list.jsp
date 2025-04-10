@@ -9,7 +9,7 @@
     <title>게시판 목록</title>
     <script src="/js/jquery-3.7.1.min.js"></script>
     <script src="/js/common.js?ver=1.2"></script>
-    <link rel="stylesheet" href="/css/list.css?ver=1.1">
+    <link rel="stylesheet" href="/css/productlist.css?ver=1.1">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nouislider@15.7.0/dist/nouislider.min.css">
     <script src="https://cdn.jsdelivr.net/npm/nouislider@15.7.0/dist/nouislider.min.js"></script>
     <jsp:include page="/WEB-INF/jsp/common/header.jsp"/>
@@ -128,7 +128,7 @@
 	  <div id="priceSlider"></div>
 	  <input type="hidden" id="minprice" name="minprice" value="${product.minprice}" />
 	  <input type="hidden" id="maxprice" name="maxprice" value="${product.maxprice}" />
-	</div>
+	  </div>
 	<select class="viewcategory" id="viewcategory" name="viewcategory" style="height:20px;">
             <option value="">정렬 방식</option>
             <option value="최신순">최신순</option>
@@ -156,15 +156,15 @@
 	<br/>
 		<ul>
 			<c:if test="${currentPage > 1}">
-					<a href="" onclick="search(${currentPage - 1}, false)" >&laquo;</a>
+					<a href="list.do?page=${currentPage - 1}&searchText=${share.searchText}&startDate=${share.startDate}&endDate=${share.endDate}"  onclick="search(${currentPage - 1}, false)" >&laquo;</a>
 			</c:if>
 			<c:forEach begin="1" end="${totalPages}" var="i">
-				<a href="" onclick="search(${i},false)"
+				<a href="list.do?page=${i}&searchText=${share.searchText}&startDate=${share.startDate}&endDate=${share.endDate}" onclick="search(${i},false)"
 				<c:if test="${i == currentPage}">style="font-weight: bold;"</c:if>
 				>${i}</a>
 			</c:forEach>
 			<c:if test="${currentPage < totalPages}">
-					<a href="" onclick="search(${currentPage + 1}, false)" >&raquo;</a>
+					<a href="list.do?page=${currentPage + 1}&searchText=${share.searchText}&startDate=${share.startDate}&endDate=${share.endDate}" onclick="search(${currentPage + 1}, false)" >&raquo;</a>
 			</c:if>
 		</ul>
 </div>
@@ -179,10 +179,10 @@
 	  width:150px; 
   	}
   	.viewcategory{
-	  position:relative;
-	  bottom:40px;
-	  right:300px;
-	  width:150px; 
+	  position:absolute;
+	  top:435px;
+	  right:700px;
+	  width:100px; 
 	  height:40px;
   	}
   	.price{
@@ -210,6 +210,7 @@
   align-items: center; 
 	}
   #priceSlider {
+  
     width: 300px;
     height: 8px;
     margin: 10px auto;
