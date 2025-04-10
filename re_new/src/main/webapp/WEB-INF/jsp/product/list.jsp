@@ -9,7 +9,7 @@
     <title>게시판 목록</title>
     <script src="/js/jquery-3.7.1.min.js"></script>
     <script src="/js/common.js?ver=1.2"></script>
-    <link rel="stylesheet" href="/css/productlist.css?ver=2">
+    <link rel="stylesheet" href="/css/productlist.css?ver=1">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nouislider@15.7.0/dist/nouislider.min.css">
     <script src="https://cdn.jsdelivr.net/npm/nouislider@15.7.0/dist/nouislider.min.js"></script>
     <jsp:include page="/WEB-INF/jsp/common/header.jsp"/>

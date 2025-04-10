@@ -5,7 +5,18 @@
 <mapper namespace="UserMapper"> <!-- 매퍼의 네임스페이스 설정 -->
 
 <select id="getUserList" parameterType="model.user.User" resultType="model.user.User">
-    SELECT * FROM (
+    SELECT    
+    RN,
+    USER_ID,
+              ADMIN_YN,
+              PASSWORD,
+              EMAIL,
+              BIRTHDATE,
+              GENDER, 
+              CREATE_DT,
+              UPDATE_DT,
+              DEL_YN
+          FROM (
         SELECT B.*, ROWNUM AS RN
         FROM (
             SELECT
@@ -21,7 +32,7 @@
             FROM USERS A
             WHERE A.DEL_YN = 'N'
             <if test="searchText != null and searchText != ''">
-                AND (A.USER_ID '%' || #{searchText} || '%')
+               AND A.USER_ID LIKE '%' || #{searchText} || '%'
             </if>
             <if test="startDate != null and startDate !=''">
                 <![CDATA[ AND A.CREATE_DT >= TO_DATE(#{startDate}, 'YYYY-MM-DD')]]>
@@ -33,12 +44,39 @@
         ) B
         WHERE ROWNUM &lt;= #{endRow}
     )
-    WHERE RN >= #{startRow}
-    <if test="boardId != null">
-        AND USER_ID = #{userId}
-    </if>
+        WHERE RN >= #{startRow}
+          
 </select>
 
+<select id="getUserCount" parameterType="model.user.User" resultType="int">
+   
+        SELECT COUNT(B.USER_ID)
+        FROM (
+            SELECT
+                A.USER_ID,
+                A.ADMIN_YN,
+                A.PASSWORD,
+                A.EMAIL,
+                A.BIRTHDATE,
+                A.GENDER,
+                TO_CHAR(A.CREATE_DT, 'YYYY-MM-DD') AS CREATE_DT,
+                TO_CHAR(A.UPDATE_DT, 'YYYY-MM-DD') AS UPDATE_DT,
+                A.DEL_YN
+            FROM USERS A
+            WHERE A.DEL_YN = 'N'
+            <if test="searchText != null and searchText != ''">
+               AND A.USER_ID LIKE '%' || #{searchText} || '%'
+            </if>
+            <if test="startDate != null and startDate !=''">
+                <![CDATA[ AND A.CREATE_DT >= TO_DATE(#{startDate}, 'YYYY-MM-DD')]]>
+            </if>
+            <if test="endDate != null and endDate !=''">
+                <![CDATA[ AND A.CREATE_DT <= TO_DATE(#{endDate}, 'YYYY-MM-DD')+1]]>
+            </if>
+            ORDER BY A.USER_ID DESC
+        ) B
+
+</select>
     <!-- 사용자 ID로 사용자 정보 조회 -->
     <select id="getUserById" parameterType="string" resultType="model.user.User">
         SELECT 
@@ -147,7 +185,6 @@
    <update id="toggleUserDeletion" parameterType="model.user.User">
     UPDATE USERS
     SET DEL_YN = #{delYn},  <!-- 'Y' 또는 'N' 값을 동적으로 받음 -->
-        UPDATE_ID = #{updateId},
         UPDATE_DT = SYSDATE
     WHERE USER_ID = #{userId}
  </update>

@@ -9,18 +9,20 @@
     <title>게시판 상세</title>
     <script src="/js/jquery-3.7.1.min.js?ver=1"></script>
     <script src="/js/common.js?ver=1.1"></script>
-    <link rel="stylesheet" href="/css/shareview.css">
+    <link rel="stylesheet" href="/css/shareview.css?ver=1">
     <jsp:include page="/WEB-INF/jsp/common/header.jsp"/>
 </head>
 <body>
-	<div class="summery">
+<div class="boardArea">
 	  <span class="stitle">${share.title}</span> 
+	  <div class="btnArea">
 	  <span class="sid">${share.createId}</span> 
-	  <span class="lik" id="likecount">${share.createDt}</span> 
+	  <span class="lik" id="likecount">${share.createDt}${fn:substring(share.createDt, 0,10)}</span> 
 	  <input type="hidden" id="shareId" value="${share.shareId}" />
 	  <input type="hidden" id="updateId" value="${sessionScope.user.userId}" />
 	  <span class="content" id="likecount">${share.content}</span> 
 	  <br/>
+	  </div>
 	  <c:if test="${not empty sessionScope.user.userId}">
 		<div class="h4">
 			<h4>댓글</h4>
@@ -40,9 +42,9 @@
 			</jsp:include>
 		</div>
 	</c:if>
-	</div>
 
-	
+
+	</div>
 	<script>
 	function addComment(parentId) {
 		let content = parentId && parentId != 0 ? 

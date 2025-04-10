@@ -9,6 +9,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import dao.user.UserDAO;
+import model.board.AskBoard;
 import model.user.User;
 import util.MybatisUtil;
 import util.SHA256Util;
@@ -30,6 +31,29 @@ public class UserServiceImpl implements UserService {
             logger.error("Mybatis 오류", e); // 오류 발생 시 로그 출력
         }
     }
+    @Override
+	public List<User> getUserList(User user) {
+		SqlSession session = sqlSessionFactory.openSession();
+
+		int page = user.getPage();
+		int size = user.getSize();
+
+		
+		int totalCount = userDAO.getUserCount(session, user);
+		int totalPages = (int) Math.ceil((double) totalCount / size);
+		
+		int startRow = (page - 1) * size + 1;
+		int endRow = page * size;
+
+		user.setTotalCount(totalCount);
+		user.setTotalPages(totalPages);
+		user.setStartRow(startRow);
+		user.setEndRow(endRow);
+
+		List<User> list = userDAO.getUserList(session, user);
+		
+		return list;
+	}
 
     /**
      * 사용자 회원가입 서비스

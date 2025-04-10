@@ -11,109 +11,90 @@
 <script src="/js/jquery-3.7.1.min.js"></script>
 <script src="/js/common.js"></script>
 <link rel="stylesheet" href="/css/bulletinView.css?ver=1">
-	<jsp:include page="/WEB-INF/jsp/common/header.jsp"/>
+<jsp:include page="/WEB-INF/jsp/common/header.jsp" />
 
 </head>
 <body>
-<div class="boardArea">
-	<form id="boardForm">
-		<div class="title">
-			<label for="title"></label> 
-			${board.title} 
-			<input type="hidden" id="boardId" value="${board.boardId}">
-		</div>
-		
-		
-		<div class="allArea">
-			<div class="infoArea">
-				<div class="writer"> 
-					<label for="createId"></label> 
-					${board.createId}
-					<input type="hidden" id="updateId" name="updateId" value="${sessionScope.user.userId}" />
-				</div> 
-				
-				<div id="createDate">
-				   <label for="createDt"></label>
-				   ${fn:substring(board.createDt, 0,10)} 
-				</div>
+	<div class="boardArea">
+		<form id="boardForm">
+			<div class="title">
+				<label for="title"></label> ${board.title} <input type="hidden"
+					id="boardId" value="${board.boardId}">
 			</div>
-			
 			<div class="btnArea">
-			    <c:if test="${sessionScope.user.userId == board.createId}">
-				<div class="update">
-					<a href="/bulletinboard/bulletinUpdate.do?id=${board.boardId}" class="update">수정</a>
+				<div class="writer">
+					<label for="createId"></label> ${board.createId} <input
+						type="hidden" id="updateId" name="updateId"
+						value="${sessionScope.user.userId}" />
 				</div>
-				
-				<div class="delete">
-					<a href="#" class="delete">삭제</a>
-				</div>
+				<c:if test="${sessionScope.user.userId == board.createId}">
+					<div class="update">
+						<a href="/bulletinboard/bulletinUpdate.do?id=${board.boardId}"
+							class="updatae">수정</a>
+					</div>
+					<div id="delete">
+						<a href="#" id="delete">삭제</a>
+					</div>
 				</c:if>
 			</div>
-		</div>
-		
-		
-		
-		<div class="content">
-		<label for="content"></label>
-		${board.content} <br />
-		</div>
-		
-	</form>
-	<c:if test="${not empty board.postFiles}">
-		<ul>
-			<c:forEach var="file" items="${board.postFiles}">
-				<li>
-					${file.fileName}
-					<a href="/bulletinfile/down.do?fileId=${file.fileId}">다운로드</a>
-				</li>
-			</c:forEach>
-		</ul>
-	</c:if>
-	<div id="comment" style="border: 1px solid gray">
-	<c:if test="${not empty sessionScope.user.userId}">
-		<div class="commentMain">
-		<h4>댓글</h4>
-		</div>
-		
-		<div id="commentCreator">
-			<textarea class="commentContentWrite"id="commentContentWrite" rows="4" placeholder="댓글을 입력하세요"></textarea>
-			<br/>
-			<div class="commentCreate">
-			<button type="button" class="commentCreateBtn"id="commentCreateBtn" onclick="addComment()">댓글 작성</button>
+			<div id="date"></div>
+			<div id="createDate">
+				<label for="createDt"></label> ${fn:substring(board.createDt, 0,10)}
 			</div>
-		</div>
-	</c:if>
-	
-	<c:if test="${not empty board.comments}">
-		
-		<c:set var="comments" value="${board.comments}" scope="request"/>
-		<!-- 댓글을 오래된 순으로 정렬 -->
-		<c:set var="sortedComments" value="${comments}" />
-    <c:forEach var="i" begin="0" end="${fn:length(sortedComments) - 2 >= 0 ? fn:length(sortedComments) - 2 : 0}">
-    <!-- sortedComments: 댓글 리스트(배열) 
+			<div class="content">
+				<label for="content"></label> ${board.content} <br />
+			</div>
+		</form>
+		<c:if test="${not empty board.postFiles}">
+			<ul>
+				<c:forEach var="file" items="${board.postFiles}">
+					<li>${file.fileName} <a
+						href="/bulletinfile/down.do?fileId=${file.fileId}">다운로드</a>
+					</li>
+				</c:forEach>
+			</ul>
+		</c:if>
+		<div id="comment">
+			<c:if test="${not empty sessionScope.user.userId}">
+				<h4>댓글</h4>
+				<textarea class="commentContent" id="commentContent" rows="4"
+					placeholder="댓글을 입력하세요"></textarea>
+				<br />
+				<div class="commentCreate">
+					<button type="button" class="commentCreateBtn"
+						id="commentCreateBtn" onclick="addComment()">댓글 작성</button>
+				</div>
+			</c:if>
+
+			<c:if test="${not empty board.comments}">
+
+				<c:set var="comments" value="${board.comments}" scope="request" />
+				<!-- 댓글을 오래된 순으로 정렬 -->
+				<c:set var="sortedComments" value="${comments}" />
+				<c:forEach var="i" begin="0"
+					end="${fn:length(sortedComments) - 2 >= 0 ? fn:length(sortedComments) - 2 : 0}">
+					<!-- sortedComments: 댓글 리스트(배열) 
     	fn:lentgh(sortedComments) : 배열의 길이(개수) 반환 함수
     	-2한 값이 0보다 크면 그대로 사용 0보다 작으면 0으로 반환해 에러 방지
     	-->
-        <c:forEach var="j" begin="${i + 1}" end="${fn:length(sortedComments) - 1}">
-            <c:if test="${sortedComments[i].createDt > sortedComments[j].createDt}">
-                <c:set var="temp" value="${sortedComments[i]}" />
-                <c:set var="sortedComments[i]" value="${sortedComments[j]}" />
-                <c:set var="sortedComments[j]" value="${temp}" />
-            </c:if>
-        </c:forEach>
-    </c:forEach>
-		<jsp:include page="bulletinCommentItem.jsp">
-			<jsp:param value="0" name="commentId"/>
-		</jsp:include>
-	</c:if>
-	
+					<c:forEach var="j" begin="${i + 1}"
+						end="${fn:length(sortedComments) - 1}">
+						<c:if
+							test="${sortedComments[i].createDt > sortedComments[j].createDt}">
+							<c:set var="temp" value="${sortedComments[i]}" />
+							<c:set var="sortedComments[i]" value="${sortedComments[j]}" />
+							<c:set var="sortedComments[j]" value="${temp}" />
+						</c:if>
+					</c:forEach>
+				</c:forEach>
+				<jsp:include page="bulletinCommentItem.jsp">
+					<jsp:param value="0" name="commentId" />
+				</jsp:include>
+			</c:if>
+
+		</div>
 	</div>
-	</div>
-	<br/>
-	<br/><br/>
-	<a href="/user/login.do">로그인</a>
-	<a href="/bulletinboard/bulletinList.do">게시글 목록으로 이동</a><br/>
-	<script>
+<script>
 	//댓글 생성
 	function addComment(parentId){
 		let content = parentId && parentId !=0 ?

@@ -3,6 +3,8 @@ package service.user;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.SqlSession;
+
 import model.user.User;
 
 public interface UserService {
@@ -29,5 +31,5 @@ public interface UserService {
     // 성별별 사용자 수 조회
     public List<Map<String, Object>> getGenderCounts();
     
-
+    public List<User> getUserList(User user);
 }

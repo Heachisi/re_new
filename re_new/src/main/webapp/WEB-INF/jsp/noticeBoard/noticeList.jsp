@@ -20,7 +20,7 @@
     display: none; /* 기본적으로 숨김 */
     }
 	</style>
-	<link rel="stylesheet" href="/css/bulletinList.css?ver=1">
+	<link rel="stylesheet" href="/css/bulletinList.css?ver=1.2">
 	<jsp:include page="/WEB-INF/jsp/common/header.jsp"/>
 	<script>
 		function search(page, checkNow) {
@@ -140,20 +140,6 @@
 	<div class="createBtn">
 	
     <a href="/noticeboard/noticeCreate.do">글쓰기</a>
-    
-
-	</div>
-	</div>
-	</div>
-
-	
-	
-	<a href="/user/login.do">메인으로 이동</a><br/>
-	<a href="/noticeboard/noticeCreate.do">게시글 생성 이동</a><br/>
-
-	
-	
-	
 
 </body>
 </html>

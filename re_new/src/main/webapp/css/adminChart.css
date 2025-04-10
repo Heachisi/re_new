@@ -1,0 +1,38 @@
+@charset "UTF-8";
+
+
+#chartContainer {
+    display: flex;
+    flex-direction:row;
+    justify-content: center;
+    gap: 50px; /* 그래프 사이 간격 */
+    margin-top: 50px;
+    margin-bottom:100px;
+    
+}
+
+canvas {
+    padding: 10px;
+
+}
+
+#ageChart{
+    margin-top:70px;
+    width:750px!important;
+	height:400px !important;
+}
+
+
+#genderChart{
+    margin-top:110px;
+    width:350px !important;
+	height:350px !important;
+}
+
+.ageContainer{
+	
+}
+
+.genderContainer{
+	
+}

@@ -9,7 +9,7 @@
 
 <script src="/js/jquery-3.7.1.min.js"></script>
 <script src="/js/common.js"></script>
-<link rel="stylesheet" href="/css/mainHeader.css?var=3">
+<link rel="stylesheet" href="/css/mainHeader.css?var=4">
 <link rel="stylesheet" href="/css/common.css">
 
 
@@ -73,7 +73,7 @@
 								<li><a href="/product/list.do?category=기타">기타</a></li>
 							</ul>
 						</li>
-						<li class="menuItem">나눔</li>
+						<li class="menuItem"><a href="/share/list.do">나눔</li>
 						<li class="menuItem">커뮤니티
 							<ul class="submenu">
 								<li><a href="/bulletinboard/bulletinList.do">리뉴 커뮤니티</a></li>
@@ -88,7 +88,7 @@
 						</li>
 						<li  class="menuItem" id="myPage">마이페이지
 							<ul class="submenu">
-								<li><a href="/product/create.do">제품관리</a></li>
+								<li><a href="/product/create.do">제품등록</a></li>
 								<li><a href="/product/mylist.do">내 물건 목록</a></li>
 								<li><a href="/user/updateUser.do">회원정보 수정</a></li>
 							</ul>

@@ -1,6 +1,6 @@
 @charset "UTF-8";
 .bottomSection{
-	margin-top: 90px;
+	margin-top: 10px;
     margin-left: 80px;
     display: flex;
     flex-direction: column;
@@ -17,6 +17,18 @@
 	gap: 10px;
 	margin-bottom:15px;
 }
+input[type=text]{
+	border-radius: 25px;
+    border: 2px solid #2E0D6C;
+	padding-left: 10px;
+	margin-left:8px;
+}
+input[type=date]{
+	margin-left:4px;
+	border-radius: 25px;
+    border: 2px solid #2E0D6C;
+	padding-left: 10px;
+}
 .startDateContainer{
 	display:flex;
 }
@@ -28,6 +40,15 @@
 	display:flex;
 
 }
+.searchBtnContainer button{
+	background-color: #ff5c5c;
+	border:1px solid #ff5c5c;
+	color:white;
+	width:60px;
+}
+.searchBtnContainer button:hover{
+	background-color: #e74c3c;
+}
 .searchBtnContainer{
 		display:flex;
 	
@@ -38,12 +59,13 @@
 }
 .boardList{
 	width:100%;
+	border:none;
 }
 table tr{
 	height: 43px;
 }
 th{
-	    background-color:  rgb(230, 151, 87);
+	    background-color:  #BFA5E2;
 	    color: white;
 	    
 }
@@ -92,12 +114,16 @@ th{
 	
 	text-align:center;
 	padding:auto;
-	background-color: #c6c7c1;
+	background-color: #ff5c5c;
  	width:80px;
- 	border: 1px solid gray;
+ 	border: 1px solid #ff5c5c;
+	
   
+}
+.createBtn:hover{
+	background-color: #e74c3c;
 }
 .createBtn a{
 	text-decoration: none;
-	color:black;
+	color:white;
 }

@@ -6,8 +6,10 @@ body {
     margin:auto;       
 }
 
+
 .bottomSection{
-	margin-top: 10%;
+	margin-top: 5%;
+	margin-bottom:10%;
 }
 
 /* 회원수정 폼 */

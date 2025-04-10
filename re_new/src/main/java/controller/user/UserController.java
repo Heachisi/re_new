@@ -14,6 +14,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import model.board.AskBoard;
 import model.board.NoticeBoard;
 import model.user.User;
 import service.user.UserService;
@@ -63,6 +64,40 @@ public class UserController extends HttpServlet {
 	            request.getRequestDispatcher("/WEB-INF/jsp/user/adminChart.jsp").forward(request, response);
 		           
 	      }else if("/user/adminUserManage.do".equals(path)) {
+	    	  int page = request.getParameter("page") != null?
+	    			  Integer.parseInt(request.getParameter("page"))
+	    			  :DEFAULT_PAGE;
+	    	  int size = request.getParameter("size") != null?
+	    			  Integer.parseInt(request.getParameter("size"))
+	    			  :DEFAULT_SIZE;
+	    	  
+	    	  String searchText = request.getParameter("searchText");
+	    	  String startDate = request.getParameter("startDate");
+	    	  String endDate = request.getParameter("endDate");
+	    	  
+	    	    logger.info("검색어: " + searchText);
+	    	    logger.info("시작 날짜: " + startDate);
+	    	    logger.info("종료 날짜: " + endDate);
+	    	  
+	    	    User user = new User();
+	    	    user.setSize(size);
+	    	    user.setPage(page);
+    	                 
+	    	    user.setSearchText(searchText);
+	    	    user.setStartDate(startDate);
+	    	    user.setEndDate(endDate);
+	    	  
+	    	  List<User> userList = userService.getUserList(user);
+	    	  logger.info(userList.size());
+	    	  for (User user2 : userList) {
+	    		  logger.info(user2.toString());
+			}
+	    	  request.setAttribute("userList", userList);
+	    	  request.setAttribute("currentPage", page);
+	    	  request.setAttribute("totalPages", user.getTotalPages());
+	    	  request.setAttribute("size", size);
+	    	  request.setAttribute("user", user);
+	    	  
 	            request.getRequestDispatcher("/WEB-INF/jsp/user/adminUserManage.jsp").forward(request, response);
 	            
 	      }
@@ -244,10 +279,7 @@ public class UserController extends HttpServlet {
                     }
                 }
                 response.getWriter().print(jsonResponse.toString());
-            }else if("/user/adminUserManage.do".equals(path)) {
-            
-            }
-            
+            } 
             
             
         } catch (Exception e) {

@@ -10,7 +10,7 @@ public class User extends Model {
    private String birthdate;
    private String gender;
    private String delYn;
-   
+  
    private int rn;
    private int startRow;
    private int endRow;
@@ -21,270 +21,124 @@ public class User extends Model {
 	private int totalCount;
 	private int totalPages;
    
-
+	private String searchText;
+	private String startDate;
+	private String endDate;
+	
+	
+	
+	@Override
+	public String toString() {
+		return "User [adminYn=" + adminYn + ", userId=" + userId + ", password=" + password + ", email=" + email
+				+ ", birthdate=" + birthdate + ", gender=" + gender + ", delYn=" + delYn + ", rn=" + rn + ", startRow="
+				+ startRow + ", endRow=" + endRow + ", page=" + page + ", size=" + size + ", totalCount=" + totalCount
+				+ ", totalPages=" + totalPages + ", searchText=" + searchText + ", startDate=" + startDate
+				+ ", endDate=" + endDate + ", createId=" + createId + ", updateId=" + updateId + ", createDt="
+				+ createDt + ", updateDt=" + updateDt + "]";
+	}
+	public String getAdminYn() {
+		return adminYn;
+	}
+	public void setAdminYn(String adminYn) {
+		this.adminYn = adminYn;
+	}
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getBirthdate() {
+		return birthdate;
+	}
+	public void setBirthdate(String birthdate) {
+		this.birthdate = birthdate;
+	}
+	public String getGender() {
+		return gender;
+	}
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+	public String getDelYn() {
+		return delYn;
+	}
+	public void setDelYn(String delYn) {
+		this.delYn = delYn;
+	}
+	public int getRn() {
+		return rn;
+	}
+	public void setRn(int rn) {
+		this.rn = rn;
+	}
+	public int getStartRow() {
+		return startRow;
+	}
+	public void setStartRow(int startRow) {
+		this.startRow = startRow;
+	}
+	public int getEndRow() {
+		return endRow;
+	}
+	public void setEndRow(int endRow) {
+		this.endRow = endRow;
+	}
+	public int getPage() {
+		return page;
+	}
+	public void setPage(int page) {
+		this.page = page;
+	}
+	public int getSize() {
+		return size;
+	}
+	public void setSize(int size) {
+		this.size = size;
+	}
+	public int getTotalCount() {
+		return totalCount;
+	}
+	public void setTotalCount(int totalCount) {
+		this.totalCount = totalCount;
+	}
+	public int getTotalPages() {
+		return totalPages;
+	}
+	public void setTotalPages(int totalPages) {
+		this.totalPages = totalPages;
+	}
+	public String getSearchText() {
+		return searchText;
+	}
+	public void setSearchText(String searchText) {
+		this.searchText = searchText;
+	}
+	public String getStartDate() {
+		return startDate;
+	}
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+	public String getEndDate() {
+		return endDate;
+	}
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
    
-
-
-
-public User() { 
-	      
-   }
-
-
-
-
-
-
-public String getAdminYn() {
-	return adminYn;
-}
-
-
-
-
-
-
-public void setAdminYn(String adminYn) {
-	this.adminYn = adminYn;
-}
-
-
-
-
-
-
-public String getUserId() {
-	return userId;
-}
-
-
-
-
-
-
-public void setUserId(String userId) {
-	this.userId = userId;
-}
-
-
-
-
-
-
-public String getPassword() {
-	return password;
-}
-
-
-
-
-
-
-public void setPassword(String password) {
-	this.password = password;
-}
-
-
-
-
-
-
-public String getEmail() {
-	return email;
-}
-
-
-
-
-
-
-public void setEmail(String email) {
-	this.email = email;
-}
-
-
-
-
-
-
-public String getBirthdate() {
-	return birthdate;
-}
-
-
-
-
-
-
-public void setBirthdate(String birthdate) {
-	this.birthdate = birthdate;
-}
-
-
-
-
-
-
-public String getGender() {
-	return gender;
-}
-
-
-
-
-
-
-public void setGender(String gender) {
-	this.gender = gender;
-}
-
-
-
-
-
-
-public String getDelYn() {
-	return delYn;
-}
-
-
-
-
-
-
-public void setDelYn(String delYn) {
-	this.delYn = delYn;
-}
-
-
-
-
-
-
-public int getRn() {
-	return rn;
-}
-
-
-
-
-
-
-public void setRn(int rn) {
-	this.rn = rn;
-}
-
-
-
-
-
-
-public int getStartRow() {
-	return startRow;
-}
-
-
-
-
-
-
-public void setStartRow(int startRow) {
-	this.startRow = startRow;
-}
-
-
-
-
-
-
-public int getEndRow() {
-	return endRow;
-}
-
-
-
-
-
-
-public void setEndRow(int endRow) {
-	this.endRow = endRow;
-}
-
-
-
-
-
-
-public int getPage() {
-	return page;
-}
-
-
-
-
-
-
-public void setPage(int page) {
-	this.page = page;
-}
-
-
-
-
-
-
-public int getSize() {
-	return size;
-}
-
-
-
-
-
-
-public void setSize(int size) {
-	this.size = size;
-}
-
-
-
-
-
-
-public int getTotalCount() {
-	return totalCount;
-}
-
-
-
-
-
-
-public void setTotalCount(int totalCount) {
-	this.totalCount = totalCount;
-}
-
-
-
-
-
-
-public int getTotalPages() {
-	return totalPages;
-}
-
-
-
-
-
-
-public void setTotalPages(int totalPages) {
-	this.totalPages = totalPages;
-}
-
-
-
-
 }
 
 

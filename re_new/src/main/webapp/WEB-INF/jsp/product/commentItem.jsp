@@ -2,12 +2,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<link rel="stylesheet" href="/css/commentItem.css?ver=1.1">
- 
+<link rel="stylesheet" href="/css/view.css?ver=4">
+ <div class="contentArea">
 <c:if test="${not empty comments}">
 	<c:forEach var="comment" items="${comments}">
 		<c:if test="${comment.parentCommentId == param.commentId}">
-			<div style="margin-left: 20px;">
+			<div class="commnetDetails" >
 				<p>
 					<strong>${comment.createId}</strong>
 					${comment.createDt}
@@ -29,7 +29,7 @@
 					<button type="button" onclick="toggleReplyComment(${comment.commentId})">답글</button>
 				</c:if>
 				<!--댓글 작성 폼 -->
-			<div  id="replyForm_${comment.commentId}" style="display:none; margin-left: 20px;">
+			<div  id="replyForm_${comment.commentId}" >
 				<textarea class="texta" id="replyContent_${comment.commentId}" rows="3" placeholder="답글을 입력하세요.."></textarea>
 				<br/>
 				<button type="button" onclick="addComment(${comment.commentId})">답글작성</button>
@@ -42,3 +42,4 @@
 		</c:if>
 	</c:forEach>
 </c:if>
+</div>

@@ -6,11 +6,20 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link rel="stylesheet" href="/css/adminChart.css?ver=1">
 <jsp:include page="/WEB-INF/jsp/common/header.jsp"/>
 </head>
 <body>
-<canvas id="ageChart"></canvas>
-<canvas id="genderChart"></canvas>
+<div id="chartContainer">
+    <div id="ageContainer">
+    <h2>연령별 차트</h2>
+    <canvas id="ageChart" ></canvas>
+    </div>
+    <div id="genderContainer">
+    <h2>성별 차트</h2>
+    <canvas id="genderChart"></canvas>
+    </div>
+</div>
 <script>
 $(document).ready(function () {
     // 연령대 데이터 가져오기
