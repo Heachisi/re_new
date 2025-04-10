@@ -49,6 +49,26 @@
    					$("#content").focus();
    					return;
    				}
+   				if (!validationUtil.isEmpty(price)) {
+   				    alert("금액을 입력해주세요.");
+   				    $("#price").focus();
+   				    return;
+   				}
+   				if (!validationUtil.isNumber(price)) {
+   				    alert("금액은 숫자만 입력 가능합니다.");
+   				    $("#price").focus();
+   				    return;
+   				}
+   				if (parseInt(price) <= 0) {
+   				    alert("금액은 0보다 큰 숫자여야 합니다.");
+   				    $("#price").focus();
+   				    return;
+   				}
+   				if (category === "") {
+   				    alert("카테고리를 선택해주세요.");
+   				    $("#category").focus();
+   				    return;
+   				}
    				//FormData : 자바스크립트에서 폼 데이터와 파일을 서버로 전송할 수 있게 해주는 객체
    				let formData = new FormData();
    				formData.append("title",title);

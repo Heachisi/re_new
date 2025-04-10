@@ -9,7 +9,7 @@
     <title>내 게시판 목록</title>
     <script src="/js/jquery-3.7.1.min.js"></script>
     <script src="/js/common.js?ver=1.2"></script>
-    <link rel="stylesheet" href="/css/list.css?ver=1.1">
+    <link rel="stylesheet" href="/css/productlist.css?ver=1.1">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nouislider@15.7.0/dist/nouislider.min.css">
     <script src="https://cdn.jsdelivr.net/npm/nouislider@15.7.0/dist/nouislider.min.js"></script>
     <jsp:include page="/WEB-INF/jsp/common/header.jsp"/>
@@ -41,12 +41,12 @@
     </script>
 </head>
 <body>
-	<input class="search" type="text" id="searchText" name="searchText" value="${product.searchText}">
+	
 	<label hidden>시작 날짜</label>
 	<input hidden type="date" id="startDate" name="startDate" value="${product.startDate}">
 	<label hidden>종료 날짜</label>
 	<input hidden type="date" id="endDate" name="endDate" value="${product.endDate}">
-	<button type="button" id="searchBtn" class="searchBtn">검색</button>
+
 <div class="list">
 	
 	<select id="sellstatus" name="sellstatus" style="height:20px;">

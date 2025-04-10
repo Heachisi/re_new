@@ -67,6 +67,31 @@
    					$("#content").focus();
    					return;
    				}
+   				if (!validationUtil.isEmpty(price)) {
+   				    alert("금액을 입력해주세요.");
+   				    $("#price").focus();
+   				    return;
+   				}
+   				if (!validationUtil.isNumber(price)) {
+   				    alert("금액은 숫자만 입력 가능합니다.");
+   				    $("#price").focus();
+   				    return;
+   				}
+   				if (parseInt(price) <= 0) {
+   				    alert("금액은 0보다 큰 숫자여야 합니다.");
+   				    $("#price").focus();
+   				    return;
+   				}
+   				if (category === "") {
+   				    alert("카테고리를 선택해주세요.");
+   				    $("#category").focus();
+   				    return;
+   				}
+   				if (sellstatus === "") {
+   				    alert("판매상태를 선택해주세요.");
+   				    $("#sellstatus").focus();
+   				    return;
+   				}
    				
    				let formData = new FormData();
    				formData.append("productId",$("#productId").val());
