@@ -17,8 +17,8 @@
                 <!--<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>  DB URL -->
                 <property name="driver" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"/> <!--Oracle JDBC 드라이버 -->
                 <property name="url" value="jdbc:log4jdbc:oracle:thin:@//localhost:1521/xe"/> <!--DB URL -->
-                <property name="username" value="renew"/> <!-- DB 사용자명 -->
-                <property name="password" value="8003"/> <!-- DB 비밀번호 -->
+                <property name="username" value="re_new"/> <!-- DB 사용자명 -->
+                <property name="password" value="1234"/> <!-- DB 비밀번호 -->
             </dataSource>
         </environment>
     </environments>
@@ -28,6 +28,16 @@
     <mappers>
         <mapper resource="mapper/UserMapper.xml"/> <!-- 사용자 매퍼 파일 -->
         <mapper resource="mapper/BoardMapper.xml"/> 
-        <mapper resource="mapper/FileMapper.xml"/> 
+        <mapper resource="mapper/FileMapper.xml"/>
+        <mapper resource="mapper/ProductMapper.xml"/> 
+        <mapper resource="mapper/ProductFileMapper.xml"/>
+        <mapper resource="mapper/NoticeFileMapper.xml"/> 
+        <mapper resource="mapper/NoticeBoardMapper.xml"/>
+        <mapper resource="mapper/AskBoardMapper.xml"/>
+        <mapper resource="mapper/AskFileMapper.xml"/>
+        <mapper resource="mapper/BulletinBoardMapper.xml"/>
+        <mapper resource="mapper/BulletinFileMapper.xml"/>
+        <mapper resource="mapper/ShareMapper.xml"/>
+        
     </mappers>
 </configuration>

@@ -115,6 +115,11 @@ public class NoticeBoardController extends HttpServlet {
 	    	  board.setStartDate(startDate);
 	    	  board.setEndDate(endDate);
 	    	  
+	    	  int startRow = (page - 1) * size + 1;
+	    	    int endRow = page * size;
+	    	    board.setStartRow(startRow);
+	    	    board.setEndRow(endRow);
+	    	  
 	    	  List<NoticeBoard> boardList = boardService.getBoardList(board);
 	    	  
 	    	  request.setAttribute("boardList", boardList);
