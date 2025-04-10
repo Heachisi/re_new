@@ -22,7 +22,7 @@
 }
 .showId{
 	font-style: italic;
-    appearance: none;
+	margin-top:15px;
 	
 }
 .logoutBtn{
@@ -33,6 +33,7 @@
 	color:white;
     border-radius: 20px;
 	margin-top:10px;
+	cursor:pointer;
 
 }
 .logoSearchContainer{

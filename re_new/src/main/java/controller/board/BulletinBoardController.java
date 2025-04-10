@@ -100,14 +100,15 @@ public class BulletinBoardController extends HttpServlet {
 	    			  Integer.parseInt(request.getParameter("size"))
 	    			  :DEFAULT_SIZE;
 	    	  
-	    	  String searchText = request.getParameter("searchText");
-	    	  String startDate = request.getParameter("startDate");
-	    	  String endDate = request.getParameter("endDate");
+	    	  String searchText = request.getParameter("bulletinSearchText");
+	    	  String startDate = request.getParameter("bulletinStartDate");
+	    	  String endDate = request.getParameter("bulletinEndDate");
 	    	  
 	    	  logger.info("검색어: " + searchText);
 	    	    logger.info("시작 날짜: " + startDate);
 	    	    logger.info("종료 날짜: " + endDate);
-	    	  
+	    	    
+	    	    
 	    	  BulletinBoard board = new BulletinBoard();
 	    	  board.setSize(size);
 	    	  board.setPage(page);
