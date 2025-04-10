@@ -12,7 +12,7 @@
 <script src="/js/tinymce/tinymce.min.js?ver=1"></script>
 <script src="/js/edit.js?ver=1.121"></script>
 <script src="/js/common.js?ver=1.1"></script>
- <link rel="stylesheet" href="/css/bulletinCreate.css?ver=1">
+ <link rel="stylesheet" href="/css/bulletinCreate.css?ver=2">
 <jsp:include page="/WEB-INF/jsp/common/header.jsp"/>
 <script>
 	$(document).ready(function() {
@@ -88,7 +88,11 @@
 </script>
 </head>
 <body>
-
+<c:choose>
+		<c:when test="${empty sessionScope.user}">
+			<c:redirect url="/user/login.do" />
+		</c:when>
+		<c:otherwise>
 	<div class="createForm">
 	<form id="boardCreateForm">
 		<div class="titleArea">
@@ -113,6 +117,7 @@
 		</div>
 	</form>
 	</div>
-	<br />
+</c:otherwise>
+</c:choose>
 </body>
 </html>

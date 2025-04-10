@@ -10,7 +10,7 @@
     <script src="/js/jquery-3.7.1.min.js?ver=1"></script>
     <script src="/js/edit.js?ver=1"></script>
     <script src="/js/common.js?ver=1.1"></script>
-    <link rel="stylesheet" href="/css/create.css">
+    <link rel="stylesheet" href="/css/create.css?ver=2">
     
     <jsp:include page="/WEB-INF/jsp/common/header.jsp"/>
     <script>
@@ -105,7 +105,7 @@
 <body>
 	<div class="create">
 	<form id="createForm"> 
-	<div id="photoDropZone">프로필 이미지를 드래그하거나 클릭하세요.</div>
+	<div id="photoDropZone" class="photoDropZone">프로필 이미지를 드래그하거나 클릭하세요.</div>
 	<input type="file" id="photoInput" accept="image/*" style="display: none;">
 	<div id="photoPreview"></div>
 	<label for="title"><h3>상품명</h3></label>

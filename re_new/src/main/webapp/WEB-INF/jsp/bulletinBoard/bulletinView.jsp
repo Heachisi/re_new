@@ -25,7 +25,7 @@
 		
 		
 		<div class="allArea">
-			<div id="infoArea">
+			<div class="infoArea">
 				<div class="writer"> 
 					<label for="createId"></label> 
 					${board.createId}
@@ -38,14 +38,14 @@
 				</div>
 			</div>
 			
-			<div id="btnArea">
+			<div class="btnArea">
 			    <c:if test="${sessionScope.user.userId == board.createId}">
 				<div class="update">
 					<a href="/bulletinboard/bulletinUpdate.do?id=${board.boardId}" class="update">수정</a>
 				</div>
 				
-				<div id="delete">
-					<a href="#" id="delete">삭제</a>
+				<div class="delete">
+					<a href="#" class="delete">삭제</a>
 				</div>
 				</c:if>
 			</div>
@@ -71,12 +71,12 @@
 	</c:if>
 	<div id="comment" style="border: 1px solid gray">
 	<c:if test="${not empty sessionScope.user.userId}">
-		<div id="commentMain">
+		<div class="commentMain">
 		<h4>댓글</h4>
 		</div>
 		
 		<div id="commentCreator">
-			<textarea class="commentContent"id="commentContent" rows="4" placeholder="댓글을 입력하세요"></textarea>
+			<textarea class="commentContentWrite"id="commentContentWrite" rows="4" placeholder="댓글을 입력하세요"></textarea>
 			<br/>
 			<div class="commentCreate">
 			<button type="button" class="commentCreateBtn"id="commentCreateBtn" onclick="addComment()">댓글 작성</button>

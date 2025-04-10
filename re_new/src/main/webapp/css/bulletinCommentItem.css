@@ -14,9 +14,13 @@
 	font-size:12px;
 	cursor: pointer;
 }
-.commentContent{
+.commentContent p{
 	display:flex;
     flex-wrap:wrap;
+	margin-top:20px;
+}
+.commentContent{
+	margin-bottom:10px;
 }
 .updateComent{
 	width:100%;

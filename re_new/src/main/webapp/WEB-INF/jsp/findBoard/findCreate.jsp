@@ -91,7 +91,6 @@
 <c:choose>
 	<c:when test="${empty sessionScope.user}">
 		<script>
-			alert("로그인하셈");
 			location.href = "/user/login.do";
 		</script>
 	</c:when>

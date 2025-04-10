@@ -17,7 +17,7 @@
 	width:80%;
 	}
 	</style>
-	<link rel="stylesheet" href="/css/bulletinList.css?ver=1">
+	<link rel="stylesheet" href="/css/bulletinList.css?ver=2">
 	<jsp:include page="/WEB-INF/jsp/common/header.jsp"/>
 	<script>
 		function search(page, checkNow) {

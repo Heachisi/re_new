@@ -88,7 +88,11 @@
 </script>
 </head>
 <body>
-
+<c:choose>
+		<c:when test="${empty sessionScope.user}">
+			<c:redirect url="/user/login.do" />
+		</c:when>
+		<c:otherwise>
 	<div class="createForm">
 	<form id="boardCreateForm">
 		<div class="titleArea">
@@ -113,6 +117,7 @@
 		</div>
 	</form>
 	</div>
-	<br />
+</c:otherwise>
+</c:choose>>
 </body>
 </html>

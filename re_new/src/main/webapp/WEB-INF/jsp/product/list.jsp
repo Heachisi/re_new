@@ -9,7 +9,7 @@
     <title>게시판 목록</title>
     <script src="/js/jquery-3.7.1.min.js"></script>
     <script src="/js/common.js?ver=1.2"></script>
-    <link rel="stylesheet" href="/css/productlist.css?ver=1.1">
+    <link rel="stylesheet" href="/css/productlist.css?ver=2">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nouislider@15.7.0/dist/nouislider.min.css">
     <script src="https://cdn.jsdelivr.net/npm/nouislider@15.7.0/dist/nouislider.min.js"></script>
     <jsp:include page="/WEB-INF/jsp/common/header.jsp"/>
@@ -120,26 +120,31 @@
 		</table>
 	</div>
 	
-	<div style="width: 400px; margin: 20px auto;">
-	  <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
-	    <span id="minLabel"></span>
-	    <span id="maxLabel"></span>
-	  </div>
-	  <div id="priceSlider"></div>
-	  <input type="hidden" id="minprice" name="minprice" value="${product.minprice}" />
-	  <input type="hidden" id="maxprice" name="maxprice" value="${product.maxprice}" />
-	  </div>
-	<select class="viewcategory" id="viewcategory" name="viewcategory" style="height:20px;">
-            <option value="">정렬 방식</option>
-            <option value="최신순">최신순</option>
-            <option value="낮은 가격순">낮은 가격순</option>
-            <option value="높은 가격순">높은 가격순</option>
-            <option value="추천순">추천순</option>
-    </select>
+	<div class="priceCategory">
+		<div class="priceSliderContainer">
+		  <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+		    <span id="minLabel"></span>
+		    <span id="maxLabel"></span>
+		  </div>
+		  <div id="priceSlider">
+			  <input type="hidden" id="minprice" name="minprice" value="${product.minprice}" />
+			  <input type="hidden" id="maxprice" name="maxprice" value="${product.maxprice}" />
+		  </div>
+		 </div>
+		  <div class="viewcategoryContainer">
+			<select class="viewcategory" id="viewcategory" name="viewcategory">
+		            <option value="">정렬 방식</option>
+		            <option value="최신순">최신순</option>
+		            <option value="낮은 가격순">낮은 가격순</option>
+		            <option value="높은 가격순">높은 가격순</option>
+		            <option value="추천순">추천순</option>
+		    </select>
+    	</div>
+    </div>
 	<div id="boardlist">
 			<c:forEach var="product" items="${productList}">
 			<div class="index" onclick="location.href='view.do?id=${product.productId}'">
-					<img src="/upload/${product.photo}" alt="업로드 이미지" style="max-width: 200px;max-height: 120px;">
+					<img src="/upload/${product.photo}" alt="업로드 이미지" style="max-width: 200px;max-height: 120px; padding-top:5px;">
 					<br/>
 					<div class="title">${product.title}</div>
 					<div class="price">${product.price}원</div>
@@ -154,6 +159,7 @@
 	</div>
 	<br/>
 	<br/>
+	<div class="pagination">
 		<ul>
 			<c:if test="${currentPage > 1}">
 					<a href="list.do?page=${currentPage - 1}&searchText=${share.searchText}&startDate=${share.startDate}&endDate=${share.endDate}"  onclick="search(${currentPage - 1}, false)" >&laquo;</a>
@@ -167,77 +173,8 @@
 					<a href="list.do?page=${currentPage + 1}&searchText=${share.searchText}&startDate=${share.startDate}&endDate=${share.endDate}" onclick="search(${currentPage + 1}, false)" >&raquo;</a>
 			</c:if>
 		</ul>
+	</div>
 </div>
 	
 </body>
 </html>
-<style>
-	.title{
-	  position:absolute;
-	  bottom:40px;
-	  left:1px;
-	  width:150px; 
-  	}
-  	.viewcategory{
-	  position:absolute;
-	  top:245px;
-	  right:1000px;
-	  width:100px;  
-  	}
-  	.price{
-	  position:absolute;
-	  bottom:20px;
-	  left:1px;
-	  width:150px;
-	  font-weight: bold;
-  	}
-  .like{
-	  position:absolute;
-	  bottom:40px;
-	  right:25px; 
- 	 }
-  .index {
-  position: relative; /* 기준점 역할 추가 */
-  border: 1px solid rgb(245,183,89);
-  border-radius: 12px;
-  text-align: center; 
-  cursor: pointer;
-  height: 200px;
-  width: 250px;
-  margin:10px;
-  
-  align-items: center; 
-	}
-  #priceSlider {
-  
-    width: 300px;
-    height: 8px;
-    margin: 10px auto;
-  }
-
-  .noUi-target {
-    height: 8px !important;
-    background: #e0e0e0;
-    border-radius: 5px;
-  }
-
-  .noUi-connect {
-    background: #f5b759 !important;
-  }
-
-  .noUi-handle {
-    width: 14px !important;
-    height: 14px !important;
-    top: -3px !important;
-    right: -7px !important;
-    border-radius: 50% !important;
-    background: #fff;
-    border: 1px solid #aaa;
-    box-shadow: none;
-  }
-
-  .noUi-handle:before,
-  .noUi-handle:after {
-    display: none !important;
-  }
-</style>

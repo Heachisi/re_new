@@ -68,6 +68,11 @@
 </script>
 </head>
 <body>
+<c:choose>
+		<c:when test="${empty sessionScope.user}">
+			<c:redirect url="/user/login.do" />
+		</c:when>
+		<c:otherwise>
 <h2>게시글 작성</h2>
 <form id="createForm">
   <label for="title">제목:</label>
@@ -82,6 +87,7 @@
   <input type="hidden" id="viewcount" name="viewcount"value="0">
   <button type="submit" id="registerBtn">글쓰기</button>
 </form>
-<a href="/user/login.do">로그인 페이지로 이동</a>
+</c:otherwise>
+</c:choose>
 </body>
 </html>

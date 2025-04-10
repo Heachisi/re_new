@@ -5,7 +5,7 @@
 	top:120px;
     text-align: center;
     width: 1000px; 
-    height: 1100px;
+    height: auto;
     border: 2px solid rgb(46 13 108);
 
     z-index: 1;
@@ -14,7 +14,11 @@
 	background-color: #e4eaff;
 	
   }
+.photoDropZone{
+	margin-top:30px;
+	margin-bottom:30px;
 
+}
 .title{
 	border: 1px solid rgb(46 13 108);
 	position: relative;
@@ -89,8 +93,7 @@
 }
 .btnContianer{
 	display:flex;
-	position:absolute;
-	width: 80px;
 	bottom:20px;
-	left:47%
+	justify-content:center;
+	margin-bottom:20px;
 }

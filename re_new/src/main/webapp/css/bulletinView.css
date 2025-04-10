@@ -9,6 +9,8 @@
     width:80%;   
     padding-bottom: 60px;
 }
+
+
 .title{
 	display: flex;
 	flex-direction: column;
@@ -16,34 +18,39 @@
 	margin-bottom:20px;
 	align-items: center;
 	justify-content: center;
-	margin-top: 20px;
+	margin-top: -10px;
 	height: 70px;
 	border: 1px solid gray;
 }
+.allArea{
+	display:flex;
+	flex-direction:row;
+}
 
-
-#infoArea {
+.infoArea {
 	display: flex;
 	flex-direction: column;
 }
 
-#btnArea{
+.btnArea{
 	display: flex;
 	flex-direction: row;
-	justify-content:space-between;
-	margin-left:85%;
+	margin-left:80%;
+	align-items:center;
 }
 
 /* 글쓴이 */
 .writer{
 	display:flex;
 	font-weight: 600;
+	width: 100px;
 	
 }
 
 #createDate {
 	display:flex;
     flex-direction: row;
+	width: 100px;
 }
 
 
@@ -51,7 +58,7 @@
 .update{
 	display:flex;
 	width: 50px;
-	margin-left: 15px;
+
     color:rgb(179, 165, 128);
 	text-decoration: none;
 
@@ -59,31 +66,47 @@
 }
 
 /* 삭제 */
-#delete{
+.delete{
 	display:flex;
 	width: 50px;
 	color:rgb(179, 165, 128);
 	text-decoration:none;
 }
 
+
+.content{
+    margin-bottom:100px;
+}
+
+.commentMain{
+	display:flex;
+	height: 50px;
+	width: 35px;
+	align-items: center;
+	margin-top:-10px;
+	margin-left:  10px;
+}
 .commentCreate{
     display: flex;
     flex-direction: row-reverse;
 }
-.content{
-    margin-bottom:100px;
-}
-.commentContent{
+
+.commentContentWrite{
     display: flex;
-    width: 85%;
+    width: 93%;
+	height: 45px;
+	margin-left:-10px;
     margin-right: 20px;
+	margin-top: -20px;
 
 }
 .commentCreateBtn{
     width: 80px;
-    height: 35px;
+    height: 43px;
     border:none;
-    background-color: rgb(255, 154, 60);
+	margin-top: -15px;
+    background-color: rgb(255 92 92);
+	margin-right: -10px;
     color: white;
 }
 

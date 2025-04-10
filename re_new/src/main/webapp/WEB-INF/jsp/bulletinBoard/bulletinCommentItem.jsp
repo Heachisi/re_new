@@ -52,7 +52,7 @@
 			
 			<!-- 대댓글 작성 폼 -->
 			<div id="replyForm">
-				<div id="replyForm_${comment.commentId}" style="display:none; margin-left: 20px;">
+				<div id="replyForm_${comment.commentId}" style="display:none; margin-left: 10px;">
 					<textarea class="replyComment" id="replyContent_${comment.commentId}" rows="3" placeholder="답글을 입력하세요"></textarea>
 					<div id="replyCommentArea" class="replyCommentArea">
 					<button type="button" onclick="addComment(${comment.commentId})">작성</button>

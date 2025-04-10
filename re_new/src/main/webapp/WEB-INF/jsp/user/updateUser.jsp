@@ -95,6 +95,11 @@
     </script>
 </head>
 <body>
+<c:choose>
+		<c:when test="${empty sessionScope.user}">
+			<c:redirect url="/user/login.do"/>
+		</c:when>
+		<c:otherwise>
 	<div class="bottomSection">
 		<form id="updateForm" class="updateForm">
 			<h2>회원정보 수정</h2>
@@ -135,6 +140,8 @@
 			<button type="button" id="deleteBtn" class="deleteBtn">회원탈퇴</button>
 		</form>
 	</div>
+	</c:otherwise>
+	</c:choose>
 </body>
 </html>
 

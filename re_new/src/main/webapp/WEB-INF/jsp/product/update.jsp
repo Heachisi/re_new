@@ -128,6 +128,11 @@
     </script>
 </head>
 <body>
+<c:choose>
+		<c:when test="${empty sessionScope.user}">
+			<c:redirect url="/user/login.do" />
+		</c:when>
+		<c:otherwise>
 	<div class="create">
 		<form id="updateForm">
 			<div id="photoDropZone">프로필 이미지를 드래그하거나 클릭하세요.</div>
@@ -190,7 +195,8 @@
 	  <button type="button" id="updateBtn">게시글 수정</button>
 	  <button type="button" id="deleteBtn">게시글 삭제</button>
 	 
-	<a href="/user/login.do">로그인 페이지로 이동</a>
+</c:otherwise>
+</c:choose>
 	
 </body>
 </html>

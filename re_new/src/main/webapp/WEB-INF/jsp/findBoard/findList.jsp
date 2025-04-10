@@ -138,10 +138,6 @@
 	</div>
 	</div>
 
-	
-	
-	<a href="/user/login.do">메인으로 이동</a><br/>
-	<a href="/findboard/findCreate.do">게시글 생성 이동</a><br/>
 </c:otherwise>
 </c:choose>
 	

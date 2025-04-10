@@ -104,7 +104,6 @@
 <c:choose>
 	<c:when test="${empty sessionScope.user}">
 		<script>
-			alert("로그인하셈");
 			location.href = "/user/login.do";
 		</script>
 	</c:when>
@@ -147,8 +146,6 @@
 	<div class="btnArea">
 		<button type="button" class="updateBtn" id="updateBtn">수정</button>
 	</div>
-	<br />
-	<a href="/user/login.do">로그인 페이지로 이동</a>
 	</c:otherwise>
 	</c:choose>
 </body>

@@ -11,7 +11,7 @@
     <script src="/js/tinymce/tinymce.min.js?ver=1"></script>
     <script src="/js/edit.js?ver=1"></script>
     <script src="/js/common.js?ver=1.12"></script>
-    <link rel="stylesheet" href="/css/bulletinUpdate.css?ver=1">
+    <link rel="stylesheet" href="/css/bulletinUpdate.css?ver=2">
 	<jsp:include page="/WEB-INF/jsp/common/header.jsp"/>
     <script>
         $(document).ready(function () {
@@ -101,6 +101,11 @@
     </script>
 </head>
 <body>
+<c:choose>
+		<c:when test="${empty sessionScope.user}">
+			<c:redirect url="/user/login.do" />
+		</c:when>
+		<c:otherwise>
 	<div class="updateForm">
 	<form id="boardUpdateForm">
 		<div class="titleArea">
@@ -139,7 +144,7 @@
 	<div class="btnArea">
 		<button type="button" class="updateBtn" id="updateBtn">수정</button>
 	</div>
-	<br />
-	<a href="/user/login.do">로그인 페이지로 이동</a>
+	</c:otherwise>
+	</c:choose>
 </body>
 </html>
