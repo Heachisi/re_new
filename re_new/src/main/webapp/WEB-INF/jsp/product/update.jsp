@@ -72,7 +72,7 @@
    				    $("#price").focus();
    				    return;
    				}
-   				if (!validationUtil.isNumber(price)) {
+   				if (!validationUtil.isNumeric(price)) {
    				    alert("금액은 숫자만 입력 가능합니다.");
    				    $("#price").focus();
    				    return;
