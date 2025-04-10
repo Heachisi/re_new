@@ -11,6 +11,8 @@
     <script src="/js/edit.js?ver=1"></script>
     <script src="/js/common.js?ver=1.1"></script>
     <link rel="stylesheet" href="/css/create.css">
+    
+    <jsp:include page="/WEB-INF/jsp/common/header.jsp"/>
     <script>
     
         $(document).ready(function () {
@@ -54,7 +56,7 @@
    				    $("#price").focus();
    				    return;
    				}
-   				if (!validationUtil.isNumber(price)) {
+   				if (!validationUtil.isNumeric(price)) {
    				    alert("금액은 숫자만 입력 가능합니다.");
    				    $("#price").focus();
    				    return;
@@ -135,6 +137,5 @@
 	</form>
 	</div>
 	
-	<a href="/user/login.do">로그인 페이지로 이동</a>
 </body>
 </html>

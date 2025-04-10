@@ -54,17 +54,7 @@
 .picture{
   width: 80%;
   }
- .search {
-	position: absolute;
-	left: 300px;
-	top: 200px;
-    text-align: center;
-    width: 600px; 
-    height: 25px;
-    border-radius: 20px;
-    border: 1px solid #ccc; 
-    z-index: 1;
-  }
+ 
   .searchBtn {
 	position: absolute;
 	left: 877px;
