@@ -17,51 +17,6 @@
 </head>
 <body>
 
-<script>
-		function search(page, checkNow) {
-			
-			if(checkNow) {
-				let searchText = $("#searchText").val();
-				let startDate = $("#startDate").val();
-				let endDate = $("#endDate").val();
-				window.location.href = "/user/adminUserMange.do?"
-									  +"searchText="+searchText+"&"
-									  +"startDate="+startDate+"&"
-									  +"endDate="+endDate+"&"
-									  +"page="+page+"&"
-									  +"size=${size}";
-			} else {
-				let searchText = '${board.searchText}';
-				let startDate = '${board.startDate}';
-				let endDate = '${board.endDate}';
-				window.location.href = "/noticeboard/noticeList.do?"
-									  +"searchText="+searchText+"&"
-									  +"startDate="+startDate+"&"
-									  +"endDate="+endDate+"&"
-									  +"page="+page+"&"
-									  +"size=${size}";
-				
-			}
-		}
-		
-		$(document).ready(function () {
-			 ajaxRequest("/user/getUserRole.do", {}, function(response) {
-			        console.log("서버 응답:", response);
-
-			        if (response.adminYn === "Y") {
-			            $(".createBtn").show();
-			        } else {
-			            $(".createBtn").hide();
-			        }
-			    });
-
-			$("#searchBtn").click(function () {
-				search(1,true);
-			});
-			
-		});
-	
-	</script>
 
 <div class="bottomSection">
 	<h2>공지사항</h2>
