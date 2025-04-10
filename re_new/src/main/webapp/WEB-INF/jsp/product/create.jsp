@@ -115,7 +115,7 @@
 	<input class="price" type="text"  id="price" name="price" maxlength="20" placeholder="금액 입력" required/>
 	<br/>
 	<label for="category"><h3>카테고리 선택</h3></label>
-	<select id="category" name="category">
+	<select id="category" class="category" name="category">
             <option value="">전체</option>
             <option value="전자제품">패션</option>
             <option value="의류">가전제품</option>
@@ -127,13 +127,14 @@
     </select>
 	<br/>
 	<label for="content"><h3>상품설명</h3></label>
-	<br/>
 	<textarea class="content" rows="5" cols="40" id="content" name="content"></textarea>
 	<br/>
 	  
 	  <input type="hidden" id="createId" name="createId" value="${sessionScope.user.userId}"/>
 	  <input type="hidden" id="viewCount" name="viewCount"value="0">
-	  <button type="submit" id="registerBtn">글쓰기</button>
+	  <div class="btnContianer">
+	  <button type="submit" id="registerBtn" class="registerBtn">글쓰기</button>
+	  </div>
 	</form>
 	</div>
 	

@@ -1,19 +1,22 @@
 @charset "UTF-8";
 .create {
 	position: relative;
-	left: 150px;
-	top:200px;
+	left: 138px;
+	top:120px;
     text-align: center;
     width: 1000px; 
-    height: 800px;
-    border: 1px solid rgb(245,183,89);
-    overflow: scroll;
+    height: 1100px;
+    border: 2px solid rgb(46 13 108);
+
     z-index: 1;
     border-radius: 12px;
+	margin-bottom: 15%;
+	background-color: #e4eaff;
+	
   }
 
 .title{
-	border: 1px solid rgb(245,183,89);
+	border: 1px solid rgb(46 13 108);
 	position: relative;
 	left:50%;
 	transform: translateX(-50%);
@@ -26,7 +29,7 @@
     display: flex;
 }
 .price{
-	border: 1px solid rgb(245,183,89);
+	border: 1px solid rgb(46 13 108);
 	position: relative;
 	left:50%;
 	transform: translateX(-50%);
@@ -38,8 +41,15 @@
     height: 10px;
     display: flex;
 }
+.category{
+	width:100px; 
+	height:30px;
+	border: 1px solid rgb(46 13 108);
+	border-radius: 12px;
+	text-align:center
+}
 .content{
-	border: 1px solid rgb(245,183,89);
+	border: 1px solid rgb(46 13 108);
 	position: relative;
 	left:50%;
 	transform: translateX(-50%);
@@ -55,7 +65,7 @@
   width: 80%;
   }
  
-  .searchBtn {
+/*   .searchBtn {
 	position: absolute;
 	left: 877px;
 	top: 200px;
@@ -66,4 +76,21 @@
     border: 1px solid #ccc; 
     background-color: rgb(245,183,89);
     z-index: 2;
-  }
+  } */
+.registerBtn{
+	width:80px;
+	height:40px;
+	background-color: #ff5c5c;
+	color:#ffffff;
+	border: none;
+}
+.registerBtn:hover{
+	background-color: #e74c3c;
+}
+.btnContianer{
+	display:flex;
+	position:absolute;
+	width: 80px;
+	bottom:20px;
+	left:47%
+}
