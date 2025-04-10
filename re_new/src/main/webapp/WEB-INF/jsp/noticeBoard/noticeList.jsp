@@ -26,13 +26,13 @@
 		function search(page, checkNow) {
 			
 			if(checkNow) {
-				let searchText = $("#searchText").val();
-				let startDate = $("#startDate").val();
-				let endDate = $("#endDate").val();
+				let searchText = $("#noticeSearchText").val();
+				let startDate = $("#noticeStartDate").val();
+				let endDate = $("#noticeEndDate").val();
 				window.location.href = "/noticeboard/noticeList.do?"
-									  +"searchText="+searchText+"&"
-									  +"startDate="+startDate+"&"
-									  +"endDate="+endDate+"&"
+									  +"noticeSearchText="+searchText+"&"
+									  +"noticeStartDate="+startDate+"&"
+									  +"noticeEndDate="+endDate+"&"
 									  +"page="+page+"&"
 									  +"size=${size}";
 			} else {
@@ -40,9 +40,9 @@
 				let startDate = '${board.startDate}';
 				let endDate = '${board.endDate}';
 				window.location.href = "/noticeboard/noticeList.do?"
-									  +"searchText="+searchText+"&"
-									  +"startDate="+startDate+"&"
-									  +"endDate="+endDate+"&"
+									  +"noticeSearchText="+searchText+"&"
+									  +"noticeStartDate="+startDate+"&"
+									  +"noticeEndDate="+endDate+"&"
 									  +"page="+page+"&"
 									  +"size=${size}";
 				
@@ -60,7 +60,7 @@
 			        }
 			    });
 
-			$("#searchBtn").click(function () {
+			$("#noticeSearchBtn").click(function () {
 				search(1,true);
 			});
 			
@@ -74,18 +74,18 @@
 	<div class="searchOption">
 	<div class="startDateContainer">
 	<label>시작 날짜</label>
-	<input type="date" id="startDate" name="startDate" value="${board.startDate}">
+	<input type="date" id="noticeStartDate" name="startDate" value="${board.startDate}">
 	</div>
 	<div class="endDateContainer">
 	<label>종료 날짜</label>
-	<input type="date" id="endDate" name="endDate" value="${board.endDate}">
+	<input type="date" id="noticeEndDate" name="endDate" value="${board.endDate}">
 	</div>
 	<div class="searchContainer">
 	<label></label>
-	<input type="text" id="searchText" name="searchText" value="${board.searchText}">
+	<input type="text" id="noticeSearchText" name="searchText" value="${board.searchText}">
 	</div>
 	<div class="searchBtnContainer">
-	<button type="button" id="searchBtn">검색</button>
+	<button type="button" id="bulletinSearchBtn">검색</button>
 	</div>
 	</div>
 	
@@ -117,12 +117,12 @@
 	<ul>
 	 <c:if test="${currentPage > 1}">
 
-        <a href="noticeList.do?page=${currentPage - 1}&searchText=${board.searchText}&startDate=${board.startDate}&endDate=${board.endDate}" 
+        <a href="noticeList.do?page=${currentPage - 1}&noticeSearchText=${board.searchText}&noticeStartDate=${board.startDate}&noticeEndDate=${board.endDate}" 
         	class="preArrow"onclick="search(${currentPage - 1}, false)">&laquo;</a>
 
 	</c:if>
 	<c:forEach begin="1" end="${totalPages}" var="i">
-		<a href="noticeList.do?page=${i}&searchText=${board.searchText}&startDate=${board.startDate}&endDate=${board.endDate}" 
+		<a href="noticeList.do?page=${i}&noticeSearchText=${board.searchText}&noticeStartDate=${board.startDate}&noticeEndDate=${board.endDate}" 
 			class="pagination" onclick="search(${i}, false)"
         <c:if test="${i == currentPage}"> style="font-weight: bold;" </c:if>
         >${i}</a>
@@ -130,7 +130,7 @@
 	</c:forEach>
 	<c:if test="${currentPage < totalPages}">
 
-        <a href="noticeList.do?page=${currentPage + 1}&searchText=${board.searchText}&startDate=${board.startDate}&endDate=${board.endDate}" 
+        <a href="noticeList.do?page=${currentPage + 1}&noticeSearchText=${board.searchText}&noticeStartDate=${board.startDate}&noticeEndDate=${board.endDate}" 
         class="postArrow" onclick="search(${currentPage + 1}, false)">&raquo;</a>
 
 	</c:if>

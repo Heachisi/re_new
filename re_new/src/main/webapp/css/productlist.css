@@ -1,6 +1,7 @@
 @charset "UTF-8";
 .list {
 	position:relative;
+	margin-top: 100px;
 	left:100px;
 	text-align: center;
     width: 1600px; 

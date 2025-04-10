@@ -245,7 +245,7 @@ public class UserController extends HttpServlet {
                 }
                 response.getWriter().print(jsonResponse.toString());
             }else if("/user/adminUserManage.do".equals(path)) {
-            	
+            
             }
             
             

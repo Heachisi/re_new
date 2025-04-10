@@ -180,10 +180,9 @@
   	}
   	.viewcategory{
 	  position:absolute;
-	  top:435px;
-	  right:700px;
-	  width:100px; 
-	  height:40px;
+	  top:245px;
+	  right:1000px;
+	  width:100px;  
   	}
   	.price{
 	  position:absolute;
