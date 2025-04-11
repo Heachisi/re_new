@@ -30,7 +30,7 @@
 		</div> 
 		<c:if test="${sessionScope.user.userId == board.createId}">
 		<div class="update">
-		<a href="/noticeBoard/noticeUpdate.do?id=${board.boardId}" class="update">수정</a>
+		<a href="/noticeboard/noticeUpdate.do?id=${board.boardId}" class="update">수정</a>
 		</div>
 		<div id="delete">
 		<a href="#" id="delete">삭제</a>
@@ -94,9 +94,6 @@
 	</div>
 	</div>
 	<br/>
-	<br/><br/>
-	<a href="/user/login.do">로그인</a>
-	<a href="/noticeBoard/noticeList.do">게시글 목록으로 이동</a><br/>
 	<script>
 	//댓글 생성
 	function addComment(parentId){
@@ -118,7 +115,7 @@
 		let createId = '${sessionScope.user.userId}';
 		
 		ajaxRequest(
-			'/bulletinboard/comment/create.do',
+			'/noticeboard/comment/create.do',
 			{
 				content: content,
 				boardId: boardId,
@@ -169,7 +166,7 @@
 		let updateId = '${sessionScope.user.userId}';
 		
 		ajaxRequest(
-			'/noticeBoard/comment/update.do',
+			'/noticeboard/comment/update.do',
 			{
 				commentId: commentId,
 				content: content,
@@ -192,7 +189,7 @@
 		if(confirm('이 댓글을 삭제하시겠습니까?')){
 			let updateId = '${sessionScope.user.userId}';
 			ajaxRequest(
-					'/noticeBoard/comment/delete.do',
+					'/noticeboard/comment/delete.do',
 					{
 						commentId: commentId,
 						updateId: updateId,
@@ -223,7 +220,7 @@
 	$("#delete").click(function (event) {
 		event.preventDefault(); // 기본 제출 방지
 		ajaxRequest(
-				"/noticeBoard/noticeDelete.do",
+				"/noticeboard/noticeDelete.do",
 				{ 
 					boardId: $("#boardId").val(),
 				 	updateId: $("#updateId").val()
@@ -231,7 +228,7 @@
 				function(response){
        				if(response.success){
     					alert("게시물을 삭제하였습니다. 게시판 목록으로 이동합니다.");
-       					window.location.href="/noticeBoard/noticeList.do";
+       					window.location.href="/noticeboard/noticeList.do";
        				}else{
        					alert("게시글 삭제를 실패하였습니다."+response.message);
        				}

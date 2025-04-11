@@ -52,7 +52,7 @@ public class NoticeBoardDAO {
 	  * @return 댓글 목록
 	  * */
 	  public List<NoticeComment> getCommentList(SqlSession session, String boardId) {
-		  return session.selectList("BulletinBoardMapper.getCommentsByBoardId", boardId);
+		  return session.selectList("NoticeBoardMapper.getCommentsByBoardId", boardId);
 	  }
 
 	  /**
@@ -61,7 +61,7 @@ public class NoticeBoardDAO {
 	  * @return 성공 여부
 	  * */
 	  public boolean insertComment(SqlSession session, NoticeComment comment) {
-		  int result = session.insert("BulletinBoardMapper.insertComment", comment);
+		  int result = session.insert("NoticeBoardMapper.insertComment", comment);
 	      return result > 0;
 	  }
 
@@ -71,7 +71,7 @@ public class NoticeBoardDAO {
 	  * @return 성공 여부
 	  * */
 	  public boolean updateComment(SqlSession session, NoticeComment comment) {
-		  int result = session.update("BulletinBoardMapper.updateComment", comment);
+		  int result = session.update("NoticeBoardMapper.updateComment", comment);
 	      return result > 0;
 	  }
 
@@ -81,11 +81,11 @@ public class NoticeBoardDAO {
 	  * @return 성공 여부
 	  * */
 	  public boolean deleteComment(SqlSession session, NoticeComment comment) {
-		  int result = session.update("BulletinBoardMapper.deleteComment", comment);
+		  int result = session.update("NoticeBoardMapper.deleteComment", comment);
 	      return result > 0;
 	  }
 	  
 	  public void increaseViewCount(SqlSession session, String boardId) {
-		  session.update("BulletinBoardMapper.increaseViewCount", boardId);
+		  session.update("NoticeBoardMapper.increaseViewCount", boardId);
 	  }
 }

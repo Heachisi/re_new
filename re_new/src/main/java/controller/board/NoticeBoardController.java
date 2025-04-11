@@ -100,9 +100,9 @@ public class NoticeBoardController extends HttpServlet {
 	    			  Integer.parseInt(request.getParameter("size"))
 	    			  :DEFAULT_SIZE;
 	    	  
-	    	  String searchText = request.getParameter("searchText");
-	    	  String startDate = request.getParameter("startDate");
-	    	  String endDate = request.getParameter("endDate");
+	    	  String searchText = request.getParameter("noticeSearchText");
+	    	  String startDate = request.getParameter("noticeStartDate");
+	    	  String endDate = request.getParameter("noticeEndDate");
 	    	  
 	    	  logger.info("검색어: " + searchText);
 	    	    logger.info("시작 날짜: " + startDate);
@@ -187,7 +187,7 @@ public class NoticeBoardController extends HttpServlet {
             			"게시글이 성공적으로 수정되었습니다." : "게시글 수정에 실패하였습니다.");
             			
             } 
-            else if ("/bulletinboard/bulletinDelete.do".equals(path)) { 
+            else if ("/noticeboard/noticeDelete.do".equals(path)) { 
             	String boardId=request.getParameter("boardId");
             	String updateId=request.getParameter("updateId");
 

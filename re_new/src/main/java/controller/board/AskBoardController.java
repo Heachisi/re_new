@@ -100,9 +100,9 @@ public class AskBoardController extends HttpServlet {
 	    			  Integer.parseInt(request.getParameter("size"))
 	    			  :DEFAULT_SIZE;
 	    	  
-	    	  String searchText = request.getParameter("searchText");
-	    	  String startDate = request.getParameter("startDate");
-	    	  String endDate = request.getParameter("endDate");
+	    	  String searchText = request.getParameter("askSearchText");
+	    	  String startDate = request.getParameter("askStartDate");
+	    	  String endDate = request.getParameter("askEndDate");
 	    	  
 	    	  logger.info("검색어: " + searchText);
 	    	    logger.info("시작 날짜: " + startDate);

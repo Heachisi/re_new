@@ -23,13 +23,13 @@
 		function search(page, checkNow) {
 			
 			if(checkNow) {
-				let searchText = $("#searchText").val();
-				let startDate = $("#startDate").val();
-				let endDate = $("#endDate").val();
+				let searchText = $("#askSearchText").val();
+				let startDate = $("#askStartDate").val();
+				let endDate = $("#askEndDate").val();
 				window.location.href = "/askboard/askList.do?"
-									  +"searchText="+searchText+"&"
-									  +"startDate="+startDate+"&"
-									  +"endDate="+endDate+"&"
+									  +"askSearchText="+searchText+"&"
+									  +"askStartDate="+startDate+"&"
+									  +"askEndDate="+endDate+"&"
 									  +"page="+page+"&"
 									  +"size=${size}";
 			} else {
@@ -37,9 +37,9 @@
 				let startDate = '${board.startDate}';
 				let endDate = '${board.endDate}';
 				window.location.href = "/askboard/askList.do?"
-									  +"searchText="+searchText+"&"
-									  +"startDate="+startDate+"&"
-									  +"endDate="+endDate+"&"
+									  +"askSearchText="+searchText+"&"
+									  +"askStartDate="+startDate+"&"
+									  +"AskEndDate="+endDate+"&"
 									  +"page="+page+"&"
 									  +"size=${size}";
 				
@@ -47,7 +47,7 @@
 		}
 		
 		$(document).ready(function () {
-			$("#searchBtn").click(function () {
+			$("#askSearchBtn").click(function () {
 				search(1,true);
 			});
 			
@@ -61,18 +61,18 @@
 	<div class="searchOption">
 	<div class="startDateContainer">
 	<label>시작 날짜</label>
-	<input type="date" id="startDate" name="startDate" value="${board.startDate}">
+	<input type="date" id="askStartDate" name="startDate" value="${board.startDate}">
 	</div>
 	<div class="endDateContainer">
 	<label>종료 날짜</label>
-	<input type="date" id="endDate" name="endDate" value="${board.endDate}">
+	<input type="date" id="askEndDate" name="endDate" value="${board.endDate}">
 	</div>
 	<div class="searchContainer">
 	<label></label>
-	<input type="text" id="searchText" name="searchText" value="${board.searchText}">
+	<input type="text" id="askSearchText" name="searchText" value="${board.searchText}">
 	</div>
 	<div class="searchBtnContainer">
-	<button type="button" id="searchBtn">검색</button>
+	<button type="button" id="askSearchBtn">검색</button>
 	</div>
 	</div>
 	
@@ -104,7 +104,7 @@
 	<ul>
 	 <c:if test="${currentPage > 1}">
 
-        <a href="askList.do?page=${currentPage - 1}&searchText=${board.searchText}&startDate=${board.startDate}&endDate=${board.endDate}" 
+        <a href="askList.do?page=${currentPage - 1}&askSearchText=${board.searchText}&askStartDate=${board.startDate}&askEndDate=${board.endDate}" 
         	class="preArrow"onclick="search(${currentPage - 1}, false)">&laquo;</a>
 
 	</c:if>
@@ -117,7 +117,7 @@
 	</c:forEach>
 	<c:if test="${currentPage < totalPages}">
 
-        <a href="askList.do?page=${currentPage + 1}&searchText=${board.searchText}&startDate=${board.startDate}&endDate=${board.endDate}" 
+        <a href="askList.do?page=${currentPage + 1}&askSearchText=${board.searchText}&askStartDate=${board.startDate}&askEndDate=${board.endDate}" 
         class="postArrow" onclick="search(${currentPage + 1}, false)">&raquo;</a>
 
 	</c:if>

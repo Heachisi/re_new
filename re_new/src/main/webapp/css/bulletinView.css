@@ -1,30 +1,31 @@
 @charset "UTF-8";
-.boardArea{
+
+.boardArea {
 	margin-top: 90px;
-    margin-left: 80px;
-    display: flex;
-    flex-direction: column;
-    padding:40px;
-    border: 1px solid gray;
-    width:80%;   
-    padding-bottom: 60px;
-}
-
-
-.title{
+	margin-left: 80px;
 	display: flex;
 	flex-direction: column;
-	font-size:28px;
-	margin-bottom:20px;
+	padding: 40px;
+	border: 1px solid gray;
+	width: 80%;
+	padding-bottom: 60px;
+}
+
+.title {
+	display: flex;
+	flex-direction: column;
+	font-size: 28px;
+	margin-bottom: 20px;
 	align-items: center;
 	justify-content: center;
 	margin-top: -10px;
 	height: 70px;
 	border: 1px solid gray;
 }
-.allArea{
-	display:flex;
-	flex-direction:row;
+
+.allArea {
+	display: flex;
+	flex-direction: row;
 }
 
 .infoArea {
@@ -32,97 +33,89 @@
 	flex-direction: column;
 }
 
-.btnArea{
+.btnArea {
 	display: flex;
 	flex-direction: row;
-	margin-left:80%;
-	align-items:center;
+	margin-left: 80%;
+	align-items: center;
 }
 
 /* 글쓴이 */
-.writer{
-	display:flex;
+.writer {
+	display: flex;
 	font-weight: 600;
 	width: 100px;
-	
 }
 
 #createDate {
-	display:flex;
-    flex-direction: row;
+	display: flex;
+	flex-direction: row;
 	width: 100px;
 }
 
-
 /* 수정 */
-.update{
-	display:flex;
+.update {
+	display: flex;
 	width: 50px;
-
-    color:rgb(179, 165, 128);
+	color: rgb(179, 165, 128);
 	text-decoration: none;
-
-	
 }
 
 /* 삭제 */
-.delete{
-	display:flex;
+.delete {
+	display: flex;
 	width: 50px;
-	color:rgb(179, 165, 128);
-	text-decoration:none;
+	color: rgb(179, 165, 128);
+	text-decoration: none;
 }
 
-
-.content{
-    margin-bottom:100px;
+.content {
+	margin-bottom: 100px;
 }
 
-.commentMain{
-	display:flex;
+.commentMain {
+	display: flex;
 	height: 50px;
 	width: 35px;
 	align-items: center;
-	margin-top:-10px;
-	margin-left:  10px;
-}
-.commentCreate{
-    display: flex;
-    flex-direction: row-reverse;
+	margin-top: -10px;
+	margin-left: 10px;
 }
 
-.commentContentWrite{
-    display: flex;
-    width: 93%;
+.commentCreate {
+	display: flex;
+	flex-direction: row-reverse;
+}
+
+.commentContentWrite {
+	display: flex;
+	width: 93%;
 	height: 45px;
-	margin-left:-10px;
-    margin-right: 20px;
+	margin-left: -10px;
+	margin-right: 20px;
 	margin-top: -20px;
-
 }
-.commentCreateBtn{
-    width: 80px;
-    height: 43px;
-    border:none;
+
+.commentCreateBtn {
+	width: 80px;
+	height: 43px;
+	border: none;
 	margin-top: -15px;
-    background-color: rgb(255 92 92);
+	background-color: rgb(255, 92, 92);
 	margin-right: -10px;
-    color: white;
+	color: white;
 }
 
 #commentCreator {
 	display: flex;
 	flex-direction: row;
 	padding: 20px;
-
-	
 }
 
 #commentMain {
-    display: flex;
-    width: 85%;
+	display: flex;
+	width: 85%;
 }
-
 
 #comment {
 	border: 1px solid gray;
@@ -130,6 +123,12 @@
 }
 
 #replyForm {
-	margin-right:40px;
+	margin-right: 40px;
 }
 
+#delete {
+	display: flex;
+	width: 50px;
+	color: rgb(179, 165, 128);
+	text-decoration: none;
+}

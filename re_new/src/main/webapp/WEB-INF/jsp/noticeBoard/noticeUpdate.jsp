@@ -11,7 +11,7 @@
     <script src="/js/tinymce/tinymce.min.js?ver=1"></script>
     <script src="/js/edit.js?ver=1"></script>
     <script src="/js/common.js?ver=1.12"></script>
-    <link rel="stylesheet" href="/css/noticeUpdate.css?ver=1">
+    <link rel="stylesheet" href="/css/bulletinUpdate.css?ver=1">
 	<jsp:include page="/WEB-INF/jsp/common/header.jsp"/>
     <script>
         $(document).ready(function () {
@@ -81,13 +81,13 @@
             	formData.append("remainingFileIds", $('#remainingFileIds').val());
             	
            		ajaxRequestFile(
-           			"/noticeBoard/noticeUpdate.do",
+           			"/noticeboard/noticeUpdate.do",
            			formData,
            			/* $("#boardUpdateForm").serialize(), */
            			function(response){
            				if(response.success){
         					alert("게시물을 수정하였습니다. 게시판 목록으로 이동합니다.");
-           					window.location.href="/noticeBoard/noticeList.do";
+           					window.location.href="/noticeboard/noticeList.do";
            				}else{
            					alert("게시글 수정에 실패하였습니다."+response.message);
            				}

@@ -93,10 +93,7 @@
 	
 	</div>
 	</div>
-	<br/>
-	<br/><br/>
-	<a href="/user/login.do">로그인</a>
-	<a href="/askboard/askList.do">게시글 목록으로 이동</a><br/>
+	
 	<script>
 	//댓글 생성
 	function addComment(parentId){

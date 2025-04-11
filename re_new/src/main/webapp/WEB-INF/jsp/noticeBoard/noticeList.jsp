@@ -49,6 +49,11 @@
 			}
 		}
 		
+		$("#noticeSearchBtn").click(function () {
+			search(1,true);
+		});
+		
+		
 		$(document).ready(function () {
 			 ajaxRequest("/user/getUserRole.do", {}, function(response) {
 			        console.log("서버 응답:", response);
@@ -60,9 +65,6 @@
 			        }
 			    });
 
-			$("#noticeSearchBtn").click(function () {
-				search(1,true);
-			});
 			
 		});
 	
@@ -85,7 +87,7 @@
 	<input type="text" id="noticeSearchText" name="searchText" value="${board.searchText}">
 	</div>
 	<div class="searchBtnContainer">
-	<button type="button" id="bulletinSearchBtn">검색</button>
+	<button type="button" id="noticeSearchBtn">검색</button>
 	</div>
 	</div>
 	

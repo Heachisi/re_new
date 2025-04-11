@@ -12,7 +12,7 @@
 <script src="/js/tinymce/tinymce.min.js?ver=1"></script>
 <script src="/js/edit.js?ver=1.121"></script>
 <script src="/js/common.js?ver=1.1"></script>
- <link rel="stylesheet" href="/css/noticeCreate.css?ver=1">
+ <link rel="stylesheet" href="/css/bulletinCreate.css?ver=1">
 <jsp:include page="/WEB-INF/jsp/common/header.jsp"/>
 <script>
 	$(document).ready(function() {
