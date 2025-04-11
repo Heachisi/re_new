@@ -50,7 +50,7 @@
 	<c:if test="${not empty sessionScope.user.userId}">
 	   <div class="h5">
 	    <h4>댓글</h4>
-			<div class="h4">
+			<div class="insertComment">
 				<textarea class="texta" id="commentContent" rows="4" placeholder="댓글을 입력하세요..."></textarea>
 				<button type="button" id="commentCreateBtn" onclick="addComment()">댓글 작성</button>
 			</div>

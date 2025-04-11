@@ -7,7 +7,7 @@
 	border-radius:10px;
 	width: 800px;
 	height: 300px;
-	left: 250px;
+	left: 240px;
 }
 
 .texta {
@@ -19,10 +19,10 @@
 
 
 .h5{
-	margin-left:250px;
+	margin-left:230px;
 }
 
-.h4 {
+.insertComment {
 	position: relative;
 	display:flex;
 	flex-direction:row;
@@ -74,7 +74,7 @@
 	padding: 20px;
 	margin-top: 20px;
 	position: relative;
-	left: 250px;
+	left: 240px;
 	border: 2px solid rgb(30, 8, 70);
 	border-radius:10px;
 	background-color: #e4eaff;
@@ -94,4 +94,100 @@ button#commentCreateBtn {
     background-color: #FF5C55;
 
 }
+.commentList{
+	margin-left: 20px;
+	
+}
 
+.commentDateArea{
+	display: flex;
+	flex-direction: row;
+	justify-content:space-between;
+	margin-right:85%;
+	    width: 180px;
+}
+.commentDateArea a{
+	font-size:12px;
+	cursor: pointer;
+}
+.commentContent p{
+	display:flex;
+    flex-wrap:wrap;
+	margin-top:20px;
+}
+.commentContent{
+	margin-bottom:10px;
+}
+.updateComent{
+	width:100%;
+}
+.replyComment{
+	width:100%;
+}
+.updateCommentArea{
+	display: flex;
+	flex-direction: row-reverse;
+	    width: 760px;
+	    
+}
+.updateCommentArea button{
+	width: 60px;
+	height: 25px;
+	border:none;
+    background-color: #FF5C55;
+    color: white;
+    margin-left:5px;
+    margin-right:5px;
+    margin-bottom:10px;
+    cursor: pointer;
+    border-radius:8px;
+}
+.replyCommentArea{
+	display:flex;
+	flex-direction: row-reverse;
+	width: 760px;
+}
+.replyCommentArea button{
+	width: 65px;
+	height: 25px;
+	border:none;
+    background-color:#FF5C55;
+    color: white;
+    margin-left:5px;
+    margin-right:5px;
+    margin-bottom:10px;
+    cursor: pointer;
+    border-radius:8px;
+}
+.updateDeleteArea{
+	display:flex;
+	flex: row;
+	
+}
+.commentUpdate{
+    border: none;
+    width: 40px;
+}
+.commentDelete{
+	border: none;
+	width: 40px;
+}
+button.replycommentBtn {
+    border: none;
+    width: 40px;
+        margin-right: 45px;
+}
+
+.h4{
+	margin-top: 20px;
+	margin-left:230px;
+}
+.contentArea{
+	margin-left:20px;
+}
+.replComment{
+	border: 2px solid rgb(30, 8, 70);
+    border-radius: 10px;
+    width: 750px;
+    height: 40px;
+}
