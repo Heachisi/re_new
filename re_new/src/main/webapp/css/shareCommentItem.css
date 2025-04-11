@@ -1,0 +1,13 @@
+@charset "UTF-8";
+.commentCreate{
+display: flex;
+	flex-direction:row-reverse;
+	width:965px;
+}
+.commentContent{
+	width:980px;
+}
+.commentCreateBtn{
+	margin-top:10px;
+	margin-right:-20px;
+}

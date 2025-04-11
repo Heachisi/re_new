@@ -9,30 +9,50 @@
     <title>게시판 상세</title>
     <script src="/js/jquery-3.7.1.min.js?ver=1"></script>
     <script src="/js/common.js?ver=1.1"></script>
-    <link rel="stylesheet" href="/css/shareview.css?ver=1">
+    <link rel="stylesheet" href="/css/shareview.css?ver=2">
     <jsp:include page="/WEB-INF/jsp/common/header.jsp"/>
 </head>
 <body>
 <div class="boardArea">
-	  <span class="stitle">${share.title}</span> 
+<form id="boardForm">
+<div class="title">
+	  ${share.title} 
+	  </div>
 	  <div class="btnArea">
-	  <span class="sid">${share.createId}</span> 
-	  <span class="lik" id="likecount">${share.createDt}${fn:substring(share.createDt, 0,10)}</span> 
+	  <div class="writer">
+	  ${share.createId}
+	  </div>
+					<div class="update">
+						<a href="/share/update.do?id=${share.shareId}
+							class="updatae">수정</a>
+					</div>
+					<div id="delete">
+						<a href="#" id="delete">삭제</a>
+					</div>
+	   </div>
+	  <div id="createDate">
+	  ${fn:substring(share.createDt, 0,10)}
+	  </div> 
 	  <input type="hidden" id="shareId" value="${share.shareId}" />
 	  <input type="hidden" id="updateId" value="${sessionScope.user.userId}" />
-	  <span class="content" id="likecount">${share.content}</span> 
-	  <br/>
-	  </div>
-	  <c:if test="${not empty sessionScope.user.userId}">
-		<div class="h4">
+	  <div class="content">
+	${share.content}
+	</div>
+	 
+	 
+	<c:if test="${not empty sessionScope.user.userId}">
+		<div class="h5">
 			<h4>댓글</h4>
-			<textarea class="texta" id="commentContent" rows="4" placeholder="댓글을 입력하세요..."></textarea>
-			<br/>
-			<button type="button" id="commentCreateBtn" class="commentCreateBtn" onclick="addComment()">댓글 작성</button>
+				<textarea class="commentContent" id="commentContent" rows="4"
+					placeholder="댓글을 입력하세요"></textarea>
+				<br />
+				<div class="commentCreate">
+					<button type="button" class="commentCreateBtn"
+						id="commentCreateBtn" onclick="addComment()">댓글 작성</button>
+				</div>
 		</div>
 		
 	</c:if>
-	
 	<c:if test="${not empty share.comments}">
 		<div class="h4">
 			<!-- ${share.comments} 값을 comments라는 이름으로 request에 저장해 JSP에서 사용할 수 있게 해줌 -->
@@ -159,7 +179,25 @@
 		}
 		
 	}
-		$(document).ready(function() {
+	$(document).ready(function(){
+		$("#delete").click(function (event) {
+			event.preventDefault(); // 기본 제출 방지
+			ajaxRequest(
+					"/share/delete.do",
+					{ 
+						boardId: $("#shareId").val(),
+					 	updateId: $("#updateId").val()
+					},
+					function(response){
+	       				if(response.success){
+	    					alert("게시물을 삭제하였습니다. 게시판 목록으로 이동합니다.");
+	       					window.location.href="/share/list.do";
+	       				}else{
+	       					alert("게시글 삭제를 실패하였습니다."+response.message);
+	       				}
+					}
+				);
+		});
 		
 	});
     </script>
