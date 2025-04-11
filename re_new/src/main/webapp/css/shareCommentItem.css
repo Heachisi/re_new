@@ -11,3 +11,9 @@ display: flex;
 	margin-top:10px;
 	margin-right:-20px;
 }
+button{
+	border:none;
+	display:flex;
+	align-items:center;
+	padding-left:12px;
+}
