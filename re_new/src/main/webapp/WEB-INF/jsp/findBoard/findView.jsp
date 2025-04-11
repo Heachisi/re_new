@@ -313,7 +313,7 @@
             if (checkboxes[i].checked) {
                 var name = checkboxes[i].getAttribute('data-name');
                 var id = checkboxes[i].getAttribute('value');
-                linkText += "<a href='/product/productBoard.do?id=" + id + " target='_blank'>" + name + "</a><br/>";
+                linkText += "<a href='/product/view.do?id=" + id + "' target=\"_blank\">" + name + "</a><br/>";
             }
         }
 
