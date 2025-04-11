@@ -11,6 +11,8 @@
     <script src="/js/edit.js?ver=1"></script>
     <script src="/js/tinymce/tinymce.min.js?ver=1.1"></script>
     <script src="/js/common.js?ver=1.1"></script> 
+    <link rel="stylesheet" href="/css/bulletinCreate.css?ver=2">
+    <jsp:include page="/WEB-INF/jsp/common/header.jsp"/>
     <script>
     
     $(document).ready(function () {
@@ -73,19 +75,24 @@
 			<c:redirect url="/user/login.do" />
 		</c:when>
 		<c:otherwise>
-<h2>게시글 작성</h2>
-<form id="createForm">
+<div class="createForm">
+	<form id="boardCreateForm">
+	<div class="titleArea">
   <label for="title">제목:</label>
   <input type="text"  id="title" name="title" maxlength="100" placeholder="제목 입력" required/>
-  <br/>
+  </div>
+  <div id="contentContainar">
   <label for="content">내용:</label>
   <textarea rows="5" cols="40" id="content" name="content"></textarea>
-  <br/>
+ </div>
   
   
   <input type="hidden" id="createId" name="createId" value="${sessionScope.user.userId}"/>
   <input type="hidden" id="viewcount" name="viewcount"value="0">
+  </div>
+  <div class="btnArea"> 
   <button type="submit" id="registerBtn">글쓰기</button>
+  </div>
 </form>
 </c:otherwise>
 </c:choose>
