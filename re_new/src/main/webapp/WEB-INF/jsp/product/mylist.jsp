@@ -9,7 +9,7 @@
     <title>내 게시판 목록</title>
     <script src="/js/jquery-3.7.1.min.js"></script>
     <script src="/js/common.js?ver=1.2"></script>
-    <link rel="stylesheet" href="/css/productlist.css?ver=1.3">
+    <link rel="stylesheet" href="/css/productlist.css?ver=1.1">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nouislider@15.7.0/dist/nouislider.min.css">
     <script src="https://cdn.jsdelivr.net/npm/nouislider@15.7.0/dist/nouislider.min.js"></script>
     <jsp:include page="/WEB-INF/jsp/common/header.jsp"/>
@@ -41,15 +41,15 @@
     </script>
 </head>
 <body>
-	<div class="bottomSection">
+	
 	<label hidden>시작 날짜</label>
 	<input hidden type="date" id="startDate" name="startDate" value="${product.startDate}">
 	<label hidden>종료 날짜</label>
 	<input hidden type="date" id="endDate" name="endDate" value="${product.endDate}">
-<div class="title">내 물건 목록</div>
+
 <div class="list">
 	
-	<select id="sellstatus" class="sellstatus" name="sellstatus">
+	<select id="sellstatus" name="sellstatus">
             <option value="">카테고리 선택</option>
             <option value="00">판매중</option>
             <option value="11">판매완료</option>
@@ -87,66 +87,6 @@
 			</c:if>
 		</ul>
 </div>
-	</div>
+	
 </body>
 </html>
-<!-- <style>
-	.title{
-	  
-  	}
-  	.price{
-	  position:absolute;
-	  bottom:20px;
-	  left:1px;
-	  width:150px;
-	  font-weight: bold;
-  	}
- 
- 	 .update{
-	  position:absolute;
-	  bottom:20px;
-	  right:25px; 
- 	 }
-  .index {
-  position: relative; /* 기준점 역할 추가 */
-  border: 1px solid rgb(245,183,89);
-  border-radius: 12px;
-  text-align: center;
-  height: 200px;
-  width: 250px;
-  margin:10px;
-  
-  align-items: center; 
-	}
-  #priceSlider {
-    width: 300px;
-    height: 8px;
-    margin: 10px auto;
-  }
-
-  .noUi-target {
-    height: 8px !important;
-    background: #e0e0e0;
-    border-radius: 5px;
-  }
-
-  .noUi-connect {
-    background: #f5b759 !important;
-  }
-
-  .noUi-handle {
-    width: 14px !important;
-    height: 14px !important;
-    top: -3px !important;
-    right: -7px !important;
-    border-radius: 50% !important;
-    background: #fff;
-    border: 1px solid #aaa;
-    box-shadow: none;
-  }
-
-  .noUi-handle:before,
-  .noUi-handle:after {
-    display: none !important;
-  }
-</style> -->
