@@ -61,7 +61,7 @@
 				<nav class="navbar">
 					<!-- 메뉴바 -->
 					<ul class="menu">
-						<li class="menuItem"><a href="/product/list.do"">중고거래</a>
+						<li class="menuItem"><a href="/product/list.do">중고거래</a>
 							<ul class="submenu">
 								<li><a href="/product/list.do">전체</a></li>
 								<li><a href="/product/list.do?category=패션">패션</a></li>
@@ -73,7 +73,7 @@
 								<li><a href="/product/list.do?category=기타">기타</a></li>
 							</ul>
 						</li>
-						<li class="menuItem"><a href="/share/list.do">나눔</li>
+						<li class="menuItem"><a href="/share/list.do">나눔</a></li>
 						<li class="menuItem">커뮤니티
 							<ul class="submenu">
 								<li><a href="/bulletinboard/bulletinList.do">리뉴 커뮤니티</a></li>
